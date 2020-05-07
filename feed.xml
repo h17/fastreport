@@ -1,4 +1,345 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://h17.github.io/fastreport/feed.xml" rel="self" type="application/atom+xml" /><link href="https://h17.github.io/fastreport/" rel="alternate" type="text/html" /><updated>2020-05-06T22:14:42-05:00</updated><id>https://h17.github.io/fastreport/feed.xml</id><title type="html">fastpages</title><subtitle>Fast Report for Project Managers</subtitle><entry><title type="html">GitHub Actions: Providing Data Scientists With New Superpowers</title><link href="https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions.html" rel="alternate" type="text/html" title="GitHub Actions: Providing Data Scientists With New Superpowers" /><published>2020-03-06T00:00:00-06:00</published><updated>2020-03-06T00:00:00-06:00</updated><id>https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions</id><content type="html" xml:base="https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions.html">&lt;h1 id=&quot;what-superpowers&quot;&gt;What Superpowers?&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://h17.github.io/fastreport/feed.xml" rel="self" type="application/atom+xml" /><link href="https://h17.github.io/fastreport/" rel="alternate" type="text/html" /><updated>2020-05-06T22:44:58-05:00</updated><id>https://h17.github.io/fastreport/feed.xml</id><title type="html">fastpages</title><subtitle>Fast Report for Project Managers</subtitle><entry><title type="html">Quickplan</title><link href="https://h17.github.io/fastreport/2020/05/06/QuickPlan.html" rel="alternate" type="text/html" title="Quickplan" /><published>2020-05-06T00:00:00-05:00</published><updated>2020-05-06T00:00:00-05:00</updated><id>https://h17.github.io/fastreport/2020/05/06/QuickPlan</id><content type="html" xml:base="https://h17.github.io/fastreport/2020/05/06/QuickPlan.html">&lt;p&gt;Stage 1:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a simple toolkit to load data on&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Timesheets&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Cost rates&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Projects&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Employees&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use some nice model to make “effort prediction” (I think loading timesheet data for couple years will give enough insights for a simple model). Nothing complex or fancy, but let’s have some “know how”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Write a post/article and publish it (own website + some good places)&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;This is about coming clean and simple, not about the “new era for ERP”&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Stage 2:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generalize a toolkit (world data, economics)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make a bigger toolkit&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Dashboards&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Integration&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;A place to make it a proper GPL library&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Stage 1:</summary></entry><entry><title type="html">Dataforteams</title><link href="https://h17.github.io/fastreport/2020/05/06/DataForTeams.html" rel="alternate" type="text/html" title="Dataforteams" /><published>2020-05-06T00:00:00-05:00</published><updated>2020-05-06T00:00:00-05:00</updated><id>https://h17.github.io/fastreport/2020/05/06/DataForTeams</id><content type="html" xml:base="https://h17.github.io/fastreport/2020/05/06/DataForTeams.html">&lt;h1 id=&quot;crunch-your-numbers&quot;&gt;Crunch your numbers&lt;/h1&gt;
+
+&lt;p&gt;Data Science for Team Leaders and Business Unit Managers&lt;/p&gt;
+
+&lt;p&gt;By Dmytro Karabash and Maxim Korotkov&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (&lt;em&gt;hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did)&lt;/em&gt; You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all then – then you’re lucky and you don’t need this article either. But 70% chances are [a reference to research would be nice - trello] that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at $800 to get your unit profitability” ($800 can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?&lt;/p&gt;
+
+&lt;p&gt;What you probably have is – all the timesheets, projects with their budget and you can even get to approximate costs nicely (we’ll get there). Shitload of data for a year even for a team of 10. What I will tell you here is that you don’t need an ERP to do the rest – the notebook in Jupyter will do for now.&lt;/p&gt;
+
+&lt;p&gt;Let’s remember - management starts with measurement. How can you supervise your team and projects if you don’t have their data at your fingers?&lt;/p&gt;
+
+&lt;h2 id=&quot;managerial-accounting&quot;&gt;Managerial Accounting&lt;/h2&gt;
+
+&lt;p&gt;Let me bore you for a minute. Timesheets and projects budgets are simple. You are probably frightened by IFRS revenue recognition and all that – that’s why your CFO has a nice corner office and you don’t, right. Fortunately, there is a simpler thing called Managerial Accounting [reference - trello].&lt;/p&gt;
+
+&lt;p&gt;So, profit is Revenue – Cost and we intend to measure by it and keep it simple.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Revenue&lt;/strong&gt;: Let’s say that for a Time &amp;amp; Material project you generate as much revenue as you bill (on agreed rate) up to its budget. For a Fixed Fee you split all the revenue per month as per % of effort you spend / are going to spend in the month (changes can be complicated, but they are easy to be managed in the way you want – just go through introduction and wait for the notebook we promised)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Cost&lt;/strong&gt;: So, let’s start with the fact that the average cost of $800 (or whatever) is bullshit. You might have people working in different countries and of totally different levels. Talk to your finance team and get some estimates from them (or make it together). We’d say if you were appointed to run a team or business unit – they owe you that much. We will assume below that you managed to get 3 grades (Associate, Base, Senior) per Country you have staff. Though costs per individual will go nicely also.&lt;/p&gt;
+
+&lt;p&gt;Let me summarize it here for you – in any decent firm, if you are a team leader or business unit manager you are involved in merit processes – you can get&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Dictionaries&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Cost per region or default cost for “outside” contributors&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Average revenue per hour for projects not “owned” by you&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;HeadCount&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Graded costs&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Engagement model (employee or contractor)&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Projects&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Budget, effort estimate, deadline&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Project type (e.g. “On demand support” or “Subscription” will not have any actual deadline to control) - though it is ok if you don’t have it&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Type of revenue recognition (Time and Material or Fixed Fee)&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Note: we might need an internal project to “fill” the difference to full month (e.g. “INTERNAL” with revenue rate of 0 covering everything to full week)&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Timesheets (your team / your projects, note that other teams can contribute to your projects and your team might work in other projects)&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Typically arrive monthly or weekly&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;(optional) Plans&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;If there are no plans, below we talk about an option to “plan auto-fill”&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But your ERP probably does not present you anything nicely in terms of parameters you’d want to control on your level (otherwise you won’t read this anyway). There is even maybe a project running so it will do so by 2025.&lt;/p&gt;
+
+&lt;p&gt;If you are steering this boat long enough – you might have ended up with some quick and dirty calculation, SQL queries to SAP (with field names still in German) or Excel file. Why? Because, well, your bosses don’t give a shit – they already hired you and a better ERP is coming in 2025 anyway – so they want to know how much money your team makes and why is it not so profitable (because it never is)&lt;/p&gt;
+
+&lt;h2 id=&quot;data-science&quot;&gt;Data Science&lt;/h2&gt;
+
+&lt;p&gt;So, let’s get this done. First – yes, you need to know a little bit of python to get the files in. Basic level will do. (If you are a manager in 2020 and can’t write a simple script – hm, you probably missed something). The objective is to have an easy-to-use toolkit. We are definitely not developing any ERP here. What you will see is a very simple set of tools - you spend an hour or two to load your files into the notebook and then start playing with it - just make the analysis you want. You can end up checking a few numbers or building your own charts and dashboards. It is all [copyright model goes here, probably LGPL] free to use, even if you work for a corporation (that’s where you need it most) - just install Anaconda and download the notebook.&lt;/p&gt;
+
+&lt;p&gt;So, we first get and transform out input files (if you want to follow text AND code - read it on cohab, here we hide some code - even in 2020 loading few bad formatting excels will require some coding)&lt;/p&gt;
+
+&lt;p&gt;[get 3 files in – timesheets, costs, projects data]&lt;/p&gt;
+
+&lt;p&gt;The beauty is that this is it - basic calculations are available already&lt;/p&gt;
+
+&lt;p&gt;[make some basic calculations – effective rate, profitability]&lt;/p&gt;
+
+&lt;p&gt;effective cost rate (per project or per project per period) = SUM(cost)/SUM(days ? all or only billable)&lt;/p&gt;
+
+&lt;p&gt;effective revenue rate (per individual) = SUM(revenue)/SUM(working days in a period)&lt;/p&gt;
+
+&lt;p&gt;profit (per project) = revenue - costs&lt;/p&gt;
+
+&lt;p&gt;profit margin = (revenue - costs)/revenue&lt;/p&gt;
+
+&lt;p&gt;Now let’s do something a bit more complex - e.g. do a projection of how the budget will be spend&lt;/p&gt;
+
+&lt;p&gt;[profitability projections based on effort forecast, some simple approximation till budget ends with the linear drop at the end of the project]&lt;/p&gt;
+
+&lt;p&gt;??? The intelligent projection will require some fitting on completed projects data&lt;/p&gt;
+
+&lt;p&gt;If you want to use all power of machine learning - we can easily identify anomalies&lt;/p&gt;
+
+&lt;p&gt;[some more interesting staff (e.g. correlation of budget efficiency with PMs, clients, or regions)]&lt;/p&gt;
+
+&lt;p&gt;How can one quickly answer simple questions, e.g. which PM has a tendency to finish projects in over budget&lt;/p&gt;
+
+&lt;p&gt;And, maybe even more interesting thing - load to your model all fields you get from ERP, even the ones you don’t care about and mark projects which are worth your extra attention (e.g. monitoring) - you can then train the Decision Tree model to identify similar projects in the future (can be - junior PMs, getting close to budget expiration before end date, etc.)&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;What we really want to highlight here is that the whole thing (including parsing of some crazy excel files) is &amp;lt;100 lines of code. So learn some python and a bit of data science and do your own analytical tools, stop being dependant of some PMO making reports for you!&lt;/p&gt;
+
+&lt;h2 id=&quot;objectives&quot;&gt;Objectives&lt;/h2&gt;
+
+&lt;p&gt;How is the data we analyze helping managers.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Decision making - e.g. identify top loss-making projects&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Define possible non-billable spendings&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Identify projects which require management attention&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Identify top performers (profit-wise)&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Identifying non-billable hours and internal projects&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Identify suspicious behaviours [* potentially some intelligent stuff *]&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Employee enters fixed hours per project per day over a period&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Anomaly detection&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Revenue and effort projections&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Capacity calculations: load all data but plans and generate automated projection (effort * person * month / revenue * month)&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Create consolidated analytic on demand for higher level of management (e.g. profitability forecast, revenue forecast, unallocated capacity) in case your ERP will not do anything like that&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;&lt;strong&gt;Example: crisis cost saving - if you decrease hours for some contractors, how much cost do you save vs how much revenue to you lose&lt;/strong&gt;&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;scope-of-work&quot;&gt;Scope of Work&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Article&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Text&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;“Simple” examples of operating with data&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Addendum on how to load data&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Website&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;Generated by fastpage&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;From there you get to “open in cohab”&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Crunch your numbers</summary></entry><entry><title type="html">GitHub Actions: Providing Data Scientists With New Superpowers</title><link href="https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions.html" rel="alternate" type="text/html" title="GitHub Actions: Providing Data Scientists With New Superpowers" /><published>2020-03-06T00:00:00-06:00</published><updated>2020-03-06T00:00:00-06:00</updated><id>https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions</id><content type="html" xml:base="https://h17.github.io/fastreport/actions/markdown/2020/03/06/fastpages-actions.html">&lt;h1 id=&quot;what-superpowers&quot;&gt;What Superpowers?&lt;/h1&gt;
 
 &lt;p&gt;Hi, I’m &lt;a href=&quot;https://twitter.com/HamelHusain&quot;&gt;Hamel Husain&lt;/a&gt;.  I’m a machine learning engineer at GitHub.  Recently, GitHub released a new product called &lt;a href=&quot;https://github.com/features/actions&quot;&gt;GitHub Actions&lt;/a&gt;, which has mostly flown under the radar in the machine learning and data science community as just another continuous integration tool.&lt;/p&gt;
 
