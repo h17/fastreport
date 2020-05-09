@@ -1,6 +1,6 @@
 [//]: # (This template replaces README.md when someone creates a new repo with the fastpages template.)
 
-Link to zoom meeting:  ![](https://us04web.zoom.us/j/9240542129?pwd=V29rQmU1MkhNdUlxY3YveGxxQ2xVZz09)
+Link to zoom meeting:  ![zoom](https://us04web.zoom.us/j/9240542129?pwd=V29rQmU1MkhNdUlxY3YveGxxQ2xVZz09)
 
 ![](https://github.com/h17/fastreport/workflows/CI/badge.svg) 
 ![](https://github.com/h17/fastreport/workflows/GH-Pages%20Status/badge.svg) 
