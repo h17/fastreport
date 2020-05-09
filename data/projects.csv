@@ -1,0 +1,4 @@
+,Customer Short Name,Nature,Year,PS Project Code,Project Name,PM,Contract Rate in Currency,Curr.,Contract Effort,Revenue Recognition,Start Date,End Date,Status
+0,Fortune500 customer,Consulting,2018.0,P001,Our big consultancy project,Jack the Manager ERN011,1400.0,USD,1250.0,Time and Materials (T&M),2018-04-01,2020-12-01,OPEN
+1,Another customer,Consulting,2020.0,P002,Our medium consultancy project,Kathy the Manager ERN008,1200.0, GBP ,350.0,Time and Materials (T&M),2020-01-01,2020-10-01,OPEN
+2,Good prospect,Scoping,2020.0,P003,A tiny estimation exercise,Kathy the Manager ERN008,1250.0, EUR ,10.0,Time and Materials (T&M),2020-04-01,2020-06-01,OPEN
