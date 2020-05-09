@@ -5,6 +5,7 @@ permalink: /about/
 ---
 
 Dmytro Karabash: https://www.linkedin.com/in/dmytrokarabash/
+
 Maxim Korotkov: https://www.linkedin.com/in/korotkovmaxim/
 
 
