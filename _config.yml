@@ -4,9 +4,9 @@
 
 title: fastpages
 description: Fast Report for Project Managers
-github_username: fastai
+github_username: h17
 # you can comment the below line out if your repo name is not different than your baseurl
-github_repo: "fastpages"
+github_repo: "fastreport"
 
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
@@ -51,7 +51,7 @@ show_image: false
 show_tags: true
 
 # Add your Google Analytics ID here if you have one and want to use it
-google_analytics: UA-57531313-5
+google_analytics: 
 
 exclude:
   - docker-compose.yml
