@@ -1,1 +1,1 @@
-Sitemap: https://h17.github.io/fastreport/sitemap.xml
+Sitemap: https://fastpages.fast.ai/sitemap.xml
