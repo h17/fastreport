@@ -6,7 +6,7 @@
 
 https://h17.github.io/fastreport/
 
-# My Blog
+# Data For Teams Blog
 
 
 _powered by [fastpages](https://github.com/fastai/fastpages)_
