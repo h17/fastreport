@@ -4,12 +4,9 @@ title: About Us
 permalink: /about/
 ---
 
-Dmytro Karabash: https://www.linkedin.com/in/dmytrokarabash/
+Data Science and Management by Dmytro Karabash: https://www.linkedin.com/in/dmytrokarabash/
 
-Maxim Korotkov: https://www.linkedin.com/in/korotkovmaxim/
-
-
-This is where you put the contents of your *About* page. Like all your pages, it's in [Markdown](https://guides.github.com/features/mastering-markdown/) format.
+Management and Data Science by Maxim Korotkov: http://maximk.com
 
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
