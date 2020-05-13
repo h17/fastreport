@@ -114,7 +114,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      19 min read
     
 </span></p>
 
@@ -171,23 +171,6 @@ window.onload = wrap_img;
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># put here hided data loading (to be used in next calculation)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all then – then you’re lucky and you don’t need this article either. But 70% chances are [a reference to research would be nice - trello] that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at $800 to get your unit profitability” ($800 can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
@@ -204,7 +187,7 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Dmytro, we need a simple calculation here</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#TODO: Dmytro, we need a simple calculation here</span>
 </pre></div>
 
     </div>
@@ -230,14 +213,44 @@ So, we first get and transform our input files (if you want to follow text AND a
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">csv_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;projects&#39;</span><span class="p">,</span><span class="s1">&#39;timesheet&#39;</span><span class="p">,</span> <span class="s1">&#39;roles&#39;</span><span class="p">]:</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/h17/fastreport/master/data/</span><span class="si">{}</span><span class="s1">.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">csv_name</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="n">csv_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">csv_name</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{csv_name}</span><span class="s1">=data[&quot;</span><span class="si">{csv_name}</span><span class="s1">&quot;]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">csv_name</span><span class="o">=</span><span class="n">csv_name</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#TODO:delete</span>
+<span class="c1"># data = {}</span>
+<span class="c1"># for csv_name in [&#39;projects&#39;,&#39;timesheet&#39;, &#39;roles&#39;]:</span>
+<span class="c1">#     url = &#39;https://raw.githubusercontent.com/h17/fastreport/master/data/{}.csv&#39;.format(csv_name)</span>
+<span class="c1">#     data[csv_name] = df = pd.read_csv(url, index_col=0)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
     
-<span class="c1"># number of records loaded</span>
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/h17/fastreport/master/data/roles.csv&#39;</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">project_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="s1">&#39;../data/project_data.xlsm&#39;</span><span class="p">)</span>
+<span class="n">project_data</span><span class="o">.</span><span class="n">sheet_names</span>
+
+<span class="n">timesheets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">project_data</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;TS&#39;</span> <span class="ow">in</span> <span class="n">sheet</span><span class="p">:</span>
+        <span class="n">timesheets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">project_data</span><span class="p">,</span><span class="n">sheet</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">project_data</span><span class="p">,</span><span class="n">sheet</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">sheet</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> 
+    
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timesheets</span><span class="p">,</span><span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -249,66 +262,22 @@ So, we first get and transform our input files (if you want to follow text AND a
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>   Customer Short Name      Nature    Year PS Project Code  \
-0  Fortune500 customer  Consulting  2018.0            P001   
-1     Another customer  Consulting  2020.0            P002   
-2        Good prospect     Scoping  2020.0            P003   
 
-                     Project Name                        PM  \
-0     Our big consultancy project   Jack the Manager ERN011   
-1  Our medium consultancy project  Kathy the Manager ERN008   
-2      A tiny estimation exercise  Kathy the Manager ERN008   
 
-   Contract Rate in Currency  Curr.  Contract Effort  \
-0                     1400.0    USD           1250.0   
-1                     1200.0   GBP             350.0   
-2                     1250.0   EUR              10.0   
-
-        Revenue Recognition  Start Date    End Date Status  
-0  Time and Materials (T&amp;M)  2018-04-01  2020-12-01   OPEN  
-1  Time and Materials (T&amp;M)  2020-01-01  2020-10-01   OPEN  
-2  Time and Materials (T&amp;M)  2020-04-01  2020-06-01   OPEN  
-projects=data[&#34;projects&#34;]
-           Project Description    Project Phase    Work Description  \
-2  Our big consultancy project  Core Deployment         Consultancy   
-3  Our big consultancy project  Core Deployment         Consultancy   
-4  Our big consultancy project  Core Deployment         Consultancy   
-5  Our big consultancy project  Core Deployment         Consultancy   
-6  Our big consultancy project  Core Deployment  Project Management   
-
-  Tax/Billing Activity  Activity Type Billing Flag    Resource Name  \
-2          Consultancy            NaN     Billable  John Doe ERN001   
-3          Consultancy            NaN     Billable  John Doe ERN001   
-4          Consultancy            NaN     Billable  John Doe ERN001   
-5          Consultancy            NaN     Billable  John Doe ERN001   
-6   Project Management            NaN     Billable  Jane Doe ERN002   
-
-  Roles (Primary) Req Name Employee Type  ... Total (Days)  Sun    Mon    Tue  \
-2      Unassigned      NaN      Employee  ...          2.5  0.0  0.500  0.500   
-3      Unassigned      NaN      Employee  ...          2.0  0.0  0.500  0.500   
-4      Unassigned      NaN      Employee  ...          1.5  0.0  0.500  0.000   
-5      Unassigned      NaN      Employee  ...          2.0  0.0  0.000  0.500   
-6      Unassigned      NaN      Employee  ...          2.0  0.0  0.375  0.375   
-
-     Wed  Thu    Fri  Sat  Timesheet Remarks  total_cumsum  
-2  0.500  0.5  0.500  0.0                NaN           2.5  
-3  0.500  0.5  0.000  0.0                NaN           4.5  
-4  0.000  0.5  0.500  0.0                NaN           6.0  
-5  0.500  0.5  0.500  0.0                NaN           8.0  
-6  0.375  0.5  0.375  0.0                NaN          10.0  
-
-[5 rows x 23 columns]
-timesheet=data[&#34;timesheet&#34;]
-  DEFAULT COSTS per ROLE and REGION (in $)      EU   EU-UK   EU-CH
-0                                 DIRECTOR  1100.0  1300.0  1100.0
-1                          Program Manager   900.0  1000.0   900.0
-2                          Project Manager   800.0   800.0   800.0
-3                      Project Coordinator   700.0   700.0   700.0
-4                       Solution Architect   900.0  1000.0  1050.0
-roles=data[&#34;roles&#34;]
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;TS Feb&#39;, &#39;TS Mar&#39;, &#39;TS Apr&#39;, &#39;Entity Project&#39;, &#39;HC&#39;]</pre>
 </div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dict_keys([&#39;roles&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheets&#39;])</pre>
+</div>
+
 </div>
 
 </div>
@@ -324,12 +293,95 @@ roles=data[&#34;roles&#34;]
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">projects</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;projects&quot;</span><span class="p">]</span>
-<span class="n">timesheet</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;timesheet&quot;</span><span class="p">]</span>
-<span class="n">roles</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;roles&quot;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1795, 22)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#data[&#39;HC&#39;].head(3).values</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="c1">#data[key].head(5)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dict_keys([&#39;projects&#39;, &#39;timesheet&#39;, &#39;roles&#39;, &#39;TS Feb&#39;, &#39;TS Mar&#39;, &#39;TS Apr&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheets&#39;])</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>projects	(3, 13)
+timesheet	(61, 23)
+roles	(10, 4)
+TS Feb	(509, 21)
+TS Mar	(662, 21)
+TS Apr	(624, 21)
+Entity Project	(49, 20)
+HC	(35, 9)
+timesheets	(1795, 22)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -363,9 +415,88 @@ roles=data[&#34;roles&#34;]
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show roles</span>
+<span class="n">roles</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;roles&quot;</span><span class="p">]</span>
+<span class="n">roles</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DEFAULT COSTS per ROLE and REGION (in $)</th>
+      <th>EU</th>
+      <th>EU-UK</th>
+      <th>EU-CH</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>DIRECTOR</td>
+      <td>1100.0</td>
+      <td>1300.0</td>
+      <td>1100.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Program Manager</td>
+      <td>900.0</td>
+      <td>1000.0</td>
+      <td>900.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Project Manager</td>
+      <td>800.0</td>
+      <td>800.0</td>
+      <td>800.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Project Coordinator</td>
+      <td>700.0</td>
+      <td>700.0</td>
+      <td>700.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Solution Architect</td>
+      <td>900.0</td>
+      <td>1000.0</td>
+      <td>1050.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -394,6 +525,8 @@ roles=data[&#34;roles&#34;]
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show projects</span>
+<span class="n">projects</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;projects&quot;</span><span class="p">]</span>
+<span class="n">projects</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -427,9 +560,192 @@ If you are steering this boat long enough – you might have ended up with some 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show timesheets</span>
+
+<span class="n">timesheets</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;timesheets&quot;</span><span class="p">]</span>
+<span class="n">timesheets</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Activity Type</th>
+      <th>Billing Flag</th>
+      <th>Effort Type</th>
+      <th>Employee Type</th>
+      <th>Fri</th>
+      <th>Mon</th>
+      <th>Period Starting</th>
+      <th>Project</th>
+      <th>Project Phase</th>
+      <th>Req Name</th>
+      <th>...</th>
+      <th>Sat.1</th>
+      <th>Sun</th>
+      <th>Tax/Billing Activity</th>
+      <th>Thu</th>
+      <th>Timesheet Status</th>
+      <th>Total (Days)</th>
+      <th>Tue</th>
+      <th>User</th>
+      <th>Wed</th>
+      <th>Work Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Actual</td>
+      <td>Employee</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2020-02-02</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>EXT 800982ab08</td>
+      <td>0.5</td>
+      <td>Consultancy</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Actual</td>
+      <td>Employee</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2020-02-02</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>EXT c8c92ca432</td>
+      <td>0.5</td>
+      <td>Consultancy</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Actual</td>
+      <td>Employee</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2020-02-09</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>EXT c8c92ca432</td>
+      <td>0.5</td>
+      <td>Consultancy</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Actual</td>
+      <td>Employee</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2020-02-09</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>EXT 800982ab08</td>
+      <td>0.5</td>
+      <td>Consultancy</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Actual</td>
+      <td>Employee</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>2020-02-16</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.5</td>
+      <td>EXT c8c92ca432</td>
+      <td>0.5</td>
+      <td>Consultancy</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 22 columns</p>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -2347,11 +2663,15 @@ Name: Period Starting, Length: 61, dtype: object</pre>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dd</span><span class="o">=</span><span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">dd</span><span class="o">=</span><span class="p">[]</span>
 <span class="n">cc13</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">timesheet</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">13</span><span class="p">])</span>
 <span class="n">cc12</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cc13</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">,</span><span class="s1">&#39;Activity Type&#39;</span><span class="p">]]</span>
 <span class="n">timesheet</span><span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">timesheet</span><span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">])</span>
@@ -2371,7 +2691,8 @@ Name: Period Starting, Length: 61, dtype: object</pre>
     </div>
 </div>
 </div>
-
+</p>
+    </details>
 <div class="output_wrapper">
 <div class="output">
 
