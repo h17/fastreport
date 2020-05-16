@@ -114,7 +114,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      22 min read
+      43 min read
     
 </span></p>
 
@@ -248,8 +248,8 @@ So, we first get and transform our input files (if you want to follow text AND a
     <span class="k">else</span><span class="p">:</span>
         <span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">project_data</span><span class="p">,</span><span class="n">sheet</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="n">sheet</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span> 
-    
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timesheets</span><span class="p">,</span><span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">if</span> <span class="s1">&#39;Sat.1&#39;</span> <span class="ow">in</span> <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Sat&#39;</span><span class="p">:</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="s1">&#39;Sat.1&#39;</span> <span class="p">:</span> <span class="s1">&#39;Sat&#39;</span><span class="p">})</span> 
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timesheets</span><span class="p">,</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
 
@@ -275,61 +275,11 @@ So, we first get and transform our input files (if you want to follow text AND a
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>dict_keys([&#39;roles&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheets&#39;])</pre>
+<pre>dict_keys([&#39;roles&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheet&#39;])</pre>
 </div>
 
 </div>
 
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(1795, 22)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#data[&#39;HC&#39;].head(3).values</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -345,7 +295,7 @@ So, we first get and transform our input files (if you want to follow text AND a
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20}</span><span class="s2"> shape: </span><span class="si">{:^10}</span><span class="s2"> rows </span><span class="se">\t</span><span class="s2"> and </span><span class="si">{:^10}</span><span class="s2"> columns&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
     <span class="c1">#data[key].head(5)</span>
 </pre></div>
 
@@ -361,7 +311,7 @@ So, we first get and transform our input files (if you want to follow text AND a
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>dict_keys([&#39;projects&#39;, &#39;timesheet&#39;, &#39;roles&#39;, &#39;TS Feb&#39;, &#39;TS Mar&#39;, &#39;TS Apr&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheets&#39;])</pre>
+<pre>dict_keys([&#39;roles&#39;, &#39;Entity Project&#39;, &#39;HC&#39;, &#39;timesheet&#39;])</pre>
 </div>
 
 </div>
@@ -369,15 +319,10 @@ So, we first get and transform our input files (if you want to follow text AND a
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>projects	(3, 13)
-timesheet	(61, 23)
-roles	(10, 4)
-TS Feb	(509, 21)
-TS Mar	(662, 21)
-TS Apr	(624, 21)
-Entity Project	(49, 20)
-HC	(35, 9)
-timesheets	(1795, 22)
+<pre>roles                shape:     10     rows 	 and     4      columns
+Entity Project       shape:     49     rows 	 and     20     columns
+HC                   shape:     35     rows 	 and     9      columns
+timesheet            shape:    1795    rows 	 and     21     columns
 </pre>
 </div>
 </div>
@@ -735,8 +680,8 @@ If you are steering this boat long enough – you might have ended up with some 
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show timesheets</span>
 
-<span class="n">timesheets</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;timesheets&quot;</span><span class="p">]</span>
-<span class="n">timesheets</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">timesheet</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;timesheet&quot;</span><span class="p">]</span>
+<span class="n">timesheet</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -768,154 +713,3309 @@ If you are steering this boat long enough – you might have ended up with some 
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Activity Type</th>
-      <th>Billing Flag</th>
-      <th>Effort Type</th>
-      <th>Employee Type</th>
-      <th>Fri</th>
-      <th>Mon</th>
-      <th>Period Starting</th>
       <th>Project</th>
       <th>Project Phase</th>
-      <th>Req Name</th>
-      <th>...</th>
-      <th>Sat.1</th>
-      <th>Sun</th>
+      <th>Work Description</th>
       <th>Tax/Billing Activity</th>
-      <th>Thu</th>
+      <th>Activity Type</th>
+      <th>Billing Flag</th>
+      <th>User</th>
+      <th>Roles (Primary)</th>
+      <th>Req Name</th>
+      <th>Employee Type</th>
+      <th>...</th>
+      <th>Effort Type</th>
       <th>Timesheet Status</th>
       <th>Total (Days)</th>
+      <th>Sun</th>
+      <th>Mon</th>
       <th>Tue</th>
-      <th>User</th>
       <th>Wed</th>
-      <th>Work Description</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>NaN</td>
-      <td>Billable</td>
-      <td>Actual</td>
-      <td>Employee</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>2020-02-02</td>
       <td>PRJ d41d8cd98f</td>
       <td>Core Deployment</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
       <td>Consultancy</td>
-      <td>0.5</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT 800982ab08</td>
+      <td>OB Developer</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
       <td>Progressed</td>
       <td>2.5</td>
+      <td>0.0</td>
       <td>0.5</td>
-      <td>EXT 800982ab08</td>
       <td>0.5</td>
-      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>NaN</td>
-      <td>Billable</td>
-      <td>Actual</td>
-      <td>Employee</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>2020-02-02</td>
       <td>PRJ d41d8cd98f</td>
       <td>Core Deployment</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
       <td>Consultancy</td>
-      <td>0.5</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT c8c92ca432</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
       <td>Progressed</td>
       <td>2.5</td>
+      <td>0.0</td>
       <td>0.5</td>
-      <td>EXT c8c92ca432</td>
       <td>0.5</td>
-      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>NaN</td>
-      <td>Billable</td>
-      <td>Actual</td>
-      <td>Employee</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>2020-02-09</td>
       <td>PRJ d41d8cd98f</td>
       <td>Core Deployment</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
       <td>Consultancy</td>
-      <td>0.5</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT c8c92ca432</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
       <td>Progressed</td>
       <td>2.5</td>
+      <td>0.0</td>
       <td>0.5</td>
-      <td>EXT c8c92ca432</td>
       <td>0.5</td>
-      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>NaN</td>
-      <td>Billable</td>
-      <td>Actual</td>
-      <td>Employee</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>2020-02-09</td>
       <td>PRJ d41d8cd98f</td>
       <td>Core Deployment</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
       <td>Consultancy</td>
-      <td>0.5</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT 800982ab08</td>
+      <td>OB Developer</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
       <td>Progressed</td>
       <td>2.5</td>
+      <td>0.0</td>
       <td>0.5</td>
-      <td>EXT 800982ab08</td>
       <td>0.5</td>
-      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>NaN</td>
-      <td>Billable</td>
-      <td>Actual</td>
-      <td>Employee</td>
-      <td>0.5</td>
-      <td>0.5</td>
-      <td>2020-02-16</td>
       <td>PRJ d41d8cd98f</td>
       <td>Core Deployment</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>NaN</td>
       <td>Consultancy</td>
-      <td>0.5</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT c8c92ca432</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
       <td>Progressed</td>
       <td>2.5</td>
+      <td>0.0</td>
       <td>0.5</td>
-      <td>EXT c8c92ca432</td>
       <td>0.5</td>
-      <td>Consultancy</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 22 columns</p>
+<p>5 rows × 21 columns</p>
 </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next we are going to create a timeseries out of timesheets which is a bit more involved so you can skip it for now and come back to it later, but the points it that at the end you will get a nice monthly pandas Dataframe that looks like this</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/timesheet.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Unnamed: 0</th>
+      <th>Project Description</th>
+      <th>Project Phase</th>
+      <th>Work Description</th>
+      <th>Tax/Billing Activity</th>
+      <th>Activity Type</th>
+      <th>Billing Flag</th>
+      <th>Resource Name</th>
+      <th>Roles (Primary)</th>
+      <th>Req Name</th>
+      <th>...</th>
+      <th>Total (Days)</th>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Timesheet Remarks</th>
+      <th>total_cumsum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Doe ERN001</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.50000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>2.50000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Doe ERN001</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>4.50000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Doe ERN001</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.50000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>6.00000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Doe ERN001</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>8.00000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane Doe ERN002</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.5000</td>
+      <td>0.3750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>10.00000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>7</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane Doe ERN002</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.87500</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>11.87500</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane Doe ERN002</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1.87500</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>13.75000</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9</td>
+      <td>Our big consultancy project</td>
+      <td>Core Deployment</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane Doe ERN002</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.25000</td>
+      <td>0.2500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>14.25000</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>10</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.87500</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>1.87500</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>11</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.3750</td>
+      <td>0.8750</td>
+      <td>0.5000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>3.87500</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>12</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John the Developer ERN005</td>
+      <td>OB Developer</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>5.00000</td>
+      <td>0.0</td>
+      <td>1.00000</td>
+      <td>1.0000</td>
+      <td>1.0000</td>
+      <td>1.0000</td>
+      <td>1.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>8.87500</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>13</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.12500</td>
+      <td>0.0</td>
+      <td>0.62500</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>12.00000</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>14</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John the Developer ERN005</td>
+      <td>OB Developer</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>12.50000</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>15</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.00000</td>
+      <td>0.0</td>
+      <td>0.93750</td>
+      <td>0.8750</td>
+      <td>1.0000</td>
+      <td>0.1875</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>15.50000</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>16</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>17.50000</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>17</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.00000</td>
+      <td>0.0</td>
+      <td>0.87500</td>
+      <td>0.8750</td>
+      <td>0.8750</td>
+      <td>0.3750</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>20.50000</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>18</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.87500</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>22.37500</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>19</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>2.00000</td>
+      <td>0.0</td>
+      <td>0.87500</td>
+      <td>0.4375</td>
+      <td>0.4375</td>
+      <td>0.2500</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>24.37500</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>20</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.5000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>24.87500</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>21</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Scripting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.50000</td>
+      <td>0.0</td>
+      <td>0.75000</td>
+      <td>0.7500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>26.37500</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>22</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the Expert ERN006</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.12500</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>26.50000</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>23</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>4.37500</td>
+      <td>0.0</td>
+      <td>0.87500</td>
+      <td>0.8750</td>
+      <td>0.8750</td>
+      <td>0.8750</td>
+      <td>0.8750</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>30.87500</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>24</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Mike the Tech ERN007</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.18750</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1875</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>31.06250</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>25</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John the Developer ERN005</td>
+      <td>OB Developer</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>2.50000</td>
+      <td>0.0</td>
+      <td>1.00000</td>
+      <td>1.0000</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>33.56250</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>26</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the Expert ERN006</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.12500</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>33.68750</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>27</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.12500</td>
+      <td>0.0</td>
+      <td>0.62500</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.6250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>36.81250</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>28</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John the Developer ERN005</td>
+      <td>OB Developer</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.00000</td>
+      <td>0.0</td>
+      <td>1.00000</td>
+      <td>1.0000</td>
+      <td>1.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>39.81250</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>29</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the Expert ERN006</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.12500</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>39.93750</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>30</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Mike the Tech ERN007</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.12500</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>40.06250</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>31</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>3.00000</td>
+      <td>0.0</td>
+      <td>0.75000</td>
+      <td>0.7500</td>
+      <td>0.7500</td>
+      <td>0.7500</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>43.06250</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>33</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John the Developer ERN005</td>
+      <td>OB Developer</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.50000</td>
+      <td>0.0</td>
+      <td>1.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.5000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>48.93750</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>34</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Mike the Tech ERN007</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>0.18750</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.1875</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>49.12500</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>35</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the Expert ERN006</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.37500</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>49.50000</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>36</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>John Smith ERN003</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.50000</td>
+      <td>0.0</td>
+      <td>0.75000</td>
+      <td>0.7500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>51.00000</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>37</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the Expert ERN006</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.12500</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.1250</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>51.12500</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>38</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Funding</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.75000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.6250</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>51.87500</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>39</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Funding</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.75000</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.2500</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>52.62500</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>40</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Funding</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.37500</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>0.3750</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>54.00000</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>41</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Funding</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.5000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>54.50000</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>42</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Funding</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>55.00000</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>43</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Netting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.25000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>55.25000</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>44</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Netting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>2.37500</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>0.6250</td>
+      <td>1.2500</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>57.62500</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>45</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Consultancy Netting</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>58.12500</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>46</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>EMails and Notifications</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Jack the IT Guy ERN010</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.37500</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.2500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>58.50000</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>47</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Non Billable Support</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>1.37500</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.0000</td>
+      <td>0.3750</td>
+      <td>0.5000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>59.87500</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>48</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Non Billable Support</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Johm from Helpdesk</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.87500</td>
+      <td>0.0</td>
+      <td>0.50000</td>
+      <td>0.2500</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>60.75000</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>49</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.37500</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>61.25000</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>50</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Project Management</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.43750</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.3125</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>61.68750</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>51</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>1.06250</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.3750</td>
+      <td>0.3750</td>
+      <td>0.3125</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>62.75000</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>52</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Project Management</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.25000</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>63.00000</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>53</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.62500</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.2500</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.1250</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>63.62500</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>54</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Project Management</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.43750</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.1875</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>64.06250</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>55</td>
+      <td>Our medium consultancy project</td>
+      <td>Design</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.50000</td>
+      <td>0.0</td>
+      <td>0.12500</td>
+      <td>0.0625</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.1875</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>64.56250</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>56</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Project Management</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.25000</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0000</td>
+      <td>0.1250</td>
+      <td>0.1250</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>64.81250</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>57</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Training (non billable)</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.87500</td>
+      <td>0.0</td>
+      <td>0.18750</td>
+      <td>0.1875</td>
+      <td>0.0000</td>
+      <td>0.2500</td>
+      <td>0.2500</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>65.68750</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>58</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Training (non billable)</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.31250</td>
+      <td>0.0</td>
+      <td>0.06250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.2500</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>66.00000</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>59</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Training (non billable)</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.31250</td>
+      <td>0.0</td>
+      <td>0.06250</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.2500</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>66.31250</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>60</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Training (non billable)</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.31250</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0625</td>
+      <td>0.0000</td>
+      <td>0.1875</td>
+      <td>0.0625</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>66.62500</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>61</td>
+      <td>Our medium consultancy project</td>
+      <td>Configuration</td>
+      <td>Training (non billable)</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>Jane the Student ERN004</td>
+      <td>OB Consultant</td>
+      <td>Consultant</td>
+      <td>...</td>
+      <td>0.09375</td>
+      <td>0.0</td>
+      <td>0.03125</td>
+      <td>0.0625</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>66.71875</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>62</td>
+      <td>A tiny estimation exercise</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>Kathy the Manager ERN008</td>
+      <td>OB Sr. Project Manager</td>
+      <td>Project Manager</td>
+      <td>...</td>
+      <td>0.06250</td>
+      <td>0.0</td>
+      <td>0.00000</td>
+      <td>0.0625</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>0.06250</td>
+    </tr>
+  </tbody>
+</table>
+<p>61 rows × 24 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p><div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+
+<span class="c1">#collapse</span>
+<span class="n">dd</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">cc13</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">timesheet</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">13</span><span class="p">])</span>
+<span class="n">cc12</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cc13</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">,</span><span class="s1">&#39;Activity Type&#39;</span><span class="p">]]</span>
+<span class="n">timesheet</span><span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">timesheet</span><span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">])</span>
+<span class="n">weekdays</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="s1">&#39;Mon&#39;</span><span class="p">,</span> <span class="s1">&#39;Tue&#39;</span><span class="p">,</span> <span class="s1">&#39;Wed&#39;</span><span class="p">,</span> <span class="s1">&#39;Thu&#39;</span><span class="p">,</span> <span class="s1">&#39;Fri&#39;</span><span class="p">,</span> <span class="s1">&#39;Sat&#39;</span><span class="p">]</span> 
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">weekday</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weekdays</span><span class="p">):</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">timesheet</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">weekdays</span> <span class="ow">or</span> <span class="n">col</span> <span class="ow">is</span> <span class="n">weekday</span><span class="p">]</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">timesheet</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1">#tmp.head()</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">weekday</span><span class="p">:</span> <span class="s1">&#39;progress&#39;</span><span class="p">})</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">D&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday</span>
+    <span class="n">dd</span> <span class="o">+=</span><span class="p">[</span><span class="n">tmp</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Period Starting&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">timeseries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span><span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;str&#39;</span><span class="p">)</span>
+<span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span><span class="s1">&#39;Sat&#39;</span><span class="p">])</span>
+<span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;workweek&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span><span class="s1">&#39;Sat&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+</p>
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries_wide</span> <span class="o">=</span> <span class="n">timeseries</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;progress&#39;</span><span class="p">)))[</span><span class="s1">&#39;progress&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="c1">#.unstack(&#39;date&#39;).reset_index().fillna(0)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;progress&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;Project&#39;, &#39;Project Phase&#39;, &#39;Work Description&#39;, &#39;Tax/Billing Activity&#39;,
+       &#39;Activity Type&#39;, &#39;Billing Flag&#39;, &#39;User&#39;, &#39;Roles (Primary)&#39;, &#39;Req Name&#39;,
+       &#39;Employee Type&#39;, &#39;Effort Type&#39;, &#39;Timesheet Status&#39;, &#39;Total (Days)&#39;,
+       &#39;date&#39;, &#39;weekday&#39;, &#39;weekend&#39;, &#39;workweek&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Project</th>
+      <th>Project Phase</th>
+      <th>Work Description</th>
+      <th>Tax/Billing Activity</th>
+      <th>Activity Type</th>
+      <th>Billing Flag</th>
+      <th>User</th>
+      <th>Roles (Primary)</th>
+      <th>Req Name</th>
+      <th>Employee Type</th>
+      <th>Effort Type</th>
+      <th>Timesheet Status</th>
+      <th>Total (Days)</th>
+      <th>progress</th>
+      <th>date</th>
+      <th>weekday</th>
+      <th>weekend</th>
+      <th>workweek</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>0.000000</td>
+      <td>2020-02-16</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>0.000000</td>
+      <td>2020-02-16</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>0.000000</td>
+      <td>2020-02-16</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>0.000000</td>
+      <td>2020-02-16</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>NaN</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>NaN</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>NaN</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>NaN</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>NaN</td>
+      <td>2020-02-18</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>NaN</td>
+      <td>2020-02-18</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>NaN</td>
+      <td>2020-02-18</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>NaN</td>
+      <td>2020-02-18</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>NaN</td>
+      <td>2020-02-19</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>NaN</td>
+      <td>2020-02-19</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>NaN</td>
+      <td>2020-02-19</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>NaN</td>
+      <td>2020-02-19</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>NaN</td>
+      <td>2020-02-20</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>NaN</td>
+      <td>2020-02-20</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>NaN</td>
+      <td>2020-02-20</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>NaN</td>
+      <td>2020-02-20</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>NaN</td>
+      <td>2020-02-21</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>NaN</td>
+      <td>2020-02-21</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>NaN</td>
+      <td>2020-02-21</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>NaN</td>
+      <td>2020-02-21</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>164</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.500000</td>
+      <td>0.000000</td>
+      <td>2020-02-22</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.312500</td>
+      <td>0.000000</td>
+      <td>2020-02-22</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>223</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.937500</td>
+      <td>0.000000</td>
+      <td>2020-02-22</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>225</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Overrun on Delivering the Project</td>
+      <td>Non-bill Consultancy -Training-</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.125000</td>
+      <td>0.000000</td>
+      <td>2020-02-22</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.187500</td>
+      <td>0.000000</td>
+      <td>2020-02-23</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>206</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Delivering the Project</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Unassigned</td>
+      <td>Consultant</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>1.187500</td>
+      <td>0.000000</td>
+      <td>2020-02-23</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Strategic project in a new region</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Sr. Consultant</td>
+      <td>Employee</td>
+      <td>Reported</td>
+      <td>Signed/Not Approved</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-04-28</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>354</th>
+      <td>Strategic project in a new region 2</td>
+      <td>Non-bill  (BONUS) Zero Rate</td>
+      <td>Governance</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Managing Consultant / Program Manager</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-04-29</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Strategic project in a new region</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Sr. Consultant</td>
+      <td>Employee</td>
+      <td>Reported</td>
+      <td>Signed/Not Approved</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-04-29</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>354</th>
+      <td>Strategic project in a new region 2</td>
+      <td>Non-bill  (BONUS) Zero Rate</td>
+      <td>Governance</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Managing Consultant / Program Manager</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-04-30</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Strategic project in a new region</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Sr. Consultant</td>
+      <td>Employee</td>
+      <td>Reported</td>
+      <td>Signed/Not Approved</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-04-30</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>354</th>
+      <td>Strategic project in a new region 2</td>
+      <td>Non-bill  (BONUS) Zero Rate</td>
+      <td>Governance</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Managing Consultant / Program Manager</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-05-01</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Strategic project in a new region</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Sr. Consultant</td>
+      <td>Employee</td>
+      <td>Reported</td>
+      <td>Signed/Not Approved</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-05-01</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>354</th>
+      <td>Strategic project in a new region 2</td>
+      <td>Non-bill  (BONUS) Zero Rate</td>
+      <td>Governance</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Non-Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Managing Consultant / Program Manager</td>
+      <td>Employee</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-05-02</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>534</th>
+      <td>Strategic project in a new region</td>
+      <td>Delivering the Project</td>
+      <td>Project Management</td>
+      <td>Project Management</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>OB Manager</td>
+      <td>Sr. Consultant</td>
+      <td>Employee</td>
+      <td>Reported</td>
+      <td>Signed/Not Approved</td>
+      <td>0.062500</td>
+      <td>NaN</td>
+      <td>2020-05-02</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>7.437500</td>
+      <td>NaT</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>10.987500</td>
+      <td>NaT</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>1.533333</td>
+      <td>NaT</td>
+      <td>Sun</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Mon</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Tue</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Wed</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Thu</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>NaN</td>
+      <td>NaT</td>
+      <td>Fri</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>508</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>657.616667</td>
+      <td>4.331250</td>
+      <td>NaT</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>661</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>715.823794</td>
+      <td>8.866667</td>
+      <td>NaT</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>623</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>580.001316</td>
+      <td>0.900000</td>
+      <td>NaT</td>
+      <td>Sat</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>12565 rows × 18 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timesheet</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Project</th>
+      <th>Project Phase</th>
+      <th>Work Description</th>
+      <th>Tax/Billing Activity</th>
+      <th>Activity Type</th>
+      <th>Billing Flag</th>
+      <th>User</th>
+      <th>Roles (Primary)</th>
+      <th>Req Name</th>
+      <th>Employee Type</th>
+      <th>...</th>
+      <th>Effort Type</th>
+      <th>Timesheet Status</th>
+      <th>Total (Days)</th>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT 800982ab08</td>
+      <td>OB Developer</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>PRJ d41d8cd98f</td>
+      <td>Core Deployment</td>
+      <td>Consultancy</td>
+      <td>Consultancy</td>
+      <td>NaN</td>
+      <td>Billable</td>
+      <td>EXT c8c92ca432</td>
+      <td>Unassigned</td>
+      <td>NaN</td>
+      <td>Employee</td>
+      <td>...</td>
+      <td>Actual</td>
+      <td>Progressed</td>
+      <td>2.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.5</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2 rows × 21 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(443, 103)</pre>
 </div>
 
 </div>
