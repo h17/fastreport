@@ -357,7 +357,8 @@ timesheet            shape:    1792    rows 	 and     14     columns
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show roles</span>
 <span class="n">roles</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;roles&quot;</span><span class="p">]</span>
-<span class="n">roles</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">#here we&#39;d need to stack it on last 3 countries, for now I&#39;ve used &quot;EU&quot; but that&#39;s wrong</span>
+<span class="n">roles</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -409,41 +410,41 @@ timesheet            shape:    1792    rows 	 and     14     columns
       <th>DIRECTOR</th>
       <td>DIR</td>
       <td>SENIOR</td>
-      <td>1.1</td>
-      <td>1.3</td>
-      <td>1.10</td>
+      <td>1100</td>
+      <td>1300</td>
+      <td>1100</td>
     </tr>
     <tr>
       <th>Program Manager</th>
       <td>PRA</td>
       <td>SEASONED</td>
-      <td>900.0</td>
-      <td>1.0</td>
-      <td>900.00</td>
+      <td>900</td>
+      <td>1000</td>
+      <td>900</td>
     </tr>
     <tr>
       <th>Project Manager</th>
       <td>PRO</td>
       <td>SENIOR</td>
-      <td>800.0</td>
-      <td>800.0</td>
-      <td>800.00</td>
+      <td>800</td>
+      <td>800</td>
+      <td>800</td>
     </tr>
     <tr>
       <th>Project Coordinator</th>
       <td>PRO</td>
       <td>SEASONED</td>
-      <td>700.0</td>
-      <td>700.0</td>
-      <td>700.00</td>
+      <td>700</td>
+      <td>700</td>
+      <td>700</td>
     </tr>
     <tr>
       <th>Solution Architect</th>
       <td>CON</td>
       <td>EXPERT</td>
-      <td>900.0</td>
-      <td>1.0</td>
-      <td>1.05</td>
+      <td>900</td>
+      <td>1000</td>
+      <td>1050</td>
     </tr>
   </tbody>
 </table>
@@ -480,6 +481,8 @@ timesheet            shape:    1792    rows 	 and     14     columns
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#show head count</span>
 <span class="n">headcount</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;HC&quot;</span><span class="p">]</span>
+<span class="c1"># todo: use stacked column instead of EU</span>
+<span class="n">headcount</span> <span class="o">=</span> <span class="n">headcount</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">roles</span><span class="p">[[</span><span class="s1">&#39;Position&#39;</span><span class="p">,</span><span class="s1">&#39;Level&#39;</span><span class="p">,</span><span class="s1">&#39;EU&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Level&#39;</span><span class="p">,</span><span class="s1">&#39;Position&#39;</span><span class="p">],</span><span class="n">right_on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Level&#39;</span><span class="p">,</span><span class="s1">&#39;Position&#39;</span><span class="p">])</span>
 <span class="n">headcount</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
@@ -514,75 +517,63 @@ timesheet            shape:    1792    rows 	 and     14     columns
       <th></th>
       <th>NAME</th>
       <th>TYPE</th>
-      <th>BU</th>
       <th>Location</th>
       <th>Position</th>
       <th>Level</th>
-      <th>Management size</th>
       <th>ID</th>
-      <th>START</th>
+      <th>EU</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>JANE DOE</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
+      <td>STAFF</td>
       <td>CH</td>
       <td>CON</td>
       <td>SEASONED</td>
-      <td>NO</td>
       <td>1001</td>
-      <td>TBD</td>
+      <td>550</td>
     </tr>
     <tr>
       <th>1</th>
       <td>JOHN DOE</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
+      <td>STAFF</td>
       <td>PL</td>
       <td>CON</td>
       <td>JUNIOR</td>
-      <td>NO</td>
       <td>1002</td>
-      <td>TBD</td>
+      <td>500</td>
     </tr>
     <tr>
       <th>2</th>
       <td>JOHN SMITH</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
+      <td>STAFF</td>
       <td>CH</td>
       <td>CON</td>
       <td>SEASONED</td>
-      <td>NO</td>
       <td>1003</td>
-      <td>TBD</td>
+      <td>550</td>
     </tr>
     <tr>
       <th>3</th>
       <td>JACK THE MANAGER</td>
       <td>CONTRACTOR</td>
-      <td>OPS</td>
       <td>CH</td>
       <td>PRO</td>
       <td>SENIOR</td>
-      <td>NO</td>
       <td>1004</td>
-      <td>TBD</td>
+      <td>800</td>
     </tr>
     <tr>
       <th>4</th>
       <td>JOHN THE MANAGER</td>
       <td>CONTRACTOR</td>
-      <td>OPS</td>
       <td>CH</td>
       <td>PRO</td>
       <td>SENIOR</td>
-      <td>NO</td>
       <td>1005</td>
-      <td>TBD</td>
+      <td>800</td>
     </tr>
   </tbody>
 </table>
@@ -657,18 +648,12 @@ timesheet            shape:    1792    rows 	 and     14     columns
       <th>Project</th>
       <th>PM</th>
       <th>Client Region</th>
-      <th>Client Country</th>
-      <th>Category</th>
-      <th>Recon Status</th>
-      <th>FIN Status</th>
       <th>Start</th>
       <th>End</th>
-      <th>Rev Rec</th>
-      <th>Funding Method</th>
+      <th>Funding</th>
       <th>BASE RATE USD</th>
       <th>TCV</th>
-      <th>Recognized
-USD</th>
+      <th>Recognized\nUSD</th>
       <th>2017 effort</th>
       <th>2018 effort</th>
       <th>2019 effort</th>
@@ -678,115 +663,90 @@ USD</th>
   <tbody>
     <tr>
       <th>0</th>
-      <td>13154.0</td>
-      <td>68454.0</td>
+      <td>13154</td>
+      <td>68454</td>
       <td>Medium consutancy 1</td>
       <td>SUSAN THE MANAGER</td>
       <td>Europe</td>
-      <td>France</td>
-      <td>Consulting</td>
-      <td>Approved</td>
-      <td>APPROVED</td>
       <td>2019-01-16 08:00:00</td>
       <td>2020-07-22 14:00:00</td>
-      <td>T&amp;M</td>
-      <td>Billable to Client Variable TM</td>
-      <td>1200.0</td>
+      <td>Time and Materials</td>
+      <td>1200</td>
       <td>39,000 EUR</td>
       <td>41540.0800</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>0.0</td>
       <td>180.5</td>
       <td>21.50</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2764.0</td>
-      <td>70285.0</td>
+      <td>2764</td>
+      <td>70285</td>
       <td>Our biggest project</td>
       <td>EXT 6a8e0ca747</td>
       <td>Europe</td>
-      <td>United Kingdom</td>
-      <td>Consulting</td>
-      <td>Approved</td>
-      <td>APPROVED</td>
       <td>2019-10-01 08:00:00</td>
       <td>2021-04-30 11:00:00</td>
-      <td>T&amp;M</td>
-      <td>Billable to Client Variable TM</td>
-      <td>1200.0</td>
+      <td>Time and Materials</td>
+      <td>1200</td>
       <td>1,450,999 USD</td>
       <td>473002.0800</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>0.0</td>
       <td>1241.5</td>
       <td>458.25</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>12916.0</td>
-      <td>68093.0</td>
+      <td>12916</td>
+      <td>68093</td>
       <td>Upgrade to new version</td>
       <td>TIM THE LEAVER</td>
       <td>Europe</td>
-      <td>Netherlands</td>
-      <td>Consulting</td>
-      <td>Approved</td>
-      <td>APPROVED</td>
       <td>2018-09-28 08:00:00</td>
       <td>2020-04-27 17:00:00</td>
-      <td>FF</td>
-      <td>Billable to Client (Fixed Fee)</td>
-      <td>1200.0</td>
+      <td>Fixed Fee</td>
+      <td>1200</td>
       <td>127,500 EUR</td>
       <td>142411.5533</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>12916.0</td>
-      <td>68094.0</td>
+      <td>12916</td>
+      <td>68094</td>
       <td>Small change on top of upgrade</td>
       <td>JOHN THE MANAGER</td>
       <td>Europe</td>
-      <td>Netherlands</td>
-      <td>Consulting</td>
-      <td>Approved</td>
-      <td>APPROVED</td>
       <td>2018-09-28 08:00:00</td>
       <td>2020-05-11 17:00:00</td>
-      <td>T&amp;M</td>
-      <td>Billable to Client Variable TM</td>
-      <td>1200.0</td>
+      <td>Time and Materials</td>
+      <td>1200</td>
       <td>12,500 EUR</td>
       <td>0.0000</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.00</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>18933.0</td>
-      <td>68726.0</td>
+      <td>18933</td>
+      <td>68726</td>
       <td>Transition from another product</td>
       <td>JANE THE MANAGER</td>
       <td>Europe</td>
-      <td>France</td>
-      <td>Consulting</td>
-      <td>Approved</td>
-      <td>APPROVED</td>
       <td>2019-03-01 08:00:00</td>
       <td>2020-05-27 16:00:00</td>
-      <td>FF</td>
-      <td>Billable to Client (Fixed Fee)</td>
-      <td>1200.0</td>
+      <td>Fixed Fee</td>
+      <td>1200</td>
       <td>143,250 EUR</td>
       <td>132677.3616</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>0.0</td>
       <td>525.5</td>
       <td>5.00</td>
@@ -863,18 +823,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr style="text-align: right;">
       <th></th>
       <th>Project</th>
-      <th>Project Phase</th>
-      <th>Work Description</th>
-      <th>Tax/Billing Activity</th>
-      <th>Activity Type</th>
-      <th>Billing Flag</th>
+      <th>Activity</th>
+      <th>Billing</th>
       <th>User</th>
-      <th>Roles (Primary)</th>
-      <th>Req Name</th>
-      <th>Employee Type</th>
-      <th>...</th>
+      <th>Period Starting</th>
       <th>Effort Type</th>
-      <th>Timesheet Status</th>
       <th>Total (Days)</th>
       <th>Sun</th>
       <th>Mon</th>
@@ -889,18 +842,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr>
       <th>0</th>
       <td>PRJ d41d8cd98f</td>
-      <td>Core Deployment</td>
       <td>Consultancy</td>
-      <td>Consultancy</td>
-      <td>NaN</td>
       <td>Billable</td>
       <td>EXT 800982ab08</td>
-      <td>OB Developer</td>
-      <td>NaN</td>
-      <td>Employee</td>
-      <td>...</td>
+      <td>2020-02-02</td>
       <td>Actual</td>
-      <td>Progressed</td>
       <td>2.5</td>
       <td>0.0</td>
       <td>0.5</td>
@@ -913,18 +859,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr>
       <th>1</th>
       <td>PRJ d41d8cd98f</td>
-      <td>Core Deployment</td>
       <td>Consultancy</td>
-      <td>Consultancy</td>
-      <td>NaN</td>
       <td>Billable</td>
       <td>EXT c8c92ca432</td>
-      <td>Unassigned</td>
-      <td>NaN</td>
-      <td>Employee</td>
-      <td>...</td>
+      <td>2020-02-02</td>
       <td>Actual</td>
-      <td>Progressed</td>
       <td>2.5</td>
       <td>0.0</td>
       <td>0.5</td>
@@ -937,18 +876,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr>
       <th>2</th>
       <td>PRJ d41d8cd98f</td>
-      <td>Core Deployment</td>
       <td>Consultancy</td>
-      <td>Consultancy</td>
-      <td>NaN</td>
       <td>Billable</td>
       <td>EXT c8c92ca432</td>
-      <td>Unassigned</td>
-      <td>NaN</td>
-      <td>Employee</td>
-      <td>...</td>
+      <td>2020-02-09</td>
       <td>Actual</td>
-      <td>Progressed</td>
       <td>2.5</td>
       <td>0.0</td>
       <td>0.5</td>
@@ -961,18 +893,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr>
       <th>3</th>
       <td>PRJ d41d8cd98f</td>
-      <td>Core Deployment</td>
       <td>Consultancy</td>
-      <td>Consultancy</td>
-      <td>NaN</td>
       <td>Billable</td>
       <td>EXT 800982ab08</td>
-      <td>OB Developer</td>
-      <td>NaN</td>
-      <td>Employee</td>
-      <td>...</td>
+      <td>2020-02-09</td>
       <td>Actual</td>
-      <td>Progressed</td>
       <td>2.5</td>
       <td>0.0</td>
       <td>0.5</td>
@@ -985,18 +910,11 @@ If you are steering this boat long enough – you might have ended up with some 
     <tr>
       <th>4</th>
       <td>PRJ d41d8cd98f</td>
-      <td>Core Deployment</td>
       <td>Consultancy</td>
-      <td>Consultancy</td>
-      <td>NaN</td>
       <td>Billable</td>
       <td>EXT c8c92ca432</td>
-      <td>Unassigned</td>
-      <td>NaN</td>
-      <td>Employee</td>
-      <td>...</td>
+      <td>2020-02-16</td>
       <td>Actual</td>
-      <td>Progressed</td>
       <td>2.5</td>
       <td>0.0</td>
       <td>0.5</td>
@@ -1008,7 +926,6 @@ If you are steering this boat long enough – you might have ended up with some 
     </tr>
   </tbody>
 </table>
-<p>5 rows × 21 columns</p>
 </div>
 </div>
 
@@ -1122,80 +1039,18 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># revenue calculation for a person for a month (SUM REV of all timesheet records * corresp project rates)</span>
-<span class="n">revenue_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">projects</span><span class="p">[[</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;Project&#39;</span><span class="p">)</span>
+<span class="n">revenue_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;Billing&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">projects</span><span class="p">[[</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;Project&#39;</span><span class="p">)</span>
 <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">1200</span><span class="p">)</span>
+<span class="c1"># Dmytro check - Max added the billable flag control below</span>
+<span class="n">revenue_df</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;Billing&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Billable&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;daily_revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span>
 <span class="n">revenue</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">])[</span><span class="s1">&#39;daily_revenue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">revenue</span> <span class="o">=</span> <span class="n">revenue</span><span class="p">[</span><span class="n">revenue</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">revenue_df</span><span class="o">.</span><span class="n">effort</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">revenue</span><span class="o">.</span><span class="n">shape</span>
-<span class="n">revenue</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">revenue</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#revenue_df.effort.sum()</span>
+<span class="c1">#revenue.shape</span>
+<span class="c1">#revenue.sum()</span>
 <span class="c1">#dmytro todo: check null effort, do smart groupby</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1953.4417763157894</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(71, 4)</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>month
-2020-02    813178.333333
-2020-03    886836.052632
-2020-04    719953.453947
-2020-05         0.000000
-dtype: float64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Cost</strong>: So, let’s start with the fact that the average cost of $800 (or whatever) is bullshit. You might have people working in different countries and of totally different levels. Talk to your finance team and get some estimates from them (or make it together). We’d say if you were appointed to run a team or business unit – they owe you that much. We will assume below that you managed to get 3 grades (Associate, Base, Senior) per Country you have staff. Though costs per individual will go nicely also.</p>
-
-</div>
-</div>
-</div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">headcount</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1226,78 +1081,48 @@ dtype: float64</pre>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
+      <th>month</th>
+      <th>2020-02</th>
+      <th>2020-03</th>
+      <th>2020-04</th>
+    </tr>
+    <tr>
+      <th>User</th>
       <th></th>
-      <th>NAME</th>
-      <th>TYPE</th>
-      <th>BU</th>
-      <th>Location</th>
-      <th>Position</th>
-      <th>Level</th>
-      <th>Management size</th>
-      <th>ID</th>
-      <th>START</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>JANE DOE</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
-      <td>CH</td>
-      <td>CON</td>
-      <td>SEASONED</td>
-      <td>NO</td>
-      <td>1001</td>
-      <td>TBD</td>
+      <th>CATTY THE NEW MANAGER</th>
+      <td>11550.00</td>
+      <td>19350.0</td>
+      <td>9412.5</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>JOHN DOE</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
-      <td>PL</td>
-      <td>CON</td>
-      <td>JUNIOR</td>
-      <td>NO</td>
-      <td>1002</td>
-      <td>TBD</td>
+      <th>EXT 08a7eee3f6</th>
+      <td>14056.25</td>
+      <td>4850.0</td>
+      <td>3612.5</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>JOHN SMITH</td>
-      <td>EMPLOYEE</td>
-      <td>OPS</td>
-      <td>CH</td>
-      <td>CON</td>
-      <td>SEASONED</td>
-      <td>NO</td>
-      <td>1003</td>
-      <td>TBD</td>
+      <th>EXT 243a5f992e</th>
+      <td>7800.00</td>
+      <td>7500.0</td>
+      <td>9450.0</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>JACK THE MANAGER</td>
-      <td>CONTRACTOR</td>
-      <td>OPS</td>
-      <td>CH</td>
-      <td>PRO</td>
-      <td>SENIOR</td>
-      <td>NO</td>
-      <td>1004</td>
-      <td>TBD</td>
+      <th>EXT 29fc29214e</th>
+      <td>4350.00</td>
+      <td>13200.0</td>
+      <td>3600.0</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>JOHN THE MANAGER</td>
-      <td>CONTRACTOR</td>
-      <td>OPS</td>
-      <td>CH</td>
-      <td>PRO</td>
-      <td>SENIOR</td>
-      <td>NO</td>
-      <td>1005</td>
-      <td>TBD</td>
+      <th>EXT 2fbb35eab7</th>
+      <td>24000.00</td>
+      <td>28480.0</td>
+      <td>26240.0</td>
     </tr>
   </tbody>
 </table>
@@ -1306,6 +1131,30 @@ dtype: float64</pre>
 
 </div>
 
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Cost</strong>: So, let’s start with the fact that the average cost of $800 (or whatever) is bullshit. You might have people working in different countries and of totally different levels. Talk to your finance team and get some estimates from them (or make it together). We’d say if you were appointed to run a team or business unit – they owe you that much. We will assume below that you managed to get 3 grades (Associate, Base, Senior) per Country you have staff. Though costs per individual will go nicely also. Let's calculate direct cost (here we check the cost of effort posted on timesheets, presuming they are full - can check per number of working days in a month also)</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#headcount.head()</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -1322,12 +1171,13 @@ dtype: float64</pre>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cost calculation for a project (SUM COST of all timesheet records * corresp cost rates - see roles)</span>
 <span class="c1"># dmytro todo: apply this to timeseries</span>
 
-<span class="n">cost_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">headcount</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;Location&#39;</span><span class="p">,</span><span class="s1">&#39;Position&#39;</span><span class="p">,</span><span class="s1">&#39;Level&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
-<span class="c1">#cost_df</span>
-<span class="c1"># cost_df[&#39;&#39;] = cost_df[&#39;BASE RATE USD&#39;].fillna(1200)</span>
-<span class="c1"># cost_df[&#39;daily_cost&#39;] = cost_df[&#39;BASE RATE USD&#39;] * cost_df[&#39;effort&#39;]</span>
-<span class="c1"># cost = cost_df.groupby([&#39;User&#39;,&#39;month&#39;])[&#39;daily_cost&#39;].sum().unstack().fillna(0)</span>
-<span class="c1"># cost = cost[cost.sum(1)&gt;0]</span>
+<span class="n">cost_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">headcount</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;EU&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
+
+<span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">850</span><span class="p">)</span>
+<span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;daily_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="n">cost_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">])[</span><span class="s1">&#39;daily_cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span><span class="p">[</span><span class="n">cost</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cost</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="c1"># cost_df.effort.sum()</span>
 <span class="c1"># cost.shape</span>
 <span class="c1"># cost.sum()</span>
@@ -1335,6 +1185,90 @@ dtype: float64</pre>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>month</th>
+      <th>2020-02</th>
+      <th>2020-03</th>
+      <th>2020-04</th>
+      <th>2020-05</th>
+    </tr>
+    <tr>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>CATTY THE NEW MANAGER</th>
+      <td>5362.50</td>
+      <td>11343.750000</td>
+      <td>9332.812500</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>EXT 08a7eee3f6</th>
+      <td>12537.50</td>
+      <td>9350.000000</td>
+      <td>3081.250000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>EXT 243a5f992e</th>
+      <td>5525.00</td>
+      <td>5312.500000</td>
+      <td>6693.750000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>EXT 29fc29214e</th>
+      <td>3081.25</td>
+      <td>9350.000000</td>
+      <td>5312.500000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>EXT 2fbb35eab7</th>
+      <td>17000.00</td>
+      <td>20173.333333</td>
+      <td>18586.666667</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
