@@ -4,9 +4,9 @@ title: About Us
 permalink: /about/
 ---
 
-Data Science and Management by Dmytro Karabash: https://www.linkedin.com/in/dmytrokarabash/
+Data Science and Management by <a href="https://www.linkedin.com/in/dmytrokarabash/">Dmytro Karabash</a>
 
-Management and Data Science by Maxim Korotkov: http://maximk.com
+Management and Data Science by <a href="http://maximk.com">Maxim Korotkov</a> 
 
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
