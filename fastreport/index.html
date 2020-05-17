@@ -114,7 +114,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      17 min read
+      18 min read
     
 </span></p>
 
@@ -173,7 +173,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all that – then you’re lucky and you don’t need this article either. But high chances are that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at $ \$ 800 $ to get your unit profitability” ($ \$800 $ can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to count the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all that – then you’re lucky and you don’t need this article either. But high chances are that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at \$ 800 to get your unit profitability” 
+(\$ 800 can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to count the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
 <p>What else can you get – all the timesheets, projects with their budgets and you can even get to approximate costs (let's discuss it later). Shitload of data for a year even for a team of 10. What I will tell you here is that you don’t need an ERP to do the rest – the notebook in Jupyter will do. Let’s remember - management starts with measurement. How can you supervise your team and projects if you don’t have their data at your fingers?</p>
 <p>Why do you need Data Science here? Well, you can have all data at your fingers. Eventually you would want to calculate your profit like</p>
 <div class="highlight"><pre><span></span><span class="n">profit</span> <span class="o">=</span> <span class="n">revenue</span> <span class="o">-</span> <span class="n">cost</span>
@@ -430,6 +431,11 @@ timesheet            shape:    1792    rows 	 and     14     columns
 <span class="n">roles</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="n">def_revenue</span> <span class="o">=</span> <span class="mi">1200</span>
 <span class="n">def_cost</span> <span class="o">=</span> <span class="mi">850</span>
+
+<span class="c1">#wide to long format</span>
+<span class="n">roles_long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">roles</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span><span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Position Name&#39;</span><span class="p">,</span><span class="s1">&#39;Position&#39;</span><span class="p">,</span><span class="s1">&#39;Level&#39;</span><span class="p">],</span><span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span><span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;cost&#39;</span><span class="p">)</span>
+<span class="n">roles_long</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">roles_long</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -516,6 +522,160 @@ timesheet            shape:    1792    rows 	 and     14     columns
       <td>900</td>
       <td>1000</td>
       <td>1050</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Position Name</th>
+      <th>Position</th>
+      <th>Level</th>
+      <th>region</th>
+      <th>cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>DIRECTOR</td>
+      <td>DIR</td>
+      <td>SENIOR</td>
+      <td>EU</td>
+      <td>1100</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Program Manager</td>
+      <td>PRA</td>
+      <td>SEASONED</td>
+      <td>EU</td>
+      <td>900</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Project Manager</td>
+      <td>PRO</td>
+      <td>SENIOR</td>
+      <td>EU</td>
+      <td>800</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Project Coordinator</td>
+      <td>PRO</td>
+      <td>SEASONED</td>
+      <td>EU</td>
+      <td>700</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Solution Architect</td>
+      <td>CON</td>
+      <td>EXPERT</td>
+      <td>EU</td>
+      <td>900</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Position Name</th>
+      <th>Position</th>
+      <th>Level</th>
+      <th>region</th>
+      <th>cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>Solution Architect</td>
+      <td>CON</td>
+      <td>EXPERT</td>
+      <td>CH</td>
+      <td>1050</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Senior Consultant</td>
+      <td>CON</td>
+      <td>SENIOR</td>
+      <td>CH</td>
+      <td>900</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Consultant</td>
+      <td>CON</td>
+      <td>SEASONED</td>
+      <td>CH</td>
+      <td>550</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Associate / Graduate / Junior Consultant</td>
+      <td>CON</td>
+      <td>JUNIOR</td>
+      <td>CH</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Technical Consultant</td>
+      <td>TEC</td>
+      <td>SEASONED</td>
+      <td>CH</td>
+      <td>600</td>
     </tr>
   </tbody>
 </table>
@@ -1676,10 +1836,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="7ce31b4b-cff6-4961-a7e5-a8340a3e6e38"></div>
+<div id="06e072f2-d34f-42a1-8ebf-d5e46fcb5cbd"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7ce31b4b-cff6-4961-a7e5-a8340a3e6e38');
+var element = $('#06e072f2-d34f-42a1-8ebf-d5e46fcb5cbd');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
