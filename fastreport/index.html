@@ -178,6 +178,13 @@ window.onload = wrap_img;
 <p>Why do you need Data Science here? Well, you can have all data an your fingers. Eventually you would want to calculate your profit like</p>
 <div class="highlight"><pre><span></span><span class="n">profit</span> <span class="o">=</span> <span class="n">revenue</span> <span class="o">-</span> <span class="n">cost</span>
 </pre></div>
+<p>No only for numbers, but also on the level of tables, so you get profit per user per month in the output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Or get list of 3 people with most unbillable hours in April like</p>
 <div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;2020-04&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
@@ -1598,10 +1605,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="3b2f33dd-4320-477b-baeb-5fe45d6af0e7"></div>
+<div id="92665db9-31d0-443e-b993-ddb6cb194a7e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#3b2f33dd-4320-477b-baeb-5fe45d6af0e7');
+var element = $('#92665db9-31d0-443e-b993-ddb6cb194a7e');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
