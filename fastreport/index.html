@@ -359,6 +359,8 @@ timesheet            shape:    1792    rows 	 and     14     columns
 <span class="n">roles</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;roles&quot;</span><span class="p">]</span>
 <span class="c1">#here we&#39;d need to stack it on last 3 countries, for now I&#39;ve used &quot;EU&quot; but that&#39;s wrong</span>
 <span class="n">roles</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">def_revenue</span> <span class="o">=</span> <span class="mi">1200</span>
+<span class="n">def_cost</span> <span class="o">=</span> <span class="mi">850</span>
 </pre></div>
 
     </div>
@@ -1040,7 +1042,7 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># revenue calculation for a person for a month (SUM REV of all timesheet records * corresp project rates)</span>
 <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;Billing&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">projects</span><span class="p">[[</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;Project&#39;</span><span class="p">)</span>
-<span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">1200</span><span class="p">)</span>
+<span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">def_revenue</span><span class="p">)</span>
 <span class="c1"># Dmytro check - Max added the billable flag control below</span>
 <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;Billing&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Billable&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;daily_revenue&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span>
@@ -1139,7 +1141,7 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Cost</strong>: So, let’s start with the fact that the average cost of $800 (or whatever) is bullshit. You might have people working in different countries and of totally different levels. Talk to your finance team and get some estimates from them (or make it together). We’d say if you were appointed to run a team or business unit – they owe you that much. We will assume below that you managed to get 3 grades (Associate, Base, Senior) per Country you have staff. Though costs per individual will go nicely also. Let's calculate direct cost (here we check the cost of effort posted on timesheets, presuming they are full - can check per number of working days in a month also)</p>
+<p><strong>Cost</strong>: So, let’s start with the fact that the average cost of $800 (or whatever) is bullshit. You might have people working in different countries and of totally different levels. Talk to your finance team and get some estimates from them (or make it together). We’d say if you were appointed to run a team or business unit – they owe you that much. We will assume below that you managed to get 3 grades (Associate, Base, Senior) per Country you have staff. Though costs per individual will go nicely also. Let's calculate direct cost (here we check the cost of effort posted on timesheets, presuming they are full - can check per number of working days in a month also). We are not interesting by external resources, so we'll filter them out</p>
 
 </div>
 </div>
@@ -1173,7 +1175,9 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
 
 <span class="n">cost_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">headcount</span><span class="p">[[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;EU&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
 
-<span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">850</span><span class="p">)</span>
+<span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">def_cost</span><span class="p">)</span>
+<span class="c1"># todo: Dmytro - anything simpler to remove all starting with &quot;EXT&quot;</span>
+<span class="n">cost_df</span> <span class="o">=</span> <span class="n">cost_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;User&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;EXT&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;daily_cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;EU&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">cost_df</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span>
 <span class="n">cost</span> <span class="o">=</span> <span class="n">cost_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">])[</span><span class="s1">&#39;daily_cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">cost</span> <span class="o">=</span> <span class="n">cost</span><span class="p">[</span><span class="n">cost</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
@@ -1216,11 +1220,9 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
       <th>2020-02</th>
       <th>2020-03</th>
       <th>2020-04</th>
-      <th>2020-05</th>
     </tr>
     <tr>
       <th>User</th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -1230,37 +1232,32 @@ So, profit is Revenue – Cost and we intend to measure by it and keep it simple
     <tr>
       <th>CATTY THE NEW MANAGER</th>
       <td>5362.50</td>
-      <td>11343.750000</td>
-      <td>9332.812500</td>
-      <td>0.0</td>
+      <td>11343.75</td>
+      <td>9332.8125</td>
     </tr>
     <tr>
-      <th>EXT 08a7eee3f6</th>
-      <td>12537.50</td>
-      <td>9350.000000</td>
-      <td>3081.250000</td>
-      <td>0.0</td>
+      <th>FRANK THE CONSTULANT</th>
+      <td>7700.00</td>
+      <td>8662.50</td>
+      <td>7768.7500</td>
     </tr>
     <tr>
-      <th>EXT 243a5f992e</th>
-      <td>5525.00</td>
-      <td>5312.500000</td>
-      <td>6693.750000</td>
-      <td>0.0</td>
+      <th>IVAN THE PROGRAMMER</th>
+      <td>11481.25</td>
+      <td>12925.00</td>
+      <td>11618.7500</td>
     </tr>
     <tr>
-      <th>EXT 29fc29214e</th>
-      <td>3081.25</td>
-      <td>9350.000000</td>
-      <td>5312.500000</td>
-      <td>0.0</td>
+      <th>JACK THE EXPERT</th>
+      <td>18750.00</td>
+      <td>20350.00</td>
+      <td>17100.0000</td>
     </tr>
     <tr>
-      <th>EXT 2fbb35eab7</th>
-      <td>17000.00</td>
-      <td>20173.333333</td>
-      <td>18586.666667</td>
-      <td>0.0</td>
+      <th>JACK THE MANAGER</th>
+      <td>11800.00</td>
+      <td>10900.00</td>
+      <td>9600.0000</td>
     </tr>
   </tbody>
 </table>
