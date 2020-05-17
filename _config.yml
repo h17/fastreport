@@ -39,8 +39,8 @@ baseurl: "/fastreport" # the subpath of your site, e.g. "/blog".
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: Data4Teams
-    github: h17
+#    twitter: Data4Teams
+#    github: h17
 
 # Set this to true to get LaTeX math equation support
 use_math: 
