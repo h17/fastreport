@@ -173,7 +173,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all then – then you’re lucky and you don’t need this article either. But 70% chances are [a reference to research would be nice - trello] that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at $800 to get your unit profitability” ($800 can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all then – then you’re lucky and you don’t need this article either. But high chances are that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at \$800 to get your unit profitability” (\\$800 can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
 <p>What you probably have is – all the timesheets, projects with their budget and you can even get to approximate costs nicely (we’ll get there). Shitload of data for a year even for a team of 10. What I will tell you here is that you don’t need an ERP to do the rest – the notebook in Jupyter will do for now. Let’s remember - management starts with measurement. How can you supervise your team and projects if you don’t have their data at your fingers?</p>
 <p>Why do you need Data Science here? Well, you can have all data an your fingers. Let me show you 3 Project Managers which have highest profit margin from beginning of the year - based on timesheets, revenue type and cost rates in one (not-so-simple) line</p>
 
@@ -236,7 +236,7 @@ So, we first get and transform our input files (if you want to follow text AND a
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/h17/fastreport/master/data/roles.csv&#39;</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 
 <span class="n">project_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="s1">&#39;../data/project_data.xlsm&#39;</span><span class="p">)</span>
 <span class="n">project_data</span><span class="o">.</span><span class="n">sheet_names</span>
@@ -320,10 +320,10 @@ So, we first get and transform our input files (if you want to follow text AND a
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>roles                shape:     10     rows 	 and     4      columns
-Entity Project       shape:     49     rows 	 and     20     columns
-HC                   shape:     35     rows 	 and     9      columns
-timesheet            shape:    1792    rows 	 and     21     columns
+<pre>roles                shape:     9      rows 	 and     5      columns
+Entity Project       shape:     48     rows 	 and     15     columns
+HC                   shape:     35     rows 	 and     6      columns
+timesheet            shape:    1792    rows 	 and     14     columns
 </pre>
 </div>
 </div>
@@ -389,47 +389,61 @@ timesheet            shape:    1792    rows 	 and     21     columns
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>DEFAULT COSTS per ROLE and REGION (in $)</th>
+      <th>Position</th>
+      <th>Level</th>
       <th>EU</th>
-      <th>EU-UK</th>
-      <th>EU-CH</th>
+      <th>UK</th>
+      <th>CH</th>
+    </tr>
+    <tr>
+      <th>DEFAULT COSTS per ROLE and REGION (in $)</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>DIRECTOR</td>
-      <td>1100.0</td>
-      <td>1300.0</td>
-      <td>1100.0</td>
+      <th>DIRECTOR</th>
+      <td>DIR</td>
+      <td>SENIOR</td>
+      <td>1.1</td>
+      <td>1.3</td>
+      <td>1.10</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>Program Manager</td>
+      <th>Program Manager</th>
+      <td>PRA</td>
+      <td>SEASONED</td>
       <td>900.0</td>
-      <td>1000.0</td>
-      <td>900.0</td>
+      <td>1.0</td>
+      <td>900.00</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>Project Manager</td>
+      <th>Project Manager</th>
+      <td>PRO</td>
+      <td>SENIOR</td>
       <td>800.0</td>
       <td>800.0</td>
-      <td>800.0</td>
+      <td>800.00</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>Project Coordinator</td>
+      <th>Project Coordinator</th>
+      <td>PRO</td>
+      <td>SEASONED</td>
       <td>700.0</td>
       <td>700.0</td>
-      <td>700.0</td>
+      <td>700.00</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>Solution Architect</td>
+      <th>Solution Architect</th>
+      <td>CON</td>
+      <td>EXPERT</td>
       <td>900.0</td>
-      <td>1000.0</td>
-      <td>1050.0</td>
+      <td>1.0</td>
+      <td>1.05</td>
     </tr>
   </tbody>
 </table>
