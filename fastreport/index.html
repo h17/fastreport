@@ -179,7 +179,7 @@ window.onload = wrap_img;
 <div class="highlight"><pre><span></span><span class="n">profit</span> <span class="o">=</span> <span class="n">revenue</span> <span class="o">-</span> <span class="n">cost</span>
 </pre></div>
 <p>Or get list of 3 people with most unbillable hours in April like</p>
-<div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;2020-04&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;2020-04&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 <p>And we promise to get you there in a few paragraphs. And yes, there is some learning of python required. The huge difference from anything you've been doing yourself (ERP reports, Excel, other tools) is that any analysis stays here in the notebook and can be applied once again after you data changes.</p>
 
@@ -1487,7 +1487,7 @@ If you are steering this boat long enough – you might have ended up with some 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;2020-04&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">timeseries</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;2020-04&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1503,9 +1503,9 @@ If you are steering this boat long enough – you might have ended up with some 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>User
-EXT 5a04e048b1    22.0
-EXT 8f084cdd2b    22.0
-EXT 6d5bda8573    22.0
+CATTY THE NEW MANAGER    9.125000
+EXT 6d5bda8573           6.933333
+EXT 7bdf4bf350           5.000000
 Name: effort, dtype: float64</pre>
 </div>
 
@@ -1598,10 +1598,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="aad4729e-714e-4bdf-99b0-ce474bdef60a"></div>
+<div id="701c92f4-9857-416a-8473-39a9b18bd122"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#aad4729e-714e-4bdf-99b0-ce474bdef60a');
+var element = $('#701c92f4-9857-416a-8473-39a9b18bd122');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
