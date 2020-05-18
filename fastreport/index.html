@@ -114,7 +114,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      23 min read
     
 </span></p>
 
@@ -173,8 +173,8 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all that – then you’re lucky and you don’t need this article either. But high chances are that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at <code>$</code> 800  to get your unit profitability” 
-( <code>$</code> 800  can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to count the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>You’re the boss now. You have a team or a business unit doing consultancy. Probably a bunch of Consultants helping clients, some Project Managers leading your projects in a nice Agile or whatever way. Everyone fills their timesheets (and you cut their bonuses if they don’t) – time is billed to clients and you have Fixed Fee projects also. Maybe smaller teams being parts of your team also – you can lead ten, hundred or thousand people (hey, dude – you run a unit of 1000 employees? Don’t read this article – hire someone who did) You probably even have an ERP or something and a CFO in a nice corner office. Do you have a good way to estimate how much profit every team member and project brings and ways to predict it with good precision? If you have a nice ERP dashboard which gives you all that – then you’re lucky and you don’t need this article either. But high chances are that you get a simple calculation end of year – like “let’s take all revenue finance recognized on your projects in a year and man day cost at <code>$ 800</code>  to get your unit profitability” 
+( <code>$ 800</code>  can seem crazily high or unacceptably low, depending on business you’re in). So that’s the precision you have to count the money your team brings to firm? Do we need to remind you that this is the only reason why your job exists?</p>
 <p>What else can you get – all the timesheets, projects with their budgets and you can even get to approximate costs (let's discuss it later). Shitload of data for a year even for a team of 10. What I will tell you here is that you don’t need an ERP to do the rest – the notebook in Jupyter will do. Let’s remember - management starts with measurement. How can you supervise your team and projects if you don’t have their data at your fingers?</p>
 <p>Why do you need Data Science here? Well, you can have all data at your fingers. Eventually you would want to calculate your profit like</p>
 <div class="highlight"><pre><span></span><span class="n">profit</span> <span class="o">=</span> <span class="n">revenue</span> <span class="o">-</span> <span class="n">cost</span>
@@ -277,11 +277,13 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">data_path</span><span class="o">=</span><span class="s1">&#39;https://raw.githubusercontent.com/h17/fastreport/master/data/&#39;</span>
 <span class="c1"># TODO: URL vs localfiles (localfiles don&#39;t work in colab - so I&#39;d rather go URL)</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/h17/fastreport/master/data/roles.csv&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;roles.csv&#39;</span>
 <span class="n">data</span><span class="p">[</span><span class="s1">&#39;roles&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
 
-<span class="n">project_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="s1">&#39;../data/project_data.xlsm&#39;</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">data_path</span><span class="o">+</span><span class="s1">&#39;project_data.xlsm&#39;</span>
+<span class="n">project_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="n">project_data</span><span class="o">.</span><span class="n">sheet_names</span>
 </pre></div>
 
@@ -367,7 +369,7 @@ window.onload = wrap_img;
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20}</span><span class="s2"> shape: </span><span class="si">{:^10}</span><span class="s2"> rows </span><span class="se">\t</span><span class="s2"> and </span><span class="si">{:^10}</span><span class="s2"> columns&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:20}</span><span class="s2"> shape: </span><span class="si">{:&gt;10}</span><span class="s2"> rows </span><span class="se">\t</span><span class="s2"> and </span><span class="si">{:&gt;10}</span><span class="s2"> columns&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -390,10 +392,10 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>roles                shape:     9      rows 	 and     5      columns
-Entity Project       shape:     48     rows 	 and     15     columns
-HC                   shape:     35     rows 	 and     6      columns
-timesheet            shape:    1792    rows 	 and     14     columns
+<pre>roles                shape:          9 rows 	 and          5 columns
+Entity Project       shape:         48 rows 	 and         15 columns
+HC                   shape:         35 rows 	 and          6 columns
+timesheet            shape:       1792 rows 	 and         14 columns
 </pre>
 </div>
 </div>
@@ -884,7 +886,8 @@ timesheet            shape:    1792    rows 	 and     14     columns
       <th>Funding</th>
       <th>BASE RATE USD</th>
       <th>TCV</th>
-      <th>Recognized\nUSD</th>
+      <th>Recognized
+USD</th>
       <th>2017 effort</th>
       <th>2018 effort</th>
       <th>2019 effort</th>
@@ -1207,7 +1210,6 @@ timesheet            shape:    1792    rows 	 and     14     columns
 <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span><span class="s1">&#39;Sat&#39;</span><span class="p">])</span>
 <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;workweek&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span><span class="s1">&#39;Sat&#39;</span><span class="p">])</span>
 <span class="n">timeseries</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="c1">#dmytro todo: clean almost null rows</span>
 </pre></div>
 
     </div>
@@ -1399,6 +1401,7 @@ timesheet            shape:    1792    rows 	 and     14     columns
 <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[[</span><span class="s1">&#39;User&#39;</span><span class="p">,</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;Billable&#39;</span><span class="p">,</span><span class="s1">&#39;effort&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">projects</span><span class="p">[[</span><span class="s1">&#39;Project&#39;</span><span class="p">,</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="s1">&#39;Project&#39;</span><span class="p">)</span>
 <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;BASE RATE USD&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">def_revenue</span><span class="p">)</span>
 <span class="c1"># todo: Dmytro - anything simpler to remove all starting with &quot;EXT&quot; than lambda?</span>
+<span class="c1"># revenue_df.drop(revenue_df[&#39;User&#39;].str.contains(&#39;EXT&#39;))</span>
 <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;User&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="o">!=</span><span class="s1">&#39;EXT&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">revenue_df</span> <span class="o">=</span> <span class="n">revenue_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">revenue_df</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="c1"># MAX TODO: implement FF revenue</span>
@@ -1437,51 +1440,630 @@ timesheet            shape:    1792    rows 	 and     14     columns
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th>month</th>
-      <th>2020-02</th>
-      <th>2020-03</th>
-      <th>2020-04</th>
-    </tr>
-    <tr>
+      <th></th>
       <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Project</th>
+      <th>Billable</th>
+      <th>effort</th>
+      <th>date</th>
+      <th>month</th>
+      <th>BASE RATE USD</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>CATTY THE NEW MANAGER</th>
-      <td>11550.000</td>
-      <td>19350.00</td>
-      <td>9412.500</td>
+      <th>0</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-16</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
     </tr>
     <tr>
-      <th>FRANK THE CONSTULANT</th>
-      <td>15750.000</td>
-      <td>12425.00</td>
-      <td>14875.000</td>
+      <th>1</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-16</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
     </tr>
     <tr>
-      <th>IVAN THE PROGRAMMER</th>
-      <td>25062.500</td>
-      <td>29043.75</td>
-      <td>25643.750</td>
+      <th>2</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-16</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
     </tr>
     <tr>
-      <th>JACK THE EXPERT</th>
-      <td>29093.750</td>
-      <td>31331.25</td>
-      <td>24843.750</td>
+      <th>3</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-16</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
     </tr>
     <tr>
-      <th>JACK THE MANAGER</th>
-      <td>24090.625</td>
-      <td>22318.75</td>
-      <td>18821.875</td>
+      <th>4</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.3750</td>
+      <td>2020-02-17</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.3125</td>
+      <td>2020-02-17</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.3125</td>
+      <td>2020-02-17</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-17</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.3750</td>
+      <td>2020-02-18</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-18</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.3750</td>
+      <td>2020-02-18</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-18</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-19</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-19</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.3750</td>
+      <td>2020-02-19</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.1250</td>
+      <td>2020-02-19</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-20</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-20</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.5000</td>
+      <td>2020-02-20</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-20</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-21</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.2500</td>
+      <td>2020-02-21</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.3750</td>
+      <td>2020-02-21</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-21</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-22</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-22</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-22</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>A pilot for huge opportunity</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-02-22</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-23</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>CATTY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 2</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-02-23</td>
+      <td>2020-02</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>12514</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-23</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12515</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-23</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12516</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-23</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12517</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-23</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12518</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Transition from another product</td>
+      <td>False</td>
+      <td>0.0625</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12519</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Full implementation for mid-size</td>
+      <td>False</td>
+      <td>0.0625</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12520</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12521</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12522</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0625</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12523</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-24</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12524</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Transition from another product</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12525</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Full implementation for mid-size</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12526</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12527</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12528</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12529</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>PRJ d41d8cd98f</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-25</td>
+      <td>2020-04</td>
+      <td>1200.0</td>
+    </tr>
+    <tr>
+      <th>12530</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-26</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12531</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-26</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12532</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-27</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12533</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-27</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12534</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-28</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12535</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-28</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12536</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0625</td>
+      <td>2020-04-29</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12537</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0625</td>
+      <td>2020-04-29</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12538</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>0.0000</td>
+      <td>2020-04-30</td>
+      <td>2020-04</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12539</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>0.0000</td>
+      <td>2020-04-30</td>
+      <td>2020-04</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12540</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>2020-05-01</td>
+      <td>2020-05</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12541</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>2020-05-01</td>
+      <td>2020-05</td>
+      <td>1300.0</td>
+    </tr>
+    <tr>
+      <th>12542</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region 2</td>
+      <td>False</td>
+      <td>NaN</td>
+      <td>2020-05-02</td>
+      <td>2020-05</td>
+      <td>1250.0</td>
+    </tr>
+    <tr>
+      <th>12543</th>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>2020-05-02</td>
+      <td>2020-05</td>
+      <td>1300.0</td>
     </tr>
   </tbody>
 </table>
+<p>12544 rows × 7 columns</p>
 </div>
 </div>
 
@@ -1836,10 +2418,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="99cba27c-58b5-48f4-9fe7-2926793a8b86"></div>
+<div id="077920c2-b5fe-485c-91d1-fba9effd046c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#99cba27c-58b5-48f4-9fe7-2926793a8b86');
+var element = $('#077920c2-b5fe-485c-91d1-fba9effd046c');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
