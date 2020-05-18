@@ -1,1 +1,1 @@
-Sitemap: https://h17.github.io/fastreport/sitemap.xml
+Sitemap: yourdatablog.com/fastreport/sitemap.xml
