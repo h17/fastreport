@@ -1,1 +1,1 @@
-Sitemap: yourdatablog.com/blog/sitemap.xml
+Sitemap: yourdatablog.com/sitemap.xml

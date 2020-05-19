@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>yourdatablog.com/blog/2020/04/01/QuickPlan.html</loc>
+<loc>yourdatablog.com/2020/04/01/QuickPlan.html</loc>
 <lastmod>2020-04-01T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/blog/management/python/2020/05/09/Simple-Intro.html</loc>
+<loc>yourdatablog.com/management/python/2020/05/09/Simple-Intro.html</loc>
 <lastmod>2020-05-09T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/blog/management/python/2020/05/19/Simple-Intro.html</loc>
+<loc>yourdatablog.com/management/python/2020/05/19/Simple-Intro.html</loc>
 <lastmod>2020-05-19T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/blog/about/</loc>
+<loc>yourdatablog.com/about/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/blog/</loc>
+<loc>yourdatablog.com/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/blog/search/</loc>
+<loc>yourdatablog.com/search/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/blog/categories/</loc>
+<loc>yourdatablog.com/categories/</loc>
 </url>
 </urlset>
