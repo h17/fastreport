@@ -1,1 +1,1 @@
-Sitemap: yourdatablog.com/fastreport/sitemap.xml
+Sitemap: https://yourdatablog.com/fastreport/sitemap.xml
