@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>yourdatablog.com/2020/04/01/QuickPlan.html</loc>
+<loc>yourdatablog.com/fastreport/2020/04/01/QuickPlan.html</loc>
 <lastmod>2020-04-01T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/test</loc>
+<loc>yourdatablog.com/fastreport/test</loc>
 <lastmod>2020-05-09T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/fastreport/</loc>
+<loc>yourdatablog.com/fastreport/fastreport/</loc>
 <lastmod>2020-05-19T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>yourdatablog.com/about/</loc>
+<loc>yourdatablog.com/fastreport/about/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/</loc>
+<loc>yourdatablog.com/fastreport/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/search/</loc>
+<loc>yourdatablog.com/fastreport/search/</loc>
 </url>
 <url>
-<loc>yourdatablog.com/categories/</loc>
+<loc>yourdatablog.com/fastreport/categories/</loc>
 </url>
 </urlset>
