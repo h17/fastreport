@@ -15,7 +15,7 @@ github_repo: "fastreport"
 # OPTIONAL: override baseurl and url if using a custom domain
 # Note: leave out the trailing / from this value. 
 #url: "https://h17.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-url: "https://yourdatablog.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "yourdatablog.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 
 ###########################################################
