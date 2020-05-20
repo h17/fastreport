@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      19 min read
     
 </span></p>
 
@@ -1966,10 +1966,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="0d11833d-b641-490c-a440-ad671e433d5a"></div>
+<div id="001f6205-841e-451d-a0fe-db62d6a492ca"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0d11833d-b641-490c-a440-ad671e433d5a');
+var element = $('#001f6205-841e-451d-a0fe-db62d6a492ca');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -2772,7 +2772,12 @@ if (IPython.notebook.kernel != null) {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Simple anomalies detection</span>
-<span class="c1"># TODO: call for action, intro to next paper</span>
+<span class="c1"># need to identify series of 5 or more consequtive (weekend exluded) entries, where effort is the same and != 8 hours</span>
+<span class="c1"># so all timesheet series (Project p, User u, Date d) where</span>
+<span class="c1"># timesheet[p, u, d] = timesheet[p, u, d+1] =... = timesheet[p,u,d+4]</span>
+<span class="c1"># timesheet[p, u, d] &lt; 1</span>
+<span class="c1"># (if &quot;5&quot; gives us no output - check 3)</span>
+<span class="c1"># I can&#39;t think of a decent formula (unless I iterate over array)</span>
 </pre></div>
 
     </div>
