@@ -16,7 +16,7 @@ so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level
 By the time we proceeded to kayak in the middle of Ocala National Forest (see photo below), we decided to synthesize our experiences and create this blog - we talk here about
 applications of Data Science to Project Management and General Management - and other topics we might find of interest.  
 
-![Florida](https://github.com/h17/fastreport/blob/master/images/FloridaWithCrocodiles.png)
+![Florida](https://raw.githubusercontent.com/h17/fastreport/master/images/FloridaWithCrocodiles.png)
 
 
 Have something to add or a comment? Contact us via <a href="mailto:yourdatablog@gmail.com">email</a> 
