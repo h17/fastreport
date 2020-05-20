@@ -13,8 +13,8 @@ and got fascinated by various applications of Data Science to topics it is typic
 not only by data scientists, but also by practitioners in different industries. Python is fairly simple (if you want to keep doing simple things) - 
 so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level of understanding python.
 
-By the time we proceeded to kayak in the middle of Ocala National Forest (see photo below), we decided to synthesize our experiences and create this blog - we talk here about
-applications of Data Science to Project Management and General Management - and other topics we might find of interest.  
+By the time we proceeded to kayak in the middle of Ocala National Forest (see photo below), we decided to synthesize our experiences and create this blog about
+applications of Data Science to Project Management and General Management and other topics we might find of interest.  
 
 ![Florida](https://raw.githubusercontent.com/h17/fastreport/master/images/FloridaWithCrocodiles.png)
 
