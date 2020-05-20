@@ -12,8 +12,12 @@ While travelling from New York to Florida by car in 2019 we've discussed many th
 and got fascinated by various applications of Data Science to topics it is typically not applied to. For example, how data science techninques can be applied 
 not only by data scientists, but also by practitioners in different industries. Python is fairly simple (if you want to keep doing simple things) - 
 so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level of understanding python.
-We decided to synthesize our experiences and create this blog - we talk here about
-applications of Data Science to Project Management and General Management - and other topics we might find of interest. 
+
+By the time we proceeded to kayak in the middle of Ocala National Forest (see photo below), we decided to synthesize our experiences and create this blog - we talk here about
+applications of Data Science to Project Management and General Management - and other topics we might find of interest.  
+
+![](images/FloridaWithCrocodiles.png)
+
 
 Have something to add or a comment? Contact us via <a href="mailto:yourdatablog@gmail.com">email</a> 
 
