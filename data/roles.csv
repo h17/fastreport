@@ -1,10 +1,10 @@
-﻿Position Name;Position;Level;EU;UK;CH
-DIRECTOR;DIR;SENIOR;1100;1300;1100
-Program Manager;PRA;SEASONED;900;1000;900
+﻿ROLE;Position;Level;EU;UK;CH
+DIRECTOR;DIR;SENIOR;1.100;1.300;1.100
+Program Manager;PRA;EXPERIENCED;900;1.000;900
 Project Manager;PRO;SENIOR;800;800;800
-Project Coordinator;PRO;SEASONED;700;700;700
-Solution Architect;CON;EXPERT;900;1000;1050
+Project Coordinator;PRO;EXPERIENCED;700;700;700
+Solution Architect;CON;EXPERT;900;1.000;1.050
 Senior Consultant;CON;SENIOR;800;800;900
-Consultant;CON;SEASONED;550;550;550
+Consultant;CON;EXPERIENCED;550;550;550
 Associate / Graduate / Junior Consultant;CON;JUNIOR;500;500;500
-Technical Consultant;TEC;SEASONED;600;600;600
+Technical Consultant;TEC;EXPERIENCED;600;600;600
