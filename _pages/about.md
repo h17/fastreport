@@ -8,7 +8,14 @@ Data Science and Management by <a href="https://www.linkedin.com/in/dmytrokaraba
 
 Management and Data Science by <a href="http://maximk.com">Maxim Korotkov</a>
 
-Contact us via <a href="mailto:yourdatablog@gmail.com">email</a> 
+While travelling from New York to Florida by car in 2019 we've discussed many things 
+and got fascinated by various applications of Data Science to topics it is typically not applied to. For example, how data science techinques can be applied 
+not only by data scientists, but also by practicioners in different industries. Python is fairly simple (if you want to keep doing simple things) - 
+so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level of understanding python.
+We decided to synthesize our experiences and create this blog - we talk here about
+applications of Data Science to Project Management and General Management - and other topics we might find of interest. 
+
+Have something to say? Contact us via <a href="mailto:yourdatablog@gmail.com">email</a> 
 
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
