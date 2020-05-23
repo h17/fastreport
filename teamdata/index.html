@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      19 min read
+      21 min read
     
 </span></p>
 
@@ -1966,10 +1966,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="52c32d20-d747-47b2-80d7-e8a415a466c0"></div>
+<div id="2aa5ef7a-74c9-4bfd-b6ea-3ec22d1b87ef"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#52c32d20-d747-47b2-80d7-e8a415a466c0');
+var element = $('#2aa5ef7a-74c9-4bfd-b6ea-3ec22d1b87ef');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -2778,9 +2778,294 @@ if (IPython.notebook.kernel != null) {
 <span class="c1"># timesheet[p, u, d] &lt; 1</span>
 <span class="c1"># (if &quot;5&quot; gives us no output - check 3)</span>
 <span class="c1"># I can&#39;t think of a decent formula (unless I iterate over array)</span>
+
+<span class="c1"># remove the weekend</span>
+<span class="n">working</span> <span class="o">=</span> <span class="n">timeseries</span><span class="p">[(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;workweek&#39;</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">timeseries</span><span class="p">[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">working</span><span class="p">[</span><span class="s1">&#39;value_grp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">working</span><span class="o">.</span><span class="n">effort</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="n">working</span>
+
+<span class="n">rslt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;BeginDate&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span> 
+              <span class="s1">&#39;EndDate&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">last</span><span class="p">(),</span>
+              <span class="s1">&#39;Consecutive&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> 
+              <span class="s1">&#39;effort&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">effort</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span> 
+              <span class="s1">&#39;User&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span>
+              <span class="s1">&#39;Project&#39;</span> <span class="p">:</span> <span class="n">working</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;value_grp&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Project</span><span class="o">.</span><span class="n">first</span><span class="p">()})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rslt</span> <span class="o">=</span> <span class="n">rslt</span><span class="p">[(</span><span class="n">rslt</span><span class="p">[</span><span class="s1">&#39;Consecutive&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)]</span>
+<span class="n">rslt</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\ProgramData\Anaconda3\lib\site-packages\ipykernel_launcher.py:11: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  # This is added back by InteractiveShellApp.init_path()
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Project</th>
+      <th>Activity</th>
+      <th>User</th>
+      <th>Effort Type</th>
+      <th>effort</th>
+      <th>Billable</th>
+      <th>date</th>
+      <th>weekday</th>
+      <th>month</th>
+      <th>weekend</th>
+      <th>workweek</th>
+      <th>value_grp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4</th>
+      <td>Upgrade in two contracts - 1</td>
+      <td>Consultancy</td>
+      <td>CATHY THE NEW MANAGER</td>
+      <td>Actual</td>
+      <td>0.3750</td>
+      <td>True</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>2020-02</td>
+      <td>False</td>
+      <td>True</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Upgrade in two contracts - 2</td>
+      <td>Consultancy</td>
+      <td>CATHY THE NEW MANAGER</td>
+      <td>Actual</td>
+      <td>0.3125</td>
+      <td>True</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>2020-02</td>
+      <td>False</td>
+      <td>True</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>A pilot for huge opportunity</td>
+      <td>Consultancy</td>
+      <td>CATHY THE NEW MANAGER</td>
+      <td>Actual</td>
+      <td>0.3125</td>
+      <td>True</td>
+      <td>2020-02-17</td>
+      <td>Mon</td>
+      <td>2020-02</td>
+      <td>False</td>
+      <td>True</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>12522</th>
+      <td>Strategic project in a new region</td>
+      <td>Project Management</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Actual</td>
+      <td>0.0625</td>
+      <td>True</td>
+      <td>2020-04-24</td>
+      <td>Fri</td>
+      <td>2020-04</td>
+      <td>False</td>
+      <td>True</td>
+      <td>2965</td>
+    </tr>
+    <tr>
+      <th>12536</th>
+      <td>Strategic project in a new region 2</td>
+      <td>Consultancy</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Actual</td>
+      <td>0.0625</td>
+      <td>False</td>
+      <td>2020-04-29</td>
+      <td>Wed</td>
+      <td>2020-04</td>
+      <td>False</td>
+      <td>True</td>
+      <td>2965</td>
+    </tr>
+    <tr>
+      <th>12537</th>
+      <td>Strategic project in a new region</td>
+      <td>Project Management</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Reported</td>
+      <td>0.0625</td>
+      <td>True</td>
+      <td>2020-04-29</td>
+      <td>Wed</td>
+      <td>2020-04</td>
+      <td>False</td>
+      <td>True</td>
+      <td>2965</td>
+    </tr>
+  </tbody>
+</table>
+<p>4336 rows × 12 columns</p>
+</div>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>BeginDate</th>
+      <th>EndDate</th>
+      <th>Consecutive</th>
+      <th>effort</th>
+      <th>User</th>
+      <th>Project</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>67</th>
+      <td>2020-04-06</td>
+      <td>2020-04-06</td>
+      <td>3</td>
+      <td>0.0625</td>
+      <td>CATHY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>2020-04-06</td>
+      <td>2020-04-06</td>
+      <td>3</td>
+      <td>0.1250</td>
+      <td>CATHY THE NEW MANAGER</td>
+      <td>Upgrade in two contracts - 1</td>
+    </tr>
+    <tr>
+      <th>140</th>
+      <td>2020-03-05</td>
+      <td>2020-03-16</td>
+      <td>5</td>
+      <td>0.5000</td>
+      <td>EXT 08a7eee3f6</td>
+      <td>PRJ d41d8cd98f</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2942</th>
+      <td>2020-02-24</td>
+      <td>2020-03-18</td>
+      <td>3</td>
+      <td>0.1250</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Strategic project in a new region</td>
+    </tr>
+    <tr>
+      <th>2952</th>
+      <td>2020-04-06</td>
+      <td>2020-04-06</td>
+      <td>3</td>
+      <td>0.0625</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Transition from another product</td>
+    </tr>
+    <tr>
+      <th>2964</th>
+      <td>2020-04-23</td>
+      <td>2020-04-29</td>
+      <td>6</td>
+      <td>0.0625</td>
+      <td>TOM THE TEAM LEADER</td>
+      <td>Transition from another product</td>
+    </tr>
+  </tbody>
+</table>
+<p>202 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
