@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://yourdatablog.com/management/python/erp/enterprise%20resource%20planning/data%20science/2020/05/19/Working-with-team-data.html</loc>
+<loc>https://yourdatablog.com/teamdata/</loc>
 <lastmod>2020-05-19T00:00:00-05:00</lastmod>
+</url>
+<url>
+<loc>https://yourdatablog.com/teamdata2/</loc>
+<lastmod>2020-05-31T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>https://yourdatablog.com/about/</loc>
