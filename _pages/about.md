@@ -4,12 +4,11 @@ title: About Us
 permalink: /about/
 ---
 
-<p style='text-align: justify'>
 Data Science and Management by <a href="https://www.linkedin.com/in/dmytrokarabash/">Dmytro Karabash</a>
 
 Management and Data Science by <a href="http://maximk.com">Maxim Korotkov</a>
 
-
+<p align="justify">
 While traveling from New York to Florida by car in 2019 we've discussed many things and got fascinated by various applications of 
 Data Science to topics it is typically not applied to. For example, how data science techniques can be applied not only by data 
 scientists but also by practitioners in different industries. Python is relatively simple (if you want to keep doing simple things) - 
