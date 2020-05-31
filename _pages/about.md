@@ -4,9 +4,11 @@ title: About Us
 permalink: /about/
 ---
 
+<p style='text-align: justify'>
 Data Science and Management by <a href="https://www.linkedin.com/in/dmytrokarabash/">Dmytro Karabash</a>
 
 Management and Data Science by <a href="http://maximk.com">Maxim Korotkov</a>
+
 
 While traveling from New York to Florida by car in 2019 we've discussed many things and got fascinated by various applications of 
 Data Science to topics it is typically not applied to. For example, how data science techniques can be applied not only by data 
@@ -16,6 +18,8 @@ so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level
 We proceeded to kayak in the middle of Ocala National Forest (see photo below). 
 We decided to synthesize our experiences and create this blog about applications of Data Science to Project Management and 
 General Management and other topics we might find of interest.
+</p>
+
 
 ![Florida](https://raw.githubusercontent.com/h17/fastreport/master/images/FloridaWithCrocodiles.png)
 
