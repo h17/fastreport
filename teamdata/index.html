@@ -275,7 +275,7 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Or get list of 3 people with most billable hours in March via following statement</p>
+<p>Or get a list of 3 people with most billable hours in March via the following statement</p>
 <div class="highlight"><pre><span></span><span class="n">t</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2020-03&#39;</span><span class="p">)</span>
         <span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;User&#39;</span><span class="p">])[</span><span class="s1">&#39;effort&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
@@ -2070,10 +2070,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="ed15ea76-9ebf-4439-92b9-8fc77c222987"></div>
+<div id="d7a526fb-9b5e-4c86-8116-7f30881c8a21"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ed15ea76-9ebf-4439-92b9-8fc77c222987');
+var element = $('#d7a526fb-9b5e-4c86-8116-7f30881c8a21');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
