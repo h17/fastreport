@@ -66,6 +66,15 @@
   
 
   
+      ,"page5": {
+          "title": "Tags",
+          "content": "{% if site.categories.size &gt; 0 %} . Contents . {% assign categories = “” | split:”” %} {% for c in site.categories %} {% assign categories = categories | push: c[0] %} {% endfor %} {% assign categories = categories | sort_natural %} . {% for category in categories %} {{ category }} | {% endfor %} . {% for category in categories %} &lt;h3 id =&quot;{{ category }}&quot;&gt;&lt;/i&gt; {{ category }}&lt;/h3&gt; {% for post in site.categories[category] %} {%- assign date_format = site.minima.date_format | default: “%b %-d, %Y” -%} &lt;article class=&quot;archive-item&quot;&gt; &lt;p class=&quot;post-meta post-meta-title&quot;&gt;{{post.title}} • {{ post.date | date: date_format }}&lt;/p&gt; &lt;/article&gt; {% endfor %} {% endfor %} . {% endif %} .",
+          "url": "https://yourdatablog.com/categories/",
+          "relUrl": "/categories/",
+          "date": ""
+      }
+      
+  
 
   
   
