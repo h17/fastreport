@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      19 min read
     
 </span></p>
 
@@ -349,37 +349,7 @@ Not only as subtracting two numbers, but also on the level of tables - so the ou
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># collapse hide_input</span>
-
-<span class="n">timesheets</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">project_data</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s1">&#39;TS&#39;</span> <span class="ow">in</span> <span class="n">sheet</span><span class="p">:</span>
-        <span class="n">timesheets</span> <span class="o">+=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">project_data</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">project_data</span><span class="p">,</span> <span class="n">sheet</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">sheet</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span>
-<span class="k">if</span> <span class="s1">&#39;Sat.1&#39;</span> <span class="ow">in</span> <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>  <span class="c1"># cleaning from Sat.1</span>
-    <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">timesheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
-        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Sat&#39;</span><span class="p">:</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="s1">&#39;Sat.1&#39;</span><span class="p">:</span> <span class="s1">&#39;Sat&#39;</span><span class="p">})</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">timesheets</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Billable&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Non-Billable&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">][</span><span class="s1">&#39;Billable&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">][</span><span class="s1">&#39;Billing&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Billing&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">][</span><span class="o">~</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timesheet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span>
-<span class="mi">123</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-</p>
-    </details>
 <div class="output_wrapper">
 <div class="output">
 
@@ -2107,10 +2077,10 @@ Name: effort, dtype: float64</pre>
 
 
 
-<div id="67598d67-00b4-45a5-893b-eeef5b705c30"></div>
+<div id="c465223c-264a-4585-90e3-60a94ecd00e1"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#67598d67-00b4-45a5-893b-eeef5b705c30');
+var element = $('#c465223c-264a-4585-90e3-60a94ecd00e1');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
