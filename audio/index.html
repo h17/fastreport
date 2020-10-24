@@ -243,9 +243,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>To-Do : add an example</li>
-</ul>
+<p>Here's an example for extracting <em>log mel spectrogram</em> using <code>torchlibrosa</code>.</p>
 
 </div>
 </div>
@@ -257,13 +255,29 @@ window.onload = wrap_img;
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torchlibrosa.stft</span> <span class="kn">import</span> <span class="n">LogmelFilterBank</span><span class="p">,</span> <span class="n">Spectrogram</span>
 
 
 <span class="k">class</span> <span class="nc">AudioProcessing</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sample_rate</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32000</span><span class="p">,</span>
+            <span class="n">mel_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span>
+            <span class="n">freq_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="n">freq_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14000</span><span class="p">,</span>
+            <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span>
+            <span class="n">hop_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span>
+            <span class="n">window</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;hann&#39;</span><span class="p">,</span>
+            <span class="n">center</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">pad_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;reflect&#39;</span><span class="p">,</span>
+            <span class="n">ref</span><span class="p">:</span> <span class="nb">float</span>  <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">amin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">,</span>
+            <span class="n">top_db</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">spectrogram_extractor</span> <span class="o">=</span> <span class="n">Spectrogram</span><span class="p">(</span>
@@ -276,21 +290,21 @@ window.onload = wrap_img;
             <span class="n">freeze_parameters</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logmel_extractor</span> <span class="o">=</span> <span class="n">LogmelFilterBank</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_mel_extractor</span> <span class="o">=</span> <span class="n">LogmelFilterBank</span><span class="p">(</span>
             <span class="n">sr</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span>
             <span class="n">n_fft</span><span class="o">=</span><span class="n">window_size</span><span class="p">,</span>
             <span class="n">n_mels</span><span class="o">=</span><span class="n">mel_bins</span><span class="p">,</span>
-            <span class="n">fmin</span><span class="o">=</span><span class="n">fmin</span><span class="p">,</span>
-            <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span>
+            <span class="n">fmin</span><span class="o">=</span><span class="n">freq_min</span><span class="p">,</span>
+            <span class="n">fmax</span><span class="o">=</span><span class="n">freq_max</span><span class="p">,</span>
             <span class="n">ref</span><span class="o">=</span><span class="n">ref</span><span class="p">,</span>
             <span class="n">amin</span><span class="o">=</span><span class="n">amin</span><span class="p">,</span>
             <span class="n">top_db</span><span class="o">=</span><span class="n">top_db</span><span class="p">,</span>
             <span class="n">freeze_parameters</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectrogram_extractor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># (batch_size, 1, time_steps, freq_bins)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logmel_extractor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>       <span class="c1"># (batch_size, 1, time_steps, mel_bins)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_mel_extractor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># (batch_size, 1, time_steps, mel_bins)</span>
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 
