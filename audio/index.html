@@ -227,23 +227,13 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There're lots of feature extraction methods from the audio signal like <em>Spectrogram</em>, <em>MFCC</em>, and there're a few great libraries that allow us to use easily, for example, <code>librosa</code>. However, extracting these features from the signals takes a bit of time, especially for extracting features from tons of long audios. By the following, when extracting features and training a neural network, sometimes it becomes a bottleneck because of computation power.</p>
 <p>To resolve the issue, we utilize a library, <code>torchlibrosa</code>, PyTorch implementation of <code>librosa</code>. One of the advantages of using the library is it can run on <strong>GPU</strong>, faster than running on <strong>CPU</strong>.</p>
-<p>Here is a benchmark between running on GPU and CPU.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>To-Do : add a benchmark</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here's an example for extracting <em>log mel spectrogram</em> using <code>torchlibrosa</code>.</p>
+<p>Here's an example for extracting <em>log mel spectrogram</em> features using <code>torchlibrosa</code>.</p>
 
 </div>
 </div>
@@ -317,6 +307,22 @@ window.onload = wrap_img;
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is a benchmark between running on GPU (<code>torchlibrosa</code>) and CPU (<code>librosa</code>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>To-Do : add a benchmark</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Architecture">Architecture<a class="anchor-link" href="#Architecture"> </a></h2>
 </div>
 </div>
@@ -344,11 +350,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Training Recipe is also the most crucial part of deep-learning. It also determines the performance of the architecture by optimizers, a learning rate scheduler, augmentations, etc.</p>
-<ul>
-<li>augmentations</li>
-<li>hyper-parameters</li>
-<li>etc...</li>
-</ul>
+<p>Especially, in this article, mainly we are going to talk about the augmentations.</p>
 
 </div>
 </div>
