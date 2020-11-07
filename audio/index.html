@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      6 min read
     
 </span></p>
 
@@ -218,23 +218,21 @@ Unlike sound classification tasks, sound event detection (SED) is a task to dete
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the previous post that <code>Tony</code> wrote, he explains well why and how we should process the audio data into <em>Spectrogram</em> to give to a deep learning model as an input. Continuing from the post, the speed of data processing is one of the keys to utilizing a deep learning model. Although the increment of computation power, the computation cost of audio processing is still expensive. However, if we choose a better computation resource to process the data like a Graphic Process Unit (<a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>), it can boost the speed of about ten to one hundred times faster!</p>
-<p>In this post, we will show how to process <em>Spectrogram</em> fast by utilizing a library called <code>torchlibrosa</code> that enables us to process <code>Spectrogram</code> on GPU.</p>
+<p>In the previous post that <code>Tony</code> wrote, he explains well why and how we should process the audio data into <em>Spectrogram</em> to give to a deep learning model as an input. Continuing from the post, the speed of data processing is one of the keys to utilizing a deep learning model. Although the increment of computation power, the computation cost of audio processing is still expensive on a Central Processing Unit (<a href="https://en.wikipedia.org/wiki/Central_processing_unit">CPU</a>). However, if we choose a better computation resource to process the data like a Graphic Processing Unit (<a href="https://en.wikipedia.org/wiki/Graphics_processing_unit">GPU</a>), it can boost the speed of about ten to one hundred times faster! In this post, we will show how to process <em>Spectrogram</em> fast by utilizing a library called <code>torchlibrosa</code> that enables us to process <code>Spectrogram</code> on GPU.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>...</p>
+<p><code>torchlibrosa</code> is a <code>Python</code> library that has some audio processing functions implemented in <code>PyTorch</code> that can utilize <code>GPU</code> resources. By implementing the <code>Spectrogram</code> algorithm in <code>PyTorch</code> which is a deep learning framework, it can run via a GPU device. Here's an example of extracting <em>Spectrogram</em> features from the fiven raw audio using <code>torchlibrosa</code>.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here's an example of extracting <em>Spectrogram</em> features using <code>torchlibrosa</code>. By implementing the <code>Spectrogram</code> algorithm into <code>PyTorch</code> which is a deep learning framework, it is able to run via a GPU device.</p>
-
+<h3 id="Build-Spectrogram-processor">Build Spectrogram processor<a class="anchor-link" href="#Build-Spectrogram-processor"> </a></h3>
 </div>
 </div>
 </div>
@@ -245,17 +243,23 @@ Unlike sound classification tasks, sound event detection (SED) is a task to dete
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torchlibrosa.stft</span> <span class="kn">import</span> <span class="n">Spectrogram</span>
-
 
 <span class="k">class</span> <span class="nc">AudioProcessing</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">hop_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">320</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">spectrogram_extractor</span> <span class="o">=</span> <span class="n">Spectrogram</span><span class="p">(</span><span class="n">hop_length</span><span class="o">=</span><span class="n">hop_size</span><span class="p">,</span> <span class="n">win_length</span><span class="o">=</span><span class="n">window_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectrogram_extractor</span> <span class="o">=</span> <span class="n">Spectrogram</span><span class="p">(</span>
+            <span class="n">hop_length</span><span class="o">=</span><span class="n">hop_size</span><span class="p">,</span> 
+            <span class="n">win_length</span><span class="o">=</span><span class="n">window_size</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectrogram_extractor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># building processor</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">AudioProcessing</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -267,6 +271,161 @@ Unlike sound classification tasks, sound event detection (SED) is a task to dete
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Load-audio-data">Load audio data<a class="anchor-link" href="#Load-audio-data"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can lightly load audio data via <code>librosa</code> library, which is one of the popular <code>Python</code> audio processing libraries.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">librosa</span>
+
+<span class="c1"># get raw audio data</span>
+<span class="n">example</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;example.wav&#39;</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">32000</span><span class="p">,</span> <span class="n">mono</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">example</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Process-Spectrogram-via-torchlibrosa">Process <code>Spectrogram</code> via <code>torchlibrosa</code><a class="anchor-link" href="#Process-Spectrogram-via-torchlibrosa"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spectrogram</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+<span class="n">spectrogram</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>  <span class="c1"># (batch_size, 1 (=mono), time_steps, freq_bins)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's it! like the above example code, we can process <code>Spectrogram</code> fast by utilizing <code>torchlibrosa</code> successfully.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Benchmark-processing-speed">Benchmark processing speed<a class="anchor-link" href="#Benchmark-processing-speed"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can check that we can process audio data on the GPU by using torchlibrosa library. Also you may wonder how much faster on the GPU. Here's the speed of processing the benchmark between CPU and GPU devices. We just selected randomly about 1,000 audios from <code>UrbanSound</code> dataset, which is publicly available and compare how long it takes on <code>CPU</code> and <code>GPU</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="n">root_path</span> <span class="o">=</span> <span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">DataSet</span><span class="se">\\</span><span class="s1">UrbanSound</span><span class="se">\\</span><span class="s1">audio</span><span class="se">\\</span><span class="s1">fold1&#39;</span>
+<span class="n">audio_paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;*.wav&#39;</span><span class="p">)))</span>
+
+<span class="n">raw_audios</span> <span class="o">=</span> <span class="p">[</span><span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">audio_path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">32000</span><span class="p">,</span> <span class="n">mono</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">audio_path</span> <span class="ow">in</span> <span class="n">audio_paths</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="k">def</span> <span class="nf">get_spectrogram</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">stft</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">320</span><span class="p">)</span>
+    <span class="n">spectrogram</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stft</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">spectrogram</span>
+
+<span class="k">for</span> <span class="n">raw_audio</span> <span class="ow">in</span> <span class="n">raw_audios</span><span class="p">:</span>
+    <span class="n">get_spectrogram</span><span class="p">(</span><span class="n">raw_audio</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="k">for</span> <span class="n">raw_audio</span> <span class="ow">in</span> <span class="n">raw_audios</span><span class="p">:</span>
+    <span class="n">processor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_audio</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>show how long is diff</li>
+<li>change the dataset to birdcall</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Deep-Learning-Architecture">Deep Learning Architecture<a class="anchor-link" href="#Deep-Learning-Architecture"> </a></h2>
 </div>
 </div>
@@ -276,6 +435,230 @@ Unlike sound classification tasks, sound event detection (SED) is a task to dete
 <p>As mentioned above, deep learning also shows a brilliant performance in the audio domain. It can catch various patterns of target classes nicely in the time-series data. The more important thing is the environment and data matter in birdcalls. The environments like fields or the middle of the mountains, there are lots of noises interfering with the birdcalls. There are lots of birds that can exist in long recorded audio. So considering these cases, we need to build a noise-robust, multi-label classifier.</p>
 <p>We are going to introduce a deep learning architecture designed in Cornel Birdcall Identification Kaggle Challenge.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Arhcitecture">Arhcitecture<a class="anchor-link" href="#Arhcitecture"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Summary</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(72000,)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Process-Spectrogram-via-torchlibrosa">Process <code>Spectrogram</code> via <code>torchlibrosa</code><a class="anchor-link" href="#Process-Spectrogram-via-torchlibrosa"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spectrogram</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+<span class="n">spectrogram</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>  <span class="c1"># (batch_size, 1 (=mono), time_steps, freq_bins)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([1, 1, 226, 1025])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's it! like the above example code, we can process <code>Spectrogram</code> fast by utilizing <code>torchlibrosa</code> successfully.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Benchmark-processing-speed">Benchmark processing speed<a class="anchor-link" href="#Benchmark-processing-speed"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can check that we can process audio data on the GPU by using torchlibrosa library. Also you may wonder how much faster on the GPU. Here's the speed of processing the benchmark between CPU and GPU devices. We just selected randomly about 1,000 audios from <code>UrbanSound</code> dataset, which is publicly available and compare how long it takes on <code>CPU</code> and <code>GPU</code>.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="n">root_path</span> <span class="o">=</span> <span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">DataSet</span><span class="se">\\</span><span class="s1">UrbanSound</span><span class="se">\\</span><span class="s1">audio</span><span class="se">\\</span><span class="s1">fold1&#39;</span>
+<span class="n">audio_paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root_path</span><span class="p">,</span> <span class="s1">&#39;*.wav&#39;</span><span class="p">)))</span>
+
+<span class="n">raw_audios</span> <span class="o">=</span> <span class="p">[</span><span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">audio_path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">32000</span><span class="p">,</span> <span class="n">mono</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">audio_path</span> <span class="ow">in</span> <span class="n">audio_paths</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="k">def</span> <span class="nf">get_spectrogram</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">stft</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="mi">320</span><span class="p">)</span>
+    <span class="n">spectrogram</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stft</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">spectrogram</span>
+
+<span class="k">for</span> <span class="n">raw_audio</span> <span class="ow">in</span> <span class="n">raw_audios</span><span class="p">:</span>
+    <span class="n">get_spectrogram</span><span class="p">(</span><span class="n">raw_audio</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Wall time: 3.09 s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+<span class="k">for</span> <span class="n">raw_audio</span> <span class="ow">in</span> <span class="n">raw_audios</span><span class="p">:</span>
+    <span class="n">processor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">raw_audio</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Wall time: 2.6 s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>show how long is diff</li>
+<li>change the dataset to birdcall</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Deep-Learning-Architecture">Deep Learning Architecture<a class="anchor-link" href="#Deep-Learning-Architecture"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As mentioned above, deep learning also shows a brilliant performance in the audio domain. It can catch various patterns of target classes nicely in the time-series data. The more important thing is the environment and data matter in birdcalls. The environments like fields or the middle of the mountains, there are lots of noises interfering with the birdcalls. There are lots of birds that can exist in long recorded audio. So considering these cases, we need to build a noise-robust, multi-label classifier.</p>
+<p>We are going to introduce a deep learning architecture designed in Cornel Birdcall Identification Kaggle Challenge.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Arhcitecture">Arhcitecture<a class="anchor-link" href="#Arhcitecture"> </a></h3>
 </div>
 </div>
 </div>
