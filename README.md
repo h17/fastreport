@@ -10,6 +10,19 @@ https://h17.github.io/fastreport/
 
 https://yourdatablog.com/
 
+Various data science competitions:
+
+https://towardsdatascience.com/top-competitive-data-science-platforms-other-than-kaggle-2995e9dad93c
+
+https://kaggle.com
+
+https://www.drivendata.org/competitions/
+
+
+https://www.kaggle.com/c/birdsong-recognition
+
+https://ai.facebook.com/blog/hateful-memes-challenge-and-data-set/
+
 # Data For Teams Blog
 
 

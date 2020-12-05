@@ -11,3 +11,8 @@ _notebooks/.ipynb_checkpoints
 .netlify
 .tweet-cache
 __pycache__
+data/tickers
+_notebooks/2020-07-01-Predicting-Over-Budget-Projects.ipynb
+data/d10y
+data/finance/tickers
+data/finance/u7000monthly.pkl
