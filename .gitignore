@@ -18,4 +18,3 @@ data/finance/tickers
 data/finance/u7000monthly.pkl
 _notebooks/rainbow_research.csv
 _notebooks/rainbow_research_feature_selection.csv
-.DS_Store
