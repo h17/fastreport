@@ -16,3 +16,5 @@ _notebooks/2020-07-01-Predicting-Over-Budget-Projects.ipynb
 data/d10y
 data/finance/tickers
 data/finance/u7000monthly.pkl
+_notebooks/rainbow_research.csv
+_notebooks/rainbow_research_feature_selection.csv
