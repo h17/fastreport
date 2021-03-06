@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Encoding Categorical Variables. The Rainbow Method | Your Data Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Encoding Categorical Variables. The Rainbow Method" />
+<meta name="author" content="Anna Arakelyan, Dmytro Karabash" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="When the nature gives you a rainbow, take it." />
+<meta property="og:description" content="When the nature gives you a rainbow, take it." />
+<link rel="canonical" href="https://yourdatablog.com/rainbow/" />
+<meta property="og:url" content="https://yourdatablog.com/rainbow/" />
+<meta property="og:site_name" content="Your Data Blog" />
+<meta property="og:image" content="https://yourdatablog.com/audio2images/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"headline":"Encoding Categorical Variables. The Rainbow Method","dateModified":"2021-03-15T00:00:00-05:00","datePublished":"2021-03-15T00:00:00-05:00","description":"When the nature gives you a rainbow, take it.","image":"https://yourdatablog.com/audio2images/","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow/"},"@type":"BlogPosting","url":"https://yourdatablog.com/rainbow/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://yourdatablog.com/feed.xml" title="Your Data Blog" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Encoding Categorical Variables. The Rainbow Method | Your Data Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Encoding Categorical Variables. The Rainbow Method" />
+<meta name="author" content="Anna Arakelyan, Dmytro Karabash" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="When the nature gives you a rainbow, take it." />
+<meta property="og:description" content="When the nature gives you a rainbow, take it." />
+<link rel="canonical" href="https://yourdatablog.com/rainbow/" />
+<meta property="og:url" content="https://yourdatablog.com/rainbow/" />
+<meta property="og:site_name" content="Your Data Blog" />
+<meta property="og:image" content="https://yourdatablog.com/audio2images/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-15T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"headline":"Encoding Categorical Variables. The Rainbow Method","dateModified":"2021-03-15T00:00:00-05:00","datePublished":"2021-03-15T00:00:00-05:00","description":"When the nature gives you a rainbow, take it.","image":"https://yourdatablog.com/audio2images/","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow/"},"@type":"BlogPosting","url":"https://yourdatablog.com/rainbow/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://yourdatablog.com/feed.xml" title="Your Data Blog" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script type="text/javascript">
+require.config({
+  paths: {
+    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
+    plotly: 'https://cdn.plot.ly/plotly-latest.min'
+  },
+
+  shim: {
+    plotly: {
+      deps: ['jquery'],
+      exports: 'plotly'
+    }
+  }
+});
+</script>
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Your Data Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Us</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Encoding Categorical Variables. The Rainbow Method</h1><p class="page-description">When the nature gives you a rainbow, take it.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-15T00:00:00-05:00" itemprop="datePublished">
+        Mar 15, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Anna Arakelyan, Dmytro Karabash</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      14 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#data science">data science</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#classification">classification</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#encoding">encoding</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/h17/fastreport/tree/master/_notebooks/2021-03-15-Rainbow.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/h17/fastreport/master?filepath=_notebooks%2F2021-03-15-Rainbow.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/h17/fastreport/blob/master/_notebooks/2021-03-15-Rainbow.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-03-15-Rainbow.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Data encoding is the crucial part of any data science pipeline. No matter what is the final goal or which machine learning algorithm will be used - there is no avoiding of data massaging, cleaning, and encoding. Given that real data sets are rarely as clean and suited for analysis as toy data sets from data science classes, there is a number of decisions you have to make to encode and engineer features in the most appropriate and efficient way.
+While the encoding of quantitative and binary columns is generally straightforward, the encoding of categorical variables deserves a deeper look. 
+<br /><br />
+One of the most popular encoding methods for categorical variables has been the One-Hot procedure. It generates an indicator variable for every category and, thus, creates a set of K new features, where K is the number of categories.
+One significant implication of this method is the dimensionality increase. Depending on the magnitude of K, it can have various undesirable technical consequences: substantial raise of computational complexity, loss of degrees of freedom (N-K, where N is the number of samples), multicollinearity, and, ultimately, an overfitted model. Non-technical consequences include unnecessary complication of the model that should be communicated to final users and that contradict the law of parsimony, also known as Occam's razor.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-a-Rainbow?">What is a Rainbow?<a class="anchor-link" href="#What-is-a-Rainbow?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Instead of One-Hot, we propose an alternative way to encode categorical variables. Imagine that instead of K features you would make only one. The trick is to treat categorical variables as quantitative and find a certain way to order categories.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Important note here:this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, decision trees, random forest, gradient boosting - these algorithms will output the same result if the variable <em>Number of Children</em> is coded as [1, 2, 3, 4, 5, ...] or as [-100, -85, 0, 10, 44, ...] as long as the categories have a correct order, and we use correct interpretation of non-meaningful values.The application of our method for other algorithms such as Linear Regression, Logistic Regression is out of scope of this article. We expect that such way of feature engineering would be still beneficial, but this is a subject of a different investigation.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The application of our method depends highly on the level of measurement. While <strong>quantitative</strong> variables have a <em>ratio</em> scale, i.e. they have a meaningful 0, ordered values, and equal distances between values; <strong>categorical</strong> variables usually have either <em>interval</em>, or <em>ordinal</em>, or <em>nominal</em> scales.
+Let us illustrate our method for each of these types of categorical variables.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Interval</strong> variables have ordered values, equal distances between values, but the value itself is not necessarily meaningful, for example, 0 does not always mean a complete absence of a quality. The common examples of interval variables are Likert scales:
+<br /></p>
+<hr />
+<p>"How likely is the person to buy a smartphone mobile phone?" 
+<br />
+1 = Very Unlikely <br />
+2 = Somewhat Unlikely<br />
+3 = Neither Likely, Nor Unlikely<br />
+4 = Somewhat Likely<br />
+5 = Very Likely</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In a straightforward way, if we simply use the raw values 1 through 5, that will save us dimensionality without losing a single bit of information. Indeed, the algorithm such as <em>xgboost</em> will make splits on this scale to introduce a new node any number of times it finds the best, instead of being forced to use the splits predetermined by One-Hot. With a large K, the algorithm would be forced into using big number of predermined splits which might be simply an overfit.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Ordinal</strong> variables have ordered values that are meaningless, and the distances between values are also not equal or not even explainable. An example: <br /></p>
+<hr />
+<p>"What is the highest level of Education completed by the person?"
+<br />
+1 = No High School<br />
+2 = High School <br />
+3 = Associate Degree <br />
+4 = Bachelor's Degree <br />
+5 = Master's Degree <br />
+6 = Doctoral Degree <br /></p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similar to interval variables, ordinal numeric codes can be used in the model without introducing any challenges, as long as the order is correct. In some cases, a variable is intrinsically ordinal, but the given numeric codes are not in the correct order - in these situations we could simply reorder categories and then use this updated variable as a quantitative feature.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Interval and ordinal categorical variables are probably not raising concerns as they are clearly perfect alternative to One-Hot for tree-based algorithms. The more complicated and non-obvious question is how to treat nominal variables.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Nominal</strong> variables have no obvious order between categories, and are almost always encoded with One-Hot method. A nice example of a nominal variable is</p>
+<hr />
+<p>"Color" <br />
+(For instance, which color marker a person have chosen in some psychological state)
+<br />
+A = Red <br />
+B = Blue <br />
+C = Green <br />
+D = Yellow <br /></p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the first glance it seems like we can't convert this variable to a quantitative scale. This is where our proposed method will help! We suggest <strong>finding a rainbow</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These seemingly unordered categories acquire a perfect order if we find a certain scale where each category fits into a unique place. With the color, such scale could be the Hue! In other words, the wavelength of the light is the factor the helps us order the colors into a perfect scale - a rainbow! So, following that logic, we would engineer a new feature:</p>
+<hr />
+<p>1 = Blue <br />
+2 = Green<br />
+3 = Yellow<br />
+4 = Red<br /></p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Hue is not the only way to order the colors. We could think of a few different scales, such as brightness, saturation, color temperature, lightness, etc. We invite you to experiment with a few different "rainbows" that might capture different nuances of the categorical quality. <br />Note that by using a rainbow rather than One-Hot we are not losing any of the signal, because, even if the categories are wildly different and each one introduces a substantial gain to the model, the algorithm such as <em>xgboost</em> would capture that by making all the needed splits when introducing new tree nodes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lets us show a few other examples of creating rainbows.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+<p>"Marital Status" <br />
+A = Married <br />
+B = Single <br />
+C = Inferred Married <br />
+D = Inferred Single <br /></p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we think about Single and Married as the two ends of the spectrum, then Inferred Single could be between the two, closer to Single while Inferred Married between the two closer to Married. That would make sense because being Inferred holds some degree of uncertainty. Thus, the following order would be reasonable:</p>
+<hr />
+<p>1 = Single <br />
+2 = Inferred Single <br />
+3 = Inferred Married <br />
+4 = Married</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In case there are any missing values here, the Unknown category fits exactly in the middle between Single and Married as there is no reason to prefer one end over the other. So the modified scale could look like this:</p>
+<hr />
+<p>1 = Single <br />
+2 = Inferred Single <br />
+3 = Unknown <br />
+3 = Inferred Married <br />
+4 = Married</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider another variable:</p>
+<hr />
+<p>"Occupation" <br />
+1 = Professional/Technical<br />
+2 = Administration/Managerial<br />
+3 = Sales/Service<br />
+4 = Clerical/White Collar<br />
+5 = Craftsman/Blue Collar<br />
+6 = Student<br />
+7 = Homemaker<br />
+8 = Retired<br />
+9 = Farmer<br />
+A = Military<br />
+B = Religious<br />
+C = Self Employed<br />
+D = Other<br /></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finding a rainbow here might be harder, but here are a few ways to do it - we could order occupations by average annual salary, by its prevalence in the geographic area of interest, or by !!!Dmytro, add smth!!!. That might involve calling a Census API or some other data source, and might be complicated by the fact that these values are not static, but they are still viable solutions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-if-there-is-no-natural-rainbow?">What if there is no natural rainbow?<a class="anchor-link" href="#What-if-there-is-no-natural-rainbow?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In some situations though we cannot find a logical order for the rainbow because the variable itself is not interpretable. An example could be a black box column made by a third party:</p>
+<hr />
+<p>"Financial Cluster" <br />
+1 = Market Watchers <br />
+2 = Conservative Wealth <br />
+3 = Specific Savers <br />
+4 = Tried and True <br />
+5 = Trendy Inclinations <br />
+6 = Current Consumers <br />
+7 = Rural Trust <br />
+8 = City Spotlight <br />
+9 = Career Conscious <br />
+10 = Digital Financiers <br />
+11 = Financial Futures <br />
+12 = Stable Influentials <br />
+13 = Conservatively Rural</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this case we might not have a clear idea how to order categories due to lack of knowledge of what each category entails. What to do with such variables?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We recommend creating an artificial rainbow by looking at how each category is related to the target variable. In case of a binary classification problem we have a binary target variable, and we could construct a rainbow at least two different ways.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First way is to place categories in the order of correlation with target variable. So the category with the highest value of correlation with the dependent variable would acquire numeric code 1, and the category with the lowest correlation would acquire numeric code 13. So our rainbow in this case would mean the relationship between the cluster and the target variable.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Second way is similar to the first one, but instead of correlation, we could look at the percent of target variable taking value of 1 (positive) given each of the categories. Suppose, among Market Watchers percent of positive targets is 0.67, while for Conservative Wealth it is 0.45. In that case, Market Watchers will be ordered higher than Conservative Wealth (or lower, if the target percent scale is ascending). In other words, this rainbow would reflect the prevalence of positive target inside each category.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In case of multiclass classification, we could create rainbows for each class to represent relationship between categories and each class separately. In the case of regression and continuous target, we could rely on the correlation method mostly.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We briefly described the Rainbow method, and below we provide theoretical justification for it and then an empirical application that illustrates its superiority over One-Hot.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Theoretical-Justification">Theoretical Justification<a class="anchor-link" href="#Theoretical-Justification"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>!!!Dmytro, make this rock! !!!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Application-to-a-Real-Data-Science-Problem">Application to a Real Data Science Problem<a class="anchor-link" href="#Application-to-a-Real-Data-Science-Problem"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will illustrate the effectiveness of the rainbow encoding method using the real data science project developed in the Customer Journey domain of Data Science group at MassMutual - a life insurance company with a team of over 200 top-notch data scientists, engineers, and technologists.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Business-Use-Case">Business Use Case<a class="anchor-link" href="#Business-Use-Case"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In a nutshell, the data task is a multiclass classification problem that aims to predict one of the five Mindset Segments for each of the prospective customers.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">Segment</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Self-Assured</td>
+<td style="text-align:left">Confident, in control, and middle-aged, often with families</td>
+</tr>
+<tr>
+<td style="text-align:left">Juggler</td>
+<td style="text-align:left">(&gt;= 35 years old) Younger families, less confident in their finances</td>
+</tr>
+<tr>
+<td style="text-align:left">Starter</td>
+<td style="text-align:left">(&lt; 35 years old) Youngest segment, with lower levels of financial confidence due to lack of experience</td>
+</tr>
+<tr>
+<td style="text-align:left">Day to Day</td>
+<td style="text-align:left">Older, worried, and pessimistic about their finances</td>
+</tr>
+<tr>
+<td style="text-align:left">Well-Established</td>
+<td style="text-align:left">In control, and highly satisfied with financial situation</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The segmentation framework represents five classes that reflect a person's age, financial stability, and attitude towards financial decisions. The predicted segments are then used by marketers in different types of campaigns for targeting and customization. For example, Self-Assured customers would value more independence and autonomy in making decision of buying a life insurance policy whereas Day to Day customers would value having a guidance and a long and thorough explanations of different financial products by a dedicated advisor.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The true segment labels come from MassMutual vendors that ran the mindset survey in 2017, 2018, and 2020. The total size of data is 17.5K rows. The main database we use for this problem is provided by Acxiom and covers about 300 columns representing rich set of demographic characteristics, composition of the household, income and net worth, financial behavior, and digital savvyness.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## THIS CODE AND OUTPUT WILL BE HIDDEN</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Add &#39;rainbow_research.csv&#39; and &#39;rainbow_research_feature_selection.csv&#39; in the _notebooks folder</span>
+<span class="c1"># Don&#39;t push data to repo - they must be ignored in .gitignore</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;rainbow_research.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Size of data to report above</span>
+<span class="nb">int</span><span class="p">((</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;n_train&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;n_test&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>17493</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using Acxiom data and the Mindset Segmentation prediction task, we will compare the conventional One-Hot encoding with the Rainbow method. For a task of 5-class classification we will demonstrate the following metrics - accuracy, Cohen's kappa, !!!and anything else - Dmytro? Do we want many metrics just for the sake of illustration?!!!
+<br />
+Cohen's Kappa is one the best metrics for an unbalanced multiclass classification problem. Accuracy is used for a simple interpretation purposes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="All-Categorical-Variables">All Categorical Variables<a class="anchor-link" href="#All-Categorical-Variables"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First of all, we took all existing categorical variables - interval, ordinal, and nominal, and excluded any other variables - quantitative and binary. We would like to compare the model performance using the two types of encoding for the same set of catogorical factors. <br /><br />
+We then applied a target stratified 4-fold Cross Validation split. All the data processing from this point on is done inside the cross validation loop, i.e. the creation of One-Hot features and Rainbow features is learned from each fold train set and applied to each fold validation set. <br /> <br />
+The total set of 111 variables was transformed into <strong>201</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-Hot features (with very slight deviations in N in 4 different folds).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:center">Type of variable</th>
+<th style="text-align:center">N raw</th>
+<th style="text-align:center">N Rainbow encoded</th>
+<th style="text-align:center">N One-Hot encoded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Interval</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">1670</td>
+</tr>
+<tr>
+<td style="text-align:center">Ordinal</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">178</td>
+</tr>
+<tr>
+<td style="text-align:center">Nominal</td>
+<td style="text-align:center">33</td>
+<td style="text-align:center">123</td>
+<td style="text-align:center">412</td>
+</tr>
+<tr>
+<td style="text-align:center">Total</td>
+<td style="text-align:center">111</td>
+<td style="text-align:center"><strong>201</strong></td>
+<td style="text-align:center"><strong>2260</strong></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="About-Nominal-Variables">About Nominal Variables<a class="anchor-link" href="#About-Nominal-Variables"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One can notice that number of raw and Rainbow encoded features is the same (64 and 14), while 33 raw nominal features turned into 123 Rainbow features. That is because interval and ordinal features have a straightforward rainbow tranformation whereas there were two kinds of nominal variables. Out of 33 nominal variables, for 23 we found a natural rainbow, while for 10 variables we applied correlation ordering and target percent ordering. Since we deal with 5 classes, we made 10 new features for each of these variables.
+For example, given the name of feature "Financial_Cluster" and 5 segment names, we made features</p>
+<ul>
+<li>Financial_Cluster_Self-Assured_correlation_rank</li>
+<li>Financial_Cluster_Juggler_correlation_rank</li>
+<li>Financial_Cluster_Starter_correlation_rank</li>
+<li>Financial_Cluster_Day to Day_correlation_rank</li>
+<li>Financial_Cluster_Well-Establishes_correlation_rank
+<br /><br /> and <br /><br /></li>
+<li>Financial_Cluster_Self-Assured_target_percent</li>
+<li>Financial_Cluster_Juggler_target_percent</li>
+<li>Financial_Cluster_Starter_target_percent</li>
+<li>Financial_Cluster_Day to Day_target_percent</li>
+<li>Financial_Cluster_Well-Establishes_target_percent
+<br /><br />
+In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is important to note that the search for natural or non-natural Rainbows is highly project and context specific, and is more of an art than a craft. For instance, for a binary classification problem, there probably would have been only one or two Rainbows for each categorical feature given a single target class.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Basic-Postprocessing">Basic Postprocessing<a class="anchor-link" href="#Basic-Postprocessing"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before proceeding with models, we applied basic feature selection to each feature set:</p>
+<ul>
+<li>Dropped variables with all values missing</li>
+<li>No imputations was done – missingness is handled by XGBoost (see <a href="https://towardsdatascience.com/xgboost-is-not-black-magic-56ca013144b4">XGBoost is not black magic</a>)</li>
+<li>Droped variables with variance being exactly 0</li>
+<li>Dropped perfect duplicates</li>
+<li>Dropped perfect rank duplicates</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These procedures reduced our Rainbow feature set and One-Hot feauture set to <strong>183</strong> and <strong>2095</strong> respectively.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hyperparameter-Space">Hyperparameter Space<a class="anchor-link" href="#Hyperparameter-Space"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We ran all possible XGBoost multiclass classification models covering this space:</p>
+
+<pre><code>'objective': 'multi:softprob'
+'eval_metric': 'mlogloss'
+'num_class': 5
+'subsample': 0.8
+'max_depth': [2, 3, 5]
+'eta': [0.1, 0.3, 0.5]
+'n_estimators': [50, 100, 200]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus, we ran 3 max_depth <em> 3 eta </em> 3 n_estimators <em> 4 folds </em> 2 encoding methods = 216 models. Below we report average cross validation metrics for both encoding methods.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Results">Results<a class="anchor-link" href="#Results"> </a></h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## THIS CODE WILL BE HIDDEN, OUTPUT WILL BE SHOWN - probably, as a manual mardown table</span>
+<span class="n">t</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;feature_group&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;all&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;transform_parameter&#39;</span><span class="p">])[[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>accuracy</th>
+      <th>kappa</th>
+    </tr>
+    <tr>
+      <th>transform_parameter</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>one_hot</th>
+      <td>0.407</td>
+      <td>0.174</td>
+    </tr>
+    <tr>
+      <th>rainbow</th>
+      <td>0.420</td>
+      <td>0.201</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><font color="red">Probably, this table should be beautified - index corrected, names capitalized and made better. <br />Suggest this to be a manual markdown table rather than code output. <br />Also - other metrics can be added if needed.</font></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Clearly, the average metrics across all models are notably higher for Rainbow encoding. The following plots show dynamic of metrics depending on every hyperparameter. These plots also clearly demonstrate the superiority of Rainbow method for every hyperparameter and every metric.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/rainbow/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Data Science and Management</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
