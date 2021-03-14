@@ -19,3 +19,5 @@ data/finance/u7000monthly.pkl
 .DS_Store
 data/rainbow_research.csv
 data/rainbow_research_feature_selection.csv
+_notebooks/rainbow_research.csv
+_notebooks/rainbow_research_feature_selection.csv
