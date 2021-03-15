@@ -1137,14 +1137,14 @@ In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
 One can in fact show that  $K - G_{max} \leq \mathbb E[D]$ via the following inequality:</p>
 \begin{align} 
 \frac{ \sum G_i*(G_i-1)} {K} &amp;\leq  \frac{ \sum G_i*(G_{max}-1)} {K} \notag \\
-                             &amp; =  ( \frac{ \sum G_i} {K} ) * (G_{max}-1)=G_{max}-1
+                             &amp; =  ( \frac{ \sum G_i} {K} ) * (G_{max}-1)=G_{max}-1 \tag{1}
 \end{align}<p>hence continuing expression of $\mathbb E[D]$ from before we get:</p>
 \begin{align} 
 \mathbb E[D] &amp;= (K-1)-\frac{ \sum G_i*(G_i-1)} {K} \notag\\
-             &amp;\geq (K-1)-G_{max}-1=K-G_{max}
+             &amp;\geq (K-1)-G_{max}-1=K-G_{max} \tag{2}
 \end{align}<p>so one random rainbow in this sense is worse than one-hot encodings but that is not a surpise as you have 1-feature versus K features.  Now this is when rainbow was chosen completely at random, it we got lucky we would only need $D_{min}=g-1$ and in this case we are always better off:</p>
 \begin{align} D_{min} &amp; = g-1 = (\sum_{i=1}^{g} 1) - 1 \notag \\
-                      &amp;\leq (\sum_{i=1}^{g} G_i) - G_{max} = K - G_{max}
+                      &amp;\leq (\sum_{i=1}^{g} G_i) - G_{max} = K - G_{max} \tag{3}
 \end{align}<blockquote><p>We also see that $G_{max}-(\mathbb E [C]+1)$ is greatests when $G_{i}$'s and $G_{max}$ are far apart as the only part in the above equation where we had non strict equality was where we subsituted $G_i$ by $G_{max}$.</p>
 <p>note:the number of samples N is not in the  formulas (and shouldn't be) it is all about K, the number of classes here.</p>
 </blockquote>
