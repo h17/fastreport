@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      25 min read
     
 </span></p>
 
@@ -344,7 +344,7 @@ One significant implication of this method is the dimensionality increase. Depen
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We call it rainbow from a very simple analogy, if you have categorical feature with names "red", "orange", "yellow", "green", "blue", "indigo" and "violet", in other words colors of the rainbow, instead of doing 1-hot encoding or (binary 1-hot encoding), you can simply use encoding red -&gt; 0, orange -&gt;1,..., violet -&gt; 6.  This would replace seven 1-hot features with one rainbow.  The method also suggests that you can actually use two rainbows, one natural as described before and the other say by hue or warmth of the color.</p>
-<blockquote><p>I would not use much more than $log_2(N)$ if you have N categories.</p>
+<blockquote><p>I would not use much more than $\sqrt{K}$ if you have K categories as you would see below</p>
 </blockquote>
 <p>Why is rainbow better than any other choice? It is first thing that comes to mind and you do not have to think about it.  In many cases it is not really that necessary which rainbow you choose (and by this we mean ordering of these colors), most of the would be better than using 1-hot, there are just some natural ones, which are more likely to be better than other (and easier to remember).</p>
 <blockquote><p>Hence our motto:"When a nature gives you a rainbow, take it..."</p>
@@ -801,21 +801,16 @@ In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us start from overall averages for all runs:</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## THIS CODE WILL BE HIDDEN, OUTPUT WILL BE SHOWN - probably, as a manual mardown table</span>
-<span class="n">t</span><span class="o">=</span><span class="n">results</span>
-<span class="n">t</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;feature_group&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;all&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;method&#39;</span><span class="p">])[[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;kappa&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -1156,7 +1151,7 @@ $$ D_{min} = g-1 = (\sum_{i=1}^{g} 1) - 1 \leq (\sum_{i=1}^{g} G_i) - G_{max} = 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>When number of rainbows R is not to large, then corresponding $D$ can on average be<br />
+<p>Let us call this number of rainbows $R$ and assume it is not too large, then corresponding $D$ can on average be<br />
 
 $$\mathbb E[D] = (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)})^R \approx (K-1)- R* \frac{ \sum G_i*(G_i-1)} {K}$$
 
@@ -1168,7 +1163,16 @@ if we let $R$ be greater than \frac{G_{max}-1}{G<em>i-1} for all $i$ or in other
 
 $$ R \geq \frac{G</em>{max}}{G<em>{min}} $$
 
-This is of course less than $G</em>{max}$ and less than K, so we never recommend to take more than K (same as one-hot encoding does).</p>
+This is of course less than $G</em>{max}$.  Similar computatoin can also show that it also has to be less than $g$, but then from $g*G_max \leq K$ we can show that $R \leq \sqrt{K}$.  In fact with a bit more detailed calculation one can show 
+$R \lessapprox \frac {\sqrt{K}}{2}$ as $K$ gets larger and this actually would imply that $R$ is not too large in the approximation we used above.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>Hence we showed that single perfect rainbow outperforms, $K$ one-hot encoding and that $\sqrt{K}{2}$ random rainbows would outperform $K$ one-hot encodings.</p>
+</blockquote>
 
 </div>
 </div>
