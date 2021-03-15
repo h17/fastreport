@@ -1130,20 +1130,22 @@ In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So let us come back to a general situation of K classes and only one rainbow.  In case K classes should be split into $g$ groups in terms of tree structure, than one-hot would need $K - G_{max}$ comparisons, where $G_{max}$ is the size of the largest group and rainbow would need the number of consequitive pairs in distinct groups, lets notate it as D. Expected value value of D then can be expressed (here expectation is always with respect to a random permutation of end-values of classes:</p>
-<p>
-$$\mathbb E[D] = (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)})=(K-1)-\frac{ \sum G_i*(G_i-1)} {K}$$
-
-where $G_i$ is the size of the $i^{th}$ group and summation is over all groups.
+\begin{align}
+\mathbb E[D] &amp;= (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)}) \notag \\
+             &amp;= (K-1)-\frac{ \sum G_i*(G_i-1)} {K} \notag
+\end{align}<p>where $G_i$ is the size of the $i^{th}$ group and summation is over all groups.
 One can in fact show that  $K - G_{max} \leq \mathbb E[D]$ via the following inequality:</p>
-\begin{equation} \frac{ \sum G_i*(G_i-1)} {K} \leq  \frac{ \sum G_i*(G_{max}-1)} {K} =  ( \frac{ \sum G_i} {K} ) * (G_{max}-1)=G_{max}-1 \tag{1} \label{eq1} \end{equation}<p>hence continuing expression of $\mathbb E[D]$ from before we get:</p>
-<p>
-$$\mathbb E[D] = (K-1)-\frac{ \sum G_i*(G_i-1)} {K} \geq (K-1)-G_{max}-1=K-G_{max}$$
-</p>
-<p>so one random rainbow in this sense is worse than one-hot encodings but that is not a surpise as you have 1-feature versus K features.  Now this is when rainbow was chosen completely at random, it we got lucky we would only need $D_{min}=g-1$ and in this case we are always better off:</p>
-<p>
-$$ D_{min} = g-1 = (\sum_{i=1}^{g} 1) - 1 \leq (\sum_{i=1}^{g} G_i) - G_{max} = K - G_{max} $$
-</p>
-<blockquote><p>We also see that $G_{max}-(\mathbb E [C]+1)$ is greatests when $G_{i}$'s and $G_{max}$ are far apart as the only part in the above equation where we had non strict equality was where we subsituted $G_i$ by $G_{max}$.</p>
+\begin{align} 
+\frac{ \sum G_i*(G_i-1)} {K} &amp;\leq  \frac{ \sum G_i*(G_{max}-1)} {K} \notag \\
+                             &amp; =  ( \frac{ \sum G_i} {K} ) * (G_{max}-1)=G_{max}-1
+\end{align}<p>hence continuing expression of $\mathbb E[D]$ from before we get:</p>
+\begin{align} 
+\mathbb E[D] &amp;= (K-1)-\frac{ \sum G_i*(G_i-1)} {K} \notag\\
+             &amp;\geq (K-1)-G_{max}-1=K-G_{max}
+\end{align}<p>so one random rainbow in this sense is worse than one-hot encodings but that is not a surpise as you have 1-feature versus K features.  Now this is when rainbow was chosen completely at random, it we got lucky we would only need $D_{min}=g-1$ and in this case we are always better off:</p>
+\begin{align} D_{min} &amp; = g-1 = (\sum_{i=1}^{g} 1) - 1 \notag \\
+                      &amp;\leq (\sum_{i=1}^{g} G_i) - G_{max} = K - G_{max}
+\end{align}<blockquote><p>We also see that $G_{max}-(\mathbb E [C]+1)$ is greatests when $G_{i}$'s and $G_{max}$ are far apart as the only part in the above equation where we had non strict equality was where we subsituted $G_i$ by $G_{max}$.</p>
 <p>note:the number of samples N is not in the  formulas (and shouldn't be) it is all about K, the number of classes here.</p>
 </blockquote>
 
@@ -1159,9 +1161,10 @@ $$ D_{min} = g-1 = (\sum_{i=1}^{g} 1) - 1 \leq (\sum_{i=1}^{g} G_i) - G_{max} = 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let us call this number of rainbows $R$ and assume it is not too large, then corresponding $D$ can on average be<br />
-
-$$\mathbb E[D] = (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)})^R \approx (K-1)- R* \frac{ \sum G_i*(G_i-1)} {K}$$
-
+\begin{align}
+\mathbb E[D] &amp; = (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)})^R \notag\\
+             &amp; \approx (K-1)- R* \frac{ \sum G_i*(G_i-1)} {K} \tag{4}
+\end{align}
 So from (1) we get that</p>
 <p>
 $$\mathbb E[D] \leq K-G_{max}$$
