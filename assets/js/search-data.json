@@ -94,17 +94,6 @@
 
   
       ,"page2": {
-          "title": "About Us",
-          "content": "Data Science and Management by Dmytro Karabash . Management and Data Science by Maxim Korotkov . While traveling from New York to Florida by car in 2019 we&#39;ve discussed many things and got fascinated by various applications of Data Science to topics it is typically not applied to. For example, how data science techniques can be applied not only by data scientists but also by practitioners in different industries. Python is relatively simple (if you want to keep doing simple things) - so whoever mastered in Microsoft Excel or Apple Sheets can get to a decent level of understanding python. We proceeded to kayak in the middle of Ocala National Forest (see photo below). We decided to synthesize our experiences and create this blog about applications of Data Science to Project Management and General Management and other topics we might find of interest. . . Have something to add or a comment? Contact us via email . This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
-          "url": "https://yourdatablog.com/about/",
-          "relUrl": "/about/",
-          "date": ""
-      }
-      
-  
-
-  
-      ,"page3": {
           "title": "",
           "content": "Welcome here. Here is our blog about applying Data Science to Management and related topics. Things you used to rely on ERP or on your PMO doing a report - how those things can be made simple with python, pandas, and jupyter. . POSTS .",
           "url": "https://yourdatablog.com/",
@@ -121,7 +110,7 @@
   
 
   
-      ,"page6": {
+      ,"page5": {
           "title": "Tags",
           "content": "{% if site.categories.size &gt; 0 %} . Contents . {% assign categories = “” | split:”” %} {% for c in site.categories %} {% assign categories = categories | push: c[0] %} {% endfor %} {% assign categories = categories | sort_natural %} . {% for category in categories %} {{ category }} | {% endfor %} . {% for category in categories %} &lt;h3 id =&quot;{{ category }}&quot;&gt;&lt;/i&gt; {{ category }}&lt;/h3&gt; {% for post in site.categories[category] %} {% if post.hide != true %} {%- assign date_format = site.minima.date_format | default: “%b %-d, %Y” -%} &lt;article class=&quot;archive-item&quot;&gt; &lt;p class=&quot;post-meta post-meta-title&quot;&gt;{{post.title}} • {{ post.date | date: date_format }}&lt;/p&gt; &lt;/article&gt; {% endif %} {% endfor %} {% endfor %} . {% endif %} .",
           "url": "https://yourdatablog.com/categories/",
@@ -141,7 +130,7 @@
   
 
   
-      ,"page10": {
+      ,"page9": {
           "title": "",
           "content": "Sitemap: {{ “sitemap.xml” | absolute_url }} | .",
           "url": "https://yourdatablog.com/robots.txt",
