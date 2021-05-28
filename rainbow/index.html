@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      25 min read
     
 </span></p>
 
@@ -240,33 +240,12 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The rainbow method outperforms the one-hot easily. In fact, the rainbow method even shows better result for 50 features than one-hot does for 100. Also note that when droping from 50 to 10 features, the reduction in macro-f1 if you use one-hot is 6 times that of the rainbow method (3 times for kappa and accuracy, 2 times for macro-auc).</p>
-<blockquote><p>Both models actually keep improving as the number of features goes up. Though this improvement is substantially faster and bigger for the rainbow method.</p>
+<blockquote><p>Both models actually keep improving as the number of features goes up. Though the improvement is substantially faster and bigger for the rainbow method.</p>
 </blockquote>
 
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Object `text` not found.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Background">Background<a class="anchor-link" href="#Background"> </a></h2>
@@ -276,7 +255,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Data encoding is the crucial part of any data science pipeline. No matter which machine learning algorithm is used - there is no avoiding of data cleaning and encoding. Especially with dirty and complex real data sets, ensuring the most appropriate and efficient way of feature encoding and engineering is a nontrivial problem. While encoding quantitative and binary columns is usually a straightforward task, the encoding of categorical variables deserves a deeper look. 
-<br />
+<br /><br />
 One of the most popular encoding methods for categorical variables has been the One-Hot procedure. It generates an indicator variable for every category and, thus, creates a set of K new features, where K is the number of categories.
 One significant implication of this method is the dimensionality increase. Depending on the magnitude of K, it can have various undesirable technical consequences: substantial raise of computational complexity, loss of degrees of freedom (N-K, where N is the number of samples), multicollinearity, and, ultimately, an overfitted model. Non-technical consequences include unnecessary complication of the model that should be communicated to final users and that contradict the law of parsimony aka Occam's razor.</p>
 
@@ -291,8 +270,22 @@ One significant implication of this method is the dimensionality increase. Depen
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We call it rainbow from a very simple analogy: if you have a categorical feature with names "red", "orange", "yellow", "green", "blue", "indigo" and "violet", in other words colors of the rainbow, instead of creating seven binary features, you can simply create a single one with encoding: red -&gt; 0, orange -&gt;1,..., violet -&gt; 6.  This would replace seven 1-hot features with one rainbow.  The method also suggests that you can actually use two rainbows, one natural as described before and the other say by hue or warmth of the color.</p>
-<blockquote><p>I would not use much more than $\sqrt{K}$ if you have K categories as you would see below</p>
+<p>We call it rainbow from a very simple analogy: if you have a categorical feature with names "Red", "Orange", "Yellow", "Green", "Blue", "Indigo" and "Violet", in other words - colors of the rainbow, instead of one hot encoding, you can simply create a one feature with encoding:</p>
+<hr />
+<p>0 = Red <br />
+1 = Orange <br />
+2 = Yellow <br />
+3 = Green <br />
+4 = Blue <br />
+5 = Indigo <br />
+6 = Violet</p>
+<hr />
+<p>This would replace seven one-hot features with one rainbow.</p>
+<p>Most of the nominal variables, from the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>.
+<br />
+The seemingly unordered categories acquire a perfect order if we find a scale, where each category fits into its own unique place. With the color the natural scale is Hue. But it is not the only one. We can think of, say, brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
+<p>You can actually use two or more rainbows on a features depending on the number of categories K and the context.</p>
+<blockquote><p>We don't recommend to use much more than $\sqrt{K}$ rainbows as we explain below.</p>
 </blockquote>
 <p>Why is rainbow better than any other choice? It is first thing that comes to mind and you do not have to think about it.  In many cases it is not really that necessary which rainbow you choose (and by this we mean ordering of these colors), most of the would be better than using 1-hot, there are just some natural ones, which are more likely to be better than other (and easier to remember).</p>
 <blockquote><p>Hence our motto:"When a nature gives you a rainbow, take it..."</p>
@@ -303,8 +296,10 @@ One significant implication of this method is the dimensionality increase. Depen
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>Important note here:this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, decision trees, random forest, gradient boosting - these algorithms will output the same result if the variable <em>Number of Children</em> is coded as [1, 2, 3, 4, 5, ...] or as [-100, -85, 0, 10, 44, ...] as long as the categories have a correct order, and we use correct interpretation of non-meaningful values.The application of our method for other algorithms such as Linear Regression, Logistic Regression is out of scope of this article. We expect that such way of feature engineering would be still beneficial, but this is a subject of a different investigation.</p>
-</blockquote>
+<p>Important note here: this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, decision trees, random forest, gradient boosting - these algorithms will output the same result if the variable <em>Number of Children</em> is coded as [1, 2, 3, 4, 5, ...] or as [-100, -85, 0, 10, 44, ...] as long as the categories have a correct order, and we use correct interpretation of non-meaningful values.
+The application of our method for other algorithms such as Linear Regression, Logistic Regression is out of scope of this article. We expect that such way of feature engineering would be still beneficial, but this is a subject of a different investigation.</p>
+<p><br />Note that by using a rainbow rather than One-Hot we are not losing any of the signal, because, even if the categories are wildly different and each one introduces a substantial gain to the model, the algorithm such as <em>xgboost</em> would capture that by making all the needed splits when introducing new tree nodes.</p>
+<p><br /></p>
 
 </div>
 </div>
