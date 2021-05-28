@@ -275,8 +275,8 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Data encoding is the crucial part of any data science pipeline. No matter what is the final goal or which machine learning algorithm will be used - there is no avoiding of data massaging, cleaning, and encoding. Given that real data sets are rarely as clean and suited for analysis as toy data sets from data science classes, there is a number of decisions you have to make to encode and engineer features in the most appropriate and efficient way.
-While the encoding of quantitative and binary columns is generally straightforward, the encoding of categorical variables deserves a deeper look. 
+<p>Data encoding is the crucial part of any data science pipeline. No matter which machine learning algorithm is used - there is no avoiding of data cleaning and encoding. Especially with dirty and complex real data sets, ensuring the most appropriate and efficient way of encoding and feature engineering is a nontrivial task.</p>
+<p>While encdoing quantitative and binary columns is usually a straightforward, the encoding of categorical variables deserves a deeper look. 
 <br /><br />
 One of the most popular encoding methods for categorical variables has been the One-Hot procedure. It generates an indicator variable for every category and, thus, creates a set of K new features, where K is the number of categories.
 One significant implication of this method is the dimensionality increase. Depending on the magnitude of K, it can have various undesirable technical consequences: substantial raise of computational complexity, loss of degrees of freedom (N-K, where N is the number of samples), multicollinearity, and, ultimately, an overfitted model. Non-technical consequences include unnecessary complication of the model that should be communicated to final users and that contradict the law of parsimony aka Occam's razor.</p>
