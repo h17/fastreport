@@ -730,18 +730,6 @@ and demonstrate its superiority over One-hot using the real data project develop
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It is important to note that the search for natural or non-natural Rainbows is highly project and context specific, and is more of an art than a craft. For instance, for a binary classification problem, there probably would have been only one or two Rainbows.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Results">Results<a class="anchor-link" href="#Results"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>We ran all XGBoost models covering this hyperparameter space:</p>
 
 <pre><code>'objective': 'multi:softprob'
@@ -752,6 +740,18 @@ and demonstrate its superiority over One-hot using the real data project develop
 'eta': [0.1, 0.3, 0.5]
 'n_estimators': [50, 100, 200]</code></pre>
 <p>All the results below in this article represent cross validation average metrics.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aggregate-Results">Aggregate Results<a class="anchor-link" href="#Aggregate-Results"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let us start with overall averages for all runs. Clearly, the average metrics across all models are notably higher for Rainbow encoding.</p>
 
 </div>
@@ -781,6 +781,12 @@ and demonstrate its superiority over One-hot using the real data project develop
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hyperparameters">Hyperparameters<a class="anchor-link" href="#Hyperparameters"> </a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The following plots show dynamic of metrics depending on every hyperparameter keeping other hyperparameters constant. These plots also clearly demonstrate the superiority of Rainbow method for every hyperparameter and every metric.</p>
@@ -836,8 +842,17 @@ and demonstrate its superiority over One-hot using the real data project develop
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, let's compare the runtime for each method. 
-Average time to run a single One-hot model is 66.074 seconds, while average time to run a single rainbow model is 7.444 seconds - that is <strong>9 times faster</strong>! <br />
+<h2 id="Runtime">Runtime<a class="anchor-link" href="#Runtime"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, let's compare the runtime for each method.</p>
+
+<pre><code>One-hot: 66.074 s
+Rainbow:  7.444 s</code></pre>
+<p>Average time to run a single rainbow model is <strong>9 times faster</strong> that of the single One-hot model!
 So, in addition to a substantial increase in model performance metrics, Rainbow method can also save data scientists huge amount of time.</p>
 
 </div>
