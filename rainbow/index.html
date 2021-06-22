@@ -866,14 +866,117 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Below are the results of the models that applied two types of encoding to interval, ordinal, and nominal features separately.</p>
+<p>Next, we ran the models that covered the bundles of interval, ordinal, and nominal features separately. Below are the results.</p>
 
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>macro-f1</th>
+      <th>kappa</th>
+      <th>macro-auc</th>
+      <th>accuracy</th>
+    </tr>
+    <tr>
+      <th>feature group</th>
+      <th>method</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">interval</th>
+      <th>One-hot</th>
+      <td>0.2965</td>
+      <td>0.1563</td>
+      <td>0.6849</td>
+      <td>0.4003</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.3275</td>
+      <td>0.1894</td>
+      <td>0.7040</td>
+      <td>0.4149</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">ordinal</th>
+      <th>One-hot</th>
+      <td>0.2362</td>
+      <td>0.1113</td>
+      <td>0.6338</td>
+      <td>0.3784</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.2500</td>
+      <td>0.1247</td>
+      <td>0.6385</td>
+      <td>0.3827</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">nominal</th>
+      <th>One-hot</th>
+      <td>0.2916</td>
+      <td>0.1542</td>
+      <td>0.6783</td>
+      <td>0.3938</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.2940</td>
+      <td>0.1544</td>
+      <td>0.6729</td>
+      <td>0.3915</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As expected, interval and ordinal features gain the most from Rainbow encoding, while nominal variables - less so.</p>
+<p>These results demonstrate again that Rainbow is preferred to One-hot. As expected, interval and ordinal features gain the most from Rainbow encoding, while nominal variables - less so.</p>
 
 </div>
 </div>
