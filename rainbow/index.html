@@ -594,14 +594,14 @@ and demonstrate its superiority over One-hot using the real data project develop
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We will illustrate the effectiveness of the rainbow encoding method using the real data science project developed in the Customer Journey domain of Data Science group at MassMutual - a life insurance company with a team of over 200 top-notch data scientists, engineers, and technologists.</p>
+<p>We will illustrate the effectiveness of the rainbow encoding method using the real data science project developed in the Customer Journey domain of <a href="datascience.massmutual.com">Data Science at MassMutual</a> - a life insurance company with a 170 years of history which takes pride in growing a large team of data scientists, engineers, and technologists to support most of the business decisions.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Business-Use-Case">Business Use Case<a class="anchor-link" href="#Business-Use-Case"> </a></h3>
+<h2 id="Business-Use-Case">Business Use Case<a class="anchor-link" href="#Business-Use-Case"> </a></h2>
 </div>
 </div>
 </div>
@@ -614,64 +614,44 @@ and demonstrate its superiority over One-hot using the real data project develop
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<table>
-<thead><tr>
-<th style="text-align:left">Segment</th>
-<th style="text-align:left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Self-Assured</td>
-<td style="text-align:left">Confident, in control, and middle-aged, often with families</td>
-</tr>
-<tr>
-<td style="text-align:left">Juggler</td>
-<td style="text-align:left">(&gt;= 35 years old) Younger families, less confident in their finances</td>
-</tr>
-<tr>
-<td style="text-align:left">Starter</td>
-<td style="text-align:left">(&lt; 35 years old) Youngest segment, with lower levels of financial confidence due to lack of experience</td>
-</tr>
-<tr>
-<td style="text-align:left">Day to Day</td>
-<td style="text-align:left">Older, worried, and pessimistic about their finances</td>
-</tr>
-<tr>
-<td style="text-align:left">Well-Established</td>
-<td style="text-align:left">In control, and highly satisfied with financial situation</td>
-</tr>
-</tbody>
-</table>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/seg_framework.png" alt="" style="max-width: 600px" />
+    
+    
+</figure>
+</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The segmentation framework represents five classes that reflect a person's age, financial stability, and attitude towards financial decisions. The predicted segments are then used by marketers in different types of campaigns for targeting and customization. For example, Self-Assured customers would value more independence and autonomy in making decision of buying a life insurance policy whereas Day to Day customers would value having a guidance and a long and thorough explanations of different financial products by a dedicated advisor.</p>
+<p>The segmentation framework represents five classes that reflect a person's age, financial stability, and attitude towards financial decisions. The predicted segments are then used by MassMutual marketing team in different types of campaigns for targeting and customization. For example, Self-Assured customers would value more independence and autonomy in making decision of buying a life insurance policy whereas Day to Day customers would value having a guidance and thorough explanations of different financial products by a dedicated advisor.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The true segment labels come from MassMutual vendors that ran the mindset survey in 2017, 2018, and 2020. The total size of data is 17.5K rows. The main database we use for this problem is provided by Acxiom and covers about 300 columns representing rich set of demographic characteristics, composition of the household, income and net worth, financial behavior, and digital savvyness.</p>
+<p>We have a small set of labeled indivuduals (17.5K persons). The labels are provided by the MassMutual vendor which ran Mindset surveys and designed segment assignment rules. For simplicity, let's assume we know nothing about these rules and take labels as given.</p>
+<p>Then we attach the columns from our main prospect database to these 17.5K persons. The goal is to learn the best model using these target labels and the available features, and then predict segments for all other (unlabelled) prospective customers.</p>
+<p>The main database for this problem is provided by <a href="https://www.acxiom.com/">Acxiom</a> and covers about 300 columns representing rich set of demographic characteristics, composition of the household, income and net worth, financial behavior, and digital savvyness.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using Acxiom data and the Mindset Segmentation prediction task, we will compare the conventional One-hot encoding with the Rainbow method. For a task of 5-class classification we will demonstrate the following metrics - accuracy, Cohen's kappa, and a few other standard metrics</p>
-<p>Cohen's Kappa is one the best metrics for an unbalanced multiclass classification problem. Accuracy is used for a simple interpretation purposes.</p>
+<p>Using Acxiom data and the Mindset Segmentation problem, we will compare the conventional One-hot encoding with the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, Macro Avg AUC ROC.</p>
+<p>Cohen's Kappa, F1 and AUC ROC are very helpful for an unbalanced multiclass classification problem. Accuracy is not the best metric for such task, and is used merely for interpretation and comparison purposes.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="All-Categorical-Variables">All Categorical Variables<a class="anchor-link" href="#All-Categorical-Variables"> </a></h3>
+<h2 id="Categorical-Variables">Categorical Variables<a class="anchor-link" href="#Categorical-Variables"> </a></h2>
 </div>
 </div>
 </div>
@@ -727,7 +707,7 @@ The total set of 111 variables was transformed into <strong>201</strong> Rainbow
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="About-Nominal-Variables">About Nominal Variables<a class="anchor-link" href="#About-Nominal-Variables"> </a></h3>
+<h2 id="About-Nominal-Variables">About Nominal Variables<a class="anchor-link" href="#About-Nominal-Variables"> </a></h2>
 </div>
 </div>
 </div>
@@ -763,7 +743,7 @@ In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Results-and-conclusions">Results and conclusions<a class="anchor-link" href="#Results-and-conclusions"> </a></h1>
+<h2 id="Results-and-conclusions">Results and conclusions<a class="anchor-link" href="#Results-and-conclusions"> </a></h2>
 </div>
 </div>
 </div>
@@ -956,7 +936,7 @@ In this way, 33 raw nominal variables turned into 123 Rainbows.</li>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h1>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2>
 </div>
 </div>
 </div>
