@@ -998,13 +998,109 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>macro-f1</th>
+      <th>kappa</th>
+      <th>macro-auc</th>
+      <th>accuracy</th>
+    </tr>
+    <tr>
+      <th>number of features</th>
+      <th>method</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">10</th>
+      <th>One-hot</th>
+      <td>0.2685</td>
+      <td>0.1505</td>
+      <td>0.6778</td>
+      <td>0.3945</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.3273</td>
+      <td>0.1898</td>
+      <td>0.7010</td>
+      <td>0.4122</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">50</th>
+      <th>One-hot</th>
+      <td>0.3342</td>
+      <td>0.1975</td>
+      <td>0.7040</td>
+      <td>0.4180</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.3428</td>
+      <td>0.2070</td>
+      <td>0.7092</td>
+      <td>0.4240</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">100</th>
+      <th>One-hot</th>
+      <td>0.3333</td>
+      <td>0.1992</td>
+      <td>0.7102</td>
+      <td>0.4205</td>
+    </tr>
+    <tr>
+      <th>Rainbow</th>
+      <td>0.3477</td>
+      <td>0.2105</td>
+      <td>0.7130</td>
+      <td>0.4245</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>*weighted in the table above is class-weighted.</p>
-<p>Kappa is significantly higher for the Rainbow method, especially with the lower number of selected features. As mentioned before rainbow with 50 features is better than One-hot with 100 features, we just see this that is true in all the regularly used metrics.  Note the drop for macro-f1 score drop from 50 to 10 features in One-hot versus rainbow.</p>
+<p>Every single metric is considerably higher for the Rainbow method, especially with the lower number of selected features.
+As mentioned in Part 1, rainbow encoding with 50 features is even better than One-hot with 100 features as shown by macro-f1, kappa, and accuracy. Also, note the drop from 50 to 10 features in One-hot versus rainbow - macro-f1 looses 0.0657 points with One-hot compared to only 0.0155 points with Rainbow.</p>
 
 </div>
 </div>
@@ -1017,14 +1113,14 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As shown above, the Rainbow method is an elegant and simple way to encode categorical variables, that will significantly reduce the data dimensionality without losing any part of valuable signal, that will likely cause substantial improvements in model performance metrics (or, at the very least, will not cause any reductions in metrics), and that will save great amount of time for modelers.</p>
+<p>As we illustrated above, the Rainbow method is an elegant and simple way to encode categorical variables, that will significantly reduce data dimensionality without losing any part of valuable signal; that will likely cause substantial improvements in model performance metrics (or, at the very least, will not cause any reductions in metrics); and that will save great amount of time for modelers.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we should note that this article just opens the conversation about the Rainbow method, and by no means exhausts the topic. In the potential future investigations, we could explore some other aspects. To name a few: binary and continuous target variables; comparison with other dimensionality reduction methods, such as PCA; how missing values fit the Rainbow framework; is there any limit and implications of combining seemingly unrelated features into a single Rainbow. We hope to open the gate for further questions and feedback on this method.</p>
+<p>Finally, we should note that this article just opens the conversation about the Rainbow method, and by no means exhausts the topic. In the potential future investigations, we could explore some other aspects. To name a few: binary and continuous target variables; comparison with other dimensionality reduction methods, such as PCA; missing values and how they fit the Rainbow framework; limits and implications of combining seemingly unrelated features into a single Rainbow. We hope to open the gate for further questions and feedback on this method.</p>
 
 </div>
 </div>
