@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      29 min read
+      30 min read
     
 </span></p>
 
@@ -1189,7 +1189,17 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Simple-Example">Simple Example<a class="anchor-link" href="#Simple-Example"> </a></h3><p>The example above can be encoded as 4 categories that need to be split into two groups 1 and 2 (according to their values).   The number of splits would depend on the order in which these categories appear</p>
+<h3 id="Simple-Example">Simple Example<a class="anchor-link" href="#Simple-Example"> </a></h3><p>Consider the following example:</p>
+<ul>
+<li>assume a binary classification problem, with output variable having values 0 and 1</li>
+<li>assume only one categorical variable</li>
+<li>assume exactly four samples with values v1 &lt; v2 &lt; v3 &lt; v4</li>
+<li>assume an ideal separation will give to two samples score 1 and to two other samples score 2</li>
+</ul>
+<p>will send (v1 and v2) to the left branch and (v3 anv v4) to the right branch of the tree</p>
+<p>(diagram)</p>
+<p>Without loss of generality</p>
+<p>The example above can be encoded as 4 categories that need to be split into two groups 1 and 2 (according to their values).   The number of splits would depend on the order in which these categories appear</p>
 <p>For rainbow orders:</p>
 <ul>
 <li><p>1,1,2,2 and 2,2,1,1 the number of splits would be 1;</p>
