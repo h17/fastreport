@@ -216,7 +216,7 @@ window.onload = wrap_img;
                  <span class="p">,</span><span class="n">kline_size</span><span class="p">,</span> <span class="n">date_from</span><span class="p">,</span> <span class="n">date_to</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">klines</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">COLUMNS</span><span class="p">])</span>
 </pre></div>
-<p>Following daily pairs was downloaded and formatted to pd DataFrame:BTCUSDT; ETHUSDT; BNBUSDT; LTCUSDT.
+<p>Following daily pairs was downloaded and formatted to pd DataFrame:&nbsp;BTCUSDT; ETHUSDT; BNBUSDT; LTCUSDT.
 For each timepoint, Binance provides conventional OHLC (Open, High, Low, Close) and Volume data. In this exercise, we used only the <code>Close</code> column. One might consider the combination of all five values and come up with a different (and potentially more reliable) metric, for example: the weighted average price. We will limit to the basic one for the sake of simplicity</p>
 <p>The data is loaded and transformed</p>
 
