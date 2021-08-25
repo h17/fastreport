@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      32 min read
+      28 min read
     
 </span></p>
 
@@ -1127,62 +1127,14 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-Rainbow-Method-Part-III.-Conditional-Mathematical-Foundation">The Rainbow Method Part III. Conditional Mathematical Foundation<a class="anchor-link" href="#The-Rainbow-Method-Part-III.-Conditional-Mathematical-Foundation"> </a></h1>
+<h1 id="The-Rainbow-Method-Part-III.-Mathematical-Foundation.">The Rainbow Method Part III. Mathematical Foundation.<a class="anchor-link" href="#The-Rainbow-Method-Part-III.-Mathematical-Foundation."> </a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Framework">Framework<a class="anchor-link" href="#Framework"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Aside from reducing number of variables which was our main goal, we would also like to understand why do rainbows produce better results.</p>
-<p>We wouldn't completely satisfy Einstein here, but base our foundation on assumption that pruning of the trees that maximize unregularized log-loss producing supperior values.  In fact regulariation of trees, pruning of trees and various early stopping rules are all trying to achieve the same goal, which is often summarized in "avoid overfit", yet let us examine what that really means in our case by case basis.</p>
-<p>Imagine you have K categories for each the optimal values to be added to the nodes are 1, 2, ..., K in some order not necessarily random.  If that was the case both on-hot encoding and rainbow method would require K-1 comparisons.  We have a tie.  That would be the case where all categories should be distinquished with different values at the end-nodes, which is rarely the case.</p>
-<p>To make things simple lets now assume we have 4 features and the optimal values at the end nodes are 1, 1.01, 2, 2.01  Assume further that $\epsilon$ 0.01 is low enough so that the first and second pair of of categories should not be distinguished (or the nodes that distinguished should be pruned).</p>
-<p>That is the whole definition of "avoid overfit", the point here is that at some point signal to uncertainty ratio is to low to make a distinction and that is why xgboost has at least 7 hyperparameters that should help in not distinquishing these pairs: max_depth, gamma, min_child_weight, lambda, alpha, min_split_loss, max_leaves</p>
-<p>Definitions of these hyperparameters can be found here <a href="https://xgboost.readthedocs.io/en/latest/parameter.html">https://xgboost.readthedocs.io/en/latest/parameter.html</a></p>
-<p>Now to explaination how each one of these would prevent between split of first and second categories:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hyperparameters-that-help-to-avoid-overfit.">Hyperparameters that help to avoid overfit.<a class="anchor-link" href="#Hyperparameters-that-help-to-avoid-overfit."> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Taking the above 1, 1.01, 2, 2.01 example let us look at how each of these 7 hyp</p>
-<ol>
-<li><p>max_depth: disallows too many splits so that on each split only best splits would be chosen, so given your max_depth&lt;K-2, you would not get to split the first and second category into different branches (those a next tree might).</p>
-</li>
-<li><p>gamma, if this one is $&lt;0.01$, it would not split as the difference is smaller than gamma.</p>
-</li>
-<li><p>min_child_weight, if each category has less children that min_child_weight it would not split down to one category,</p>
-</li>
-<li><p>lambda: these will help not assign the tree that does split a very small weight</p>
-</li>
-<li><p>alpha: similar as lambda</p>
-</li>
-<li><p>min_split_loss: similar to gamma except it would truncate later</p>
-</li>
-<li><p>max_leaves: similar to max_depth</p>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mathematical-analysis:-How-exactly-does-rainbow-help?">Mathematical analysis: How exactly does rainbow help?<a class="anchor-link" href="#Mathematical-analysis:-How-exactly-does-rainbow-help?"> </a></h2><p>Below we would show that rainbow always outperforms One-hot in best, average and worst case scenarios!  The discussion below applies to any tree based algorithm that relies only on order of values which include: xgboost or any gradient boosted trees or any random forest.</p>
-<p>We first demonstrate this with a simple example, then we proceed with full generalization and simulation.</p>
+<h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2><p>Below we show that the Rainbow method always outperforms the One-hot method - in the best, the average and the worst case scenarios! The discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost.</p>
+<p>We first demonstrate the Rainbow's advantage with a simple example, then we proceed with full generalization and a simulation.</p>
 
 </div>
 </div>
@@ -1193,7 +1145,7 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 <ul>
 <li>assume a binary classification problem, with output variable having values 0 and 1</li>
 <li>assume only one categorical variable</li>
-<li>assume exactly four categoties with values v1 &lt; v2 &lt; v3 &lt; v4, say with a number of samples in each value</li>
+<li>assume exactly four categories with values v1 &lt; v2 &lt; v3 &lt; v4, say with a number of samples in each value</li>
 <li>assume an ideal separation will give (v1 and v2) samples score 1 and to (v3 anv v4) samples score 2, where score is some decision function used for separation (e.g. Gini, impurity, etc.)</li>
 </ul>
 <p>If we want to build a single decision tree, then</p>
@@ -1609,12 +1561,6 @@ Length: 40000, dtype: object</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><p>As we saw above in all cases even random rainbow wins against one-hot.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><p>Remove from the article, even from the appendix.</p>
 </li>
@@ -1623,25 +1569,6 @@ Length: 40000, dtype: object</pre>
 <li><p>don't want to talk about hyperparameters</p>
 </li>
 </ul>
-<h3 id="Bonus:-How-many-random-rainbows-do-you-need-to-outperform-best-case-One-hot?">Bonus: How many random rainbows do you need to outperform best-case One-hot?<a class="anchor-link" href="#Bonus:-How-many-random-rainbows-do-you-need-to-outperform-best-case-One-hot?"> </a></h3><p>Let's ask one last question that does not pose theoretical significance.
-How many random rainbows would it take to outperform best-case one-hot?</p>
-<p>Let us call this number of rainbows $R$ and assume it is not too large, then corresponding $D$ can on average be<br />
-\begin{align}
-\mathbb E[D] &amp; = (K - 1) * (1-\frac{ \sum_i G_i*(G_i-1)} {K(K-1)})^R \notag\\
-             &amp; \approx (K-1)- R* \frac{ \sum G_i*(G_i-1)} {K} \tag{4}
-\end{align}</p>
-<p>So from (1) we get that.</p>
-<p>
-$$\mathbb E[D] \leq K-G_{max}$$
-
-if we let $R$ be greater than $\frac{G_{max}}{G_i}$ for all $i$ or in other words if:
-
-$$ R \geq \frac{G_{max}}{G_{min}} $$
-
-This is of course less than $G_{max}$.  Similar computatoin can also show that it also has to be less than $g$, but then from $g*G_{max} \leq K$ we can show that $R \leq \sqrt{K}$.  In fact with a bit more detailed calculation one can show 
-$R \lessapprox \frac {\sqrt{K}}{2}$ as $K$ gets larger and this actually would imply that $R$ is not too large in the approximation we used above.</p>
-<blockquote><p>Hence we showed that single perfect rainbow outperforms, $K$ One-hot encoding and that $\frac{\sqrt{K}}{2}$ random rainbows would outperform $K$ One-hot encodings.</p>
-</blockquote>
 
 </div>
 </div>
