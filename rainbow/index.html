@@ -1181,15 +1181,22 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>while One-hot would need two or three splits. Here are two examples:</p>
-<p>Figure 2, Figure 3</p>
+<p>Figure 2</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R2.png" alt="" />
     
     
 </figure>
- 
-<figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 3</p>
+<p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R3.png" alt="" />
     
@@ -1287,7 +1294,51 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <li>1,2,2,1 and 2,1,1,2 and 1,2,1,2 and 2,1,2,1 the number of splits would be 3.</li>
 </ul>
 <p>In these examples, as shown above (Figure 3), three splits would be needed given the order in which binary features enter the tree.</p>
-<p>Note that the Rainbow and One-hot orders described here are not the same orders, so we cannot compare them directly. In case of Rainbow, we look at the order at the top  - in which categories appear on a single scale, while for One-hot we look at the order at the bottom - in which categories are picked by the model. Nevertheless, we see that on average Rainbow is better as it provides lower number of splits - best case 1, average case 2, worst case 3; while one hot gives best case 2, average case $\frac 83$ and worst case 3.  In fact we would see that this is true in general.</p>
+<p>Note that the Rainbow and One-hot orders described here are not the same orders, so we cannot compare them directly. In case of Rainbow, we look at the order at the top  - in which categories appear on a single scale, while for One-hot we look at the order at the bottom - in which categories are picked by the model. Nevertheless, we see that on average Rainbow is better as it provides lower number of splits - best case 1, average case 2, worst case 3; while one hot gives best case 2, average case $\frac 83$ and worst case 3.  In fact we show below that this is true in general.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="General-Case:-Random-rainbow-vs-one-hot">General Case: Random rainbow vs one-hot<a class="anchor-link" href="#General-Case:-Random-rainbow-vs-one-hot"> </a></h3><p>Assume we have $K$ categories that optimally would need to be split into groups of size $G_1,G_2,...,G_g$. By size $G_i$ we mean number of categories out of $K$ (not the number of samples).</p>
+<p>For example, in the simple example above - the order is 1,1,2,2:</p>
+<p>Figure 8</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R8.png" alt="" style="max-width: 300/px" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>and $K=4$, $g=2$, $G_1=2$ consisted of {v1, v2}, and $G_2=2$ consisted of {v3, v4}.</p>
+<p>Another example - if the order is 1,2,2,1:</p>
+<p>Figure 9</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R9.png" alt="" style="max-width: 300/px" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here $K=4$, $g=3$, $G_1=1$, $G_2=2$, and $G_3=1$.</p>
+<p>Unlike the simple example of the perfect rainbow, in the general case the $K$ categories would appear in random order, and our rainbow would be random. However for the purposes of computation we only care about the groups of same f-values rather than about actual categories. In other words, if v1 and v2 samples produce same f-score (1 or 2), it does not matter whether the order is (v1, v2) or (v2, v1).</p>
+<p>For one-hot the order that would matter is the one in which one-hot splits are made and this is also assume to be random.  This is the order that we would always refer to when talking about one-hot.</p>
+<blockquote><p>In reality the one-hot splits are not fully random and varies from the number of samples in each category, subsamples of columns that chosen and other hyperparameters.  That can have both negative and positive effect on one-hot but will make analysis much more difficult.</p>
+</blockquote>
+<p>While the orders that matter for rainbow and one-hot are not the same it helps to couple them to make comparisons.</p>
 <p>For One-hot, assume random selection of the next choice.</p>
 <ul>
 <li>subsample col</li>
@@ -1298,18 +1349,6 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <li><p>assume inside one var all splits are considered, but not across all vars</p>
 </li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="General-Case:-Random-rainbow-vs-one-hot">General Case: Random rainbow vs one-hot<a class="anchor-link" href="#General-Case:-Random-rainbow-vs-one-hot"> </a></h3><p>Assume we have $K$ categories that optimally would need to be split into groups of size $G_1,G_2,...,G_g$. By size we mean number of categories out of K, not the number of samples. In simple example above $K=4$, $g=2$ and $G_1=2$ consisted of {v_1,v_2} and $G_2=2$ of {v_3,v_4}. 
-Since our rainbow is random, the K categories would appear in random order, however for the purposes of computation only their corresponding group would matter and this is the order that we would always talk about when dealing with rainbow. (means that v1, v2 is same as v2, v1)</p>
-<p>For one-hot the order that would matter is the one in which one-hot splits are made and this is also assume to be random.  This is the order that we would always refer to when talking about one-hot.</p>
-<blockquote><p>In reality the one-hot splits are not fully random and varies from the number of samples in each category, subsamples of columns that chosen and other hyperparameters.  That can have both negative and positive effect on one-hot but will make analysis much more difficult.</p>
-</blockquote>
-<p>While the orders that matter for rainbow and one-hot are not the same it helps to couple them to make comparisons.</p>
 <p>It is time to compute best, average and worst cases. (Let's compare)</p>
 
 </div>
@@ -1669,6 +1708,8 @@ Less time and less work means work if more effective.</p>
 <li><p>don't want to talk about hyperparameters</p>
 </li>
 <li><p>numerate figures?</p>
+</li>
+<li><p>will or do - past or present tense? consistent</p>
 </li>
 </ul>
 
