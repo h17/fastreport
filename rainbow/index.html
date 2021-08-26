@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      28 min read
+      29 min read
     
 </span></p>
 
@@ -1133,8 +1133,7 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2><p>Below we show that the Rainbow method always outperforms the One-hot method - in the best, the average and the worst case scenarios! The discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost.</p>
-<p>We first demonstrate the Rainbow's advantage with a simple example, then we proceed with full generalization and a simulation.</p>
+<h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2><p>Below we show that the Rainbow method always outperforms the One-hot method - in the best, the average and the worst case scenarios! The discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost. We first demonstrate the Rainbow's advantage with a simple example, then we proceed with a full generalization and a simulation.</p>
 
 </div>
 </div>
@@ -1143,22 +1142,85 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><h4 id="Simplest-Example">Simplest Example<a class="anchor-link" href="#Simplest-Example"> </a></h4><p>Consider the following example:</p>
 <ul>
-<li>assume a binary classification problem, with output variable having values 0 and 1</li>
-<li>assume only one categorical variable</li>
-<li>assume exactly four categories with values v1 &lt; v2 &lt; v3 &lt; v4, say with a number of samples in each value</li>
-<li>assume an ideal separation will give (v1 and v2) samples score 1 and to (v3 anv v4) samples score 2, where score is some decision function used for separation (e.g. Gini, impurity, etc.)</li>
+<li>assume a binary classification problem, with output variable having values 0 and 1;</li>
+<li>assume we have only one categorical variable V and no other variables;</li>
+<li>assume V has exactly four categories with values v1 &lt; v2 &lt; v3 &lt; v4<br />
+(In case of the nominal variable, the values simply represent numeric codes assigned to each category); </li>
+<li>assume each value of V has same or close number of samples in the data;</li>
+<li>assume an ideal separation will give to (v1 and v2) samples f-score = 1 and to (v3 anv v4) samples f-score = 2, where f-score represents some decision function used for separation (e.g. Gini impurity, information gain, etc.).</li>
 </ul>
-<p>If we want to build a single decision tree, then</p>
-<ul>
-<li><p>in the case of rainbow: 
-two samples will be sent to the left branch and two other samples will be sent to the right branch of the tree. (diagram)
-In such a situation a natural split occurs between v2 and v3, and rainbow would need one split</p>
-</li>
-<li><p>while One-hot would need two or three splits.
-(diagram)</p>
-</li>
-</ul>
-<h4 id="Generalizing-simple-example.">Generalizing simple example.<a class="anchor-link" href="#Generalizing-simple-example."> </a></h4><p>Let's look at more general case, where the values of the categorical variable are in different order.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's consider two cases - Rainbow and One-hot. For Rainbow, we will use V directly to build a decision tree. For One-hot, we will need to create four binary variables - let's call them V1, V2, V3, V4, where 
+V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, if we want to build a single decision tree, then</p>
+<p>In the case of rainbow, samples from two categories will be sent to the left branch and samples from two other categories will be sent to the right branch of the tree. In such a situation a natural split occurs between v2 and v3, and rainbow would need one split,</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R1.png" alt="" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>while One-hot would need two or three splits. Here are two examples:</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R2.png" alt="" />
+    
+    
+</figure>
+ 
+<figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R3.png" alt="" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In other words, assuming a clear order between categories, Rainbow method is strictly better at separating samples - it makes less splits. In this example, it finds the single perfect split between v2 and v3. One-Hot method goes through four scales instead of one and does not naturally incorporate combination of information from a few features.</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R4.png" alt="" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But what happens if the categories do not go in a perfect order?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Generalizing-simple-example">Generalizing simple example<a class="anchor-link" href="#Generalizing-simple-example"> </a></h4><p>Let's look at more general case, where the values of the categorical variable are in different order.</p>
 <p>The number of splits would depend on the order in which these categories appear</p>
 <p>For rainbow orders:</p>
 <ul>
@@ -1567,6 +1629,8 @@ Length: 40000, dtype: object</pre>
 <li><p>from me, understand it all and rewrite in human language</p>
 </li>
 <li><p>don't want to talk about hyperparameters</p>
+</li>
+<li><p>numerate figures?</p>
 </li>
 </ul>
 
