@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      32 min read
+      33 min read
     
 </span></p>
 
@@ -1345,28 +1345,46 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Best-case:-One-hot">Best case: One-hot<a class="anchor-link" href="#Best-case:-One-hot"> </a></h4><p>We want to make that the biggest groups won't be split.</p>
-<p>In best case One-hot would require $K - G_{max}$ splits, where $G_{max} = max_i G_i$ is the maximum of $G_i$. The best case $K - G_{max}$ is obtained when each group except the largest one gets one split per category and the remaining largest group has the same answer so doesn't require any additional splits.  To prove that one cannot do better observe that if we do not make a split for two categories in distinct groups than there is no way to distinguish the values in these two categories.</p>
-<h4 id="Best-case:-Random-Rainbow">Best case: Random Rainbow<a class="anchor-link" href="#Best-case:-Random-Rainbow"> </a></h4><p>In best case one-hot rainbow would require $g-1$ splits</p>
-<p>which happens when groups are together and it simply splits at $g-1$ points to separate $g$ groups.  One cannot do better as if there is no split in between two groups there is</p>
-<p>no way to distinquish them.</p>
-<p>Clearly  $$K - G_{max}=(\sum_{i=1}^g G_i)-G_{max}=(\sum_{i!=max} G_i) \geq (\sum_{i!=max} 1) = g-1$$ and hence rainbow is better in best case.</p>
+<h4 id="Best-case:-One-hot">Best case: One-hot<a class="anchor-link" href="#Best-case:-One-hot"> </a></h4><p>In the best case scenario for One-hot, the biggest group won't be split.</p>
+<p>For example, in the case of 1,1,2,2,2,3,3 we would like the biggest group 2,2,2 to end up on the bottom of the tree, and thus, not introduce any extra splits.</p>
+<p>Figure 10</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R10.png" alt="" />
+    
+    
+</figure>
+</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Average-Case:-One-hot">Average Case: One-hot<a class="anchor-link" href="#Average-Case:-One-hot"> </a></h4><p><div class="flash">
-    <svg class="octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
-    <strong>Note: </strong>From the same logic as presented in best case follows that:
-</div>&gt; 1. the number of splits that one-hot would need is the number $N$ of categories that are chosen before remaining ones are in one group.</p>
-<blockquote><ol>
-<li>the number of splits that rainbow need would always be $D$, number of consequitive pairs in rainbow order that are in distinct groups.
-In the best case N = K- Gmax, D=g-1. </li>
-</ol>
+<p>Thus, in best case One-hot would require $K - G_{max}$ splits, where $G_{max} = max_i G_i$ is the maximum of $G_i$. The best case $K - G_{max}$ is obtained when each group except the largest one gets one split per category and the remaining largest group has the same answer so doesn't require any additional splits.  To prove that one cannot do better, observe that if a few categories do not appear on any tree node, i.e. no splits are made, then they are "combined" - there is no way to distinguish the values in these two categories.</p>
+<h4 id="Best-case:-Rainbow">Best case: Rainbow<a class="anchor-link" href="#Best-case:-Rainbow"> </a></h4><p>In the best case of rainbow - the values are in perfect order, and the minimum splits is needed. Given $g$ groups, that would require $g-1$ splits. That happens when groups are together and it simply splits at $g-1$ points to separate $g$ groups.</p>
+<p>For example, clearly two splits are needed for the perfect rainbow with three groups 1,1,2,2,2,3,3.</p>
+<p>One cannot do better since if there is no split between two groups there is no way to distinquish them.</p>
+<h4 id="Best-case:-Comparison">Best case: Comparison<a class="anchor-link" href="#Best-case:-Comparison"> </a></h4><p>Clearly  $$K - G_{max}=(\sum_{i=1}^g G_i)-G_{max}=(\sum_{i!=max}G_i) \geq (\sum_{i!=max} 1) = g-1$$ and hence best rainbow is better than best One-hot.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Average-Case:-One-hot">Average Case: One-hot<a class="anchor-link" href="#Average-Case:-One-hot"> </a></h4><p>From the logic presented in best case, it follows that</p>
+<blockquote><p>The number of splits that One-hot needs would be $N$ - number of categories that are chosen before remaining ones are in one group.</p>
 </blockquote>
-<p>It is easiest to compute probability that $N = K-R$ for $R$ ranging from $1$ to $K$, where R representing the size of the last group in the order (so if the order in which one-hot variable corresponding to categories are chosen is for example 112233222, the R=3, since the last group 222 is of size 3).</p>
+<p>Figure 10 shows the best case - where all the remaining ones belong to the largest group. In average case, the remaining group can be any group, or any group's part. We cannot expect that a homogenous group won't be broken into pieces when building an average tree. What we care about is that the tree building should end when reaching some homogenous group.</p>
+<p>In the best case $N = K - G_{max}$. In the average case $N = K - R$ where $R$ is the size of the remaining group.</p>
+<p>For example, if the order in which One-hot categories are chosen for the tree is 1,1,2,2,3,3,2,2,2 then $R=3$ since the last group 2,2,2 is of size 3. The number of categories $K=9$, thus the number of splits would be $K-R=6$.</p>
+<p>It is easiest to compute expected value of $N$ by adding up probabilities of $R$ taking values from $1$ to $K$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 \begin{align}
 \mathbb E[N] &amp;= \mathbb E[K-R] = K- \mathbb E[R] = K - \sum_{j=1}^{\infty} \mathbb P[R \geq j] =K- \sum_{j=1}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}} = (K-1) - \sum_{j=2}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}}\\
 \end{align}
@@ -1375,11 +1393,26 @@ In the best case N = K- Gmax, D=g-1. </li>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Average-Case:-Rainbow">Average Case: Rainbow<a class="anchor-link" href="#Average-Case:-Rainbow"> </a></h4><p>For rainbow the average case is $\mathbb E[D]$ where $D$ is number of consequitive pairs in rainbow order that are in distinct groups.</p>
+<p>Maybe this???</p>
 \begin{align}
-\mathbb E[D] &amp;= (K - 1) \cdot (1-\frac{ \sum_i G_i \cdot (G_i-1)} {K(K-1)}) \notag \\
+\mathbb E[N] &amp;= \mathbb E[K-R] = K- \mathbb E[R] = K - \sum_{j=1}^{K} j*\mathbb P[R = j] 
+\end{align}<p>need explanation!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Average-Case:-Rainbow">Average Case: Rainbow<a class="anchor-link" href="#Average-Case:-Rainbow"> </a></h4><p>From the best case logic it also follows that</p>
+<blockquote><p>The number of splits that random Rainbow needs would always be $D$ - number of consecutive pairs in rainbow order that are in distinct groups.</p>
+</blockquote>
+<p>In the best case $D=g-1$.</p>
+<p>For example, in the case of Rainbow order 1,1,2,2,3,3,2,2,2 the splits will happen in 4 places, and that the only places where the group is changed and the values in consecutive pairs belong to distinct groups.</p>
+<p>Let's calcualte expected value of $D$:\begin{align}\mathbb E[D] &amp;= (K - 1) \cdot (1-\frac{ \sum_i G_i \cdot (G_i-1)} {K(K-1)}) \notag \\
              &amp;= (K-1)-\frac{ \sum G_i \cdot (G_i-1)} {K} \notag
-\end{align}<p>An easy way to see that this value is larger, is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K$ and subtracting $-1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
+\end{align}</p>
+<p>Also need explanation!</p>
+<h4 id="Average-Case:-Comparison">Average Case: Comparison<a class="anchor-link" href="#Average-Case:-Comparison"> </a></h4><p>An easy way to see that this value is larger, is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K$ and subtracting $-1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
 
 </div>
 </div>
@@ -1388,15 +1421,7 @@ In the best case N = K- Gmax, D=g-1. </li>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Worst-Case:-One-hot">Worst Case: One-hot<a class="anchor-link" href="#Worst-Case:-One-hot"> </a></h4><p>Worst case for one-hot is $K-1$ when one goes through all but one category to get to one group remaining.</p>
 <h4 id="Worst-Case:-Rainbow">Worst Case: Rainbow<a class="anchor-link" href="#Worst-Case:-Rainbow"> </a></h4><p>In this case it is $\min( (K - 1), 2 \cdot (K-G_{max}))$ as we can only get upto two splits per each category not in the largest group. Clearly this is also less than or equal to one-hot.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Less splits is the main argument,
-less splits means less time and comput resources. How this mean less overfit?
-Less time and less work means work if more effective.</p>
+<h4 id="Worst-Case:-Comparison">Worst Case: Comparison<a class="anchor-link" href="#Worst-Case:-Comparison"> </a></h4><p>Clearly this is also less than or equal to one-hot.</p>
 
 </div>
 </div>
@@ -1701,6 +1726,13 @@ Less time and less work means work if more effective.</p>
 <li><p>will or do - past or present tense? consistent</p>
 </li>
 </ul>
+<p>Less splits is the main argument,
+less splits means less time and comput resources. How this mean less overfit?
+Less time and less work means work if more effective.</p>
+<p>Single tree?</p>
+<p>Our method works on simpler models</p>
+<p>Saves significant dimensionality</p>
+<p>Not losing even a bit of information</p>
 <p>from the number of samples in each category, subsamples of columns that chosen and other hyperparameters.  That can have both negative and positive effect on one-hot but will make analysis much more difficult</p>
 <p>We base our analysis on the assumption that model features are selected somewhat randomly by the model and added to the tree nodes. In other words, the model does not compare all splits across all variables before chosing the split on the current node, rather it picks a feature randomly and then picks a split value inside that single scale. We understand that this is a strong assumption and in reality the One-hot splits are not fully random.
 However they are also not fully deterministic. 
