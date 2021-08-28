@@ -1737,12 +1737,16 @@ Will it stop somewhere earlier possibly?</p>
 </li>
 </ul>
 <p>Less splits is the main argument,
-less splits means less time and comput resources. How this mean less overfit?
+less splits means less time and comput resources. How this mean less overfit. It means less overfit.
 Less time and less work means work if more effective.</p>
 <p>Single tree?</p>
 <p>Our method works on simpler models</p>
 <p>Saves significant dimensionality</p>
 <p>Not losing even a bit of information</p>
+<p>D: randomness might have different effects</p>
+<p>D: in actual one-hot - a loooot of features, so randomness assumption is not far from truth.</p>
+<p>Add - at least not lose any bit of info.
+Single trees - easy assumption - equivalent to forest of depth 1 trees.</p>
 <p>from the number of samples in each category, subsamples of columns that chosen and other hyperparameters.  That can have both negative and positive effect on one-hot but will make analysis much more difficult</p>
 <p>We base our analysis on the assumption that model features are selected somewhat randomly by the model and added to the tree nodes. In other words, the model does not compare all splits across all variables before chosing the split on the current node, rather it picks a feature randomly and then picks a split value inside that single scale. We understand that this is a strong assumption and in reality the One-hot splits are not fully random.
 However they are also not fully deterministic. 
@@ -1758,6 +1762,9 @@ Second, various hyperparameters have a substantial effect on which split will be
 </li>
 <li><p>assume inside one var all splits are considered, but not across all vars</p>
 </li>
+</ul>
+<ul>
+<li>that one-hot and rainbow might both win from minority thing</li>
 </ul>
 
 </div>
