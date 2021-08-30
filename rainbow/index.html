@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      34 min read
+      36 min read
     
 </span></p>
 
@@ -1133,8 +1133,31 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2><p>Below we show that the Rainbow method always outperforms the One-hot method - in the best, the average and the worst case scenarios! The discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost. We first demonstrate the Rainbow's advantage with a simple example, then we proceed with a full generalization and a simulation.</p>
+<p>In this article we justify mathematically the advantages of Rainbow method over One-hot. Please note that the discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost. In the first part we show that with Rainbow method the full data signal is preserved. In the second part we show how Rainbow method outperforms One-hot in various scenarios. We start with a simple example, and then we proceed with a full generalization and a simulation. In the final part we discuss various assumptions and limitations of the Rainbow method and provide actionable recommendations to get the best out of Rainbow.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Rainbow-keeps-the-full-signal">Rainbow keeps the full signal<a class="anchor-link" href="#Rainbow-keeps-the-full-signal"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Imagine that a certain categorical variable $V$ has $K$ categories with values v1 &lt; v2 &lt; v3 ... &lt; vk. Then:</p>
+<ul>
+<li>One-hot would create $K$ features $V1, V2, ..., VK$, where $Vi$ = 1 if V = vi and 0 otherwise;</li>
+<li>Rainbow would create a single feature, where all the categories appear on one scale. We can keep the name of this variable $V$.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2>
 </div>
 </div>
 </div>
@@ -1333,7 +1356,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here $K=4$, $g=3$, $G_1=1$, $G_2=2$, and $G_3=1$.</p>
+<p>Here $K=4$, $g=2$, $G_1=2$ consists of {v1, v4}, and $G_2=2$ consists of {v2, v3}.</p>
 <p>Unlike the simple example of the perfect rainbow, in the general case the $K$ categories would appear <strong>in random order</strong>, and our rainbow would be random. However for the purposes of computation we only care about the groups of same f-values rather than about actual categories. In other words, if v1 and v2 samples produce same f-score, it does not matter whether the order is (v1, v2) or (v2, v1).</p>
 <p>For One-hot the order that would matter is the one in which One-hot splits are made. This order is also assumed to be random. This is the order that we would always refer to when talking about One-hot.</p>
 <blockquote><p>In reality the One-hot splits are not fully random and the order of them being picked by the model varies depending on the number of samples in each category, subsamples of columns chosen and other hyperparameters. That can be both in favor or against the case for One-Hot. We will come back to this assumption later in the article, and for now will proceed assuming randomness for simplicity.</p>
@@ -1378,7 +1401,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <p>Figure 10 shows the best case - where all the remaining ones belong to the largest group. In average case, the remaining group can be any group, or any group's part. We cannot expect that a homogenous group won't be broken into pieces when building an average tree. What we care about is that the tree building should end when reaching some homogenous group.</p>
 <p>In the best case $N = K - G_{max}$. In the average case $N = K - R$ where $R$ is the size of the remaining group.</p>
 <p>For example, if the order in which One-hot categories are chosen for the tree is 1,1,2,2,3,3,2,2,2 then $R=3$ since the last group 2,2,2 is of size 3. The number of categories $K=9$, thus the number of splits would be $K-R=6$.</p>
-<p>It is easiest to compute expected value of $N$ by adding up probabilities of $R$ taking values from $1$ to $K$.</p>
+<p>It is easiest to compute expected value of $N$ by using less common formula $\mathbb E[X] = \sum_{j} \mathbb P[X \geq j]$ applied to $R$. We then utilize the formula of hypergeometric distribution to calculate each probability and achieve the result below.</p>
 
 </div>
 </div>
@@ -1386,18 +1409,8 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 \begin{align}
-\mathbb E[N] &amp;= \mathbb E[K-R] = K- \mathbb E[R] = K - \sum_{j=1}^{\infty} \mathbb P[R \geq j] =K- \sum_{j=1}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}} = (K-1) - \sum_{j=2}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}}\\
+\mathbb E[N] &amp;= \mathbb E[K-R] = K- \mathbb E[R] = K - \sum_{j=1}^{K} \mathbb P[R \geq j] =K- \sum_{j=1}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}} = (K-1) - \sum_{j=2}^K \frac{\sum_i \frac{G_i!}{(G_i-j)!}} {\frac{K!}{(K-j)!}}\\
 \end{align}
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Maybe this???</p>
-\begin{align}
-\mathbb E[N] &amp;= \mathbb E[K-R] = K- \mathbb E[R] = K - \sum_{j=1}^{K} j*\mathbb P[R = j] 
-\end{align}<p>need explanation!</p>
-
 </div>
 </div>
 </div>
@@ -1407,12 +1420,12 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <blockquote><p>The number of splits that random Rainbow needs would always be $D$ - number of consecutive pairs in rainbow order that are in distinct groups.</p>
 </blockquote>
 <p>In the best case $D=g-1$.</p>
-<p>For example, in the case of Rainbow order 1,1,2,2,3,3,2,2,2 the splits will happen in 4 places, and that the only places where the group is changed and the values in consecutive pairs belong to distinct groups.</p>
-<p>Let's calcualte expected value of $D$:\begin{align}\mathbb E[D] &amp;= (K - 1) \cdot (1-\frac{ \sum_i G_i \cdot (G_i-1)} {K(K-1)}) \notag \\
+<p>For example, in the case of Rainbow order 1,1,2,2,3,3,2,2,2 the splits will happen in 3 places, and these are the only places where the group is changed and the values in consecutive pairs belong to distinct groups.</p>
+<p>Let's calcualte expected value of $D$. We do this by calculating for $K-1$ consecutive pairs as potential places for split the probability that the f-score is different. It is easier to subtract from one the probabilities that f values in each consectutive pair are same. We sum through all possible groups $i$ to compute likelihood that two consecutive values belong to one group.</p>
+\begin{align}
+\mathbb E[D] &amp;= (K - 1) \cdot (1-\frac{ \sum_i G_i \cdot (G_i-1)} {K(K-1)}) \notag \\
              &amp;= (K-1)-\frac{ \sum G_i \cdot (G_i-1)} {K} \notag
-\end{align}</p>
-<p>Also need explanation!</p>
-<h4 id="Average-Case:-Comparison">Average Case: Comparison<a class="anchor-link" href="#Average-Case:-Comparison"> </a></h4><p>An easy way to see that $\mathbb E[D]$ is larger than $\mathbb E[N]$ is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K$ and subtracting $-1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
+\end{align}<h4 id="Average-Case:Comparison">Average Case:Comparison<a class="anchor-link" href="#Average-Case:Comparison"> </a></h4><p>An easy way to see that $\mathbb E[D]$ is larger than $\mathbb E[N]$ is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K-1$ and subtracting $1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
 <p>WHAT???</p>
 
 </div>
@@ -1766,6 +1779,21 @@ Second, various hyperparameters have a substantial effect on which split will be
 <ul>
 <li>that one-hot and rainbow might both win from minority thing</li>
 </ul>
+<p>argument for rainbow</p>
+<ul>
+<li>pick a few, choose the best</li>
+<li>compare</li>
+<li>compare average rainbow with best One-hot</li>
+</ul>
+<p>randomness of One-hot
+they should be random to avoid overfit</p>
+<ul>
+<li>hyperparameters, simple model </li>
+</ul>
+<ul>
+<li>single tree vs forest?</li>
+</ul>
+<p>depth 1 trees</p>
 
 </div>
 </div>
