@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      36 min read
+      37 min read
     
 </span></p>
 
@@ -1141,6 +1141,110 @@ As mentioned in Part 1, rainbow encoding with 50 features is even better than On
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Rainbow-keeps-the-full-signal">Rainbow keeps the full signal<a class="anchor-link" href="#Rainbow-keeps-the-full-signal"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the classical example of a nominal categorical variable:</p>
+<hr />
+<p><em>Color</em> <br /><br />
+0 = "Red" <br />
+1 = "Yellow" <br />
+2 = "Green" <br />
+3 = "Blue"</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the case of One-hot, we would create 4 features: <br /></p>
+<hr />
+<p><em>Color_Red</em> = 1 if <em>Color</em> = 0 and 0 otherwise,<br />
+<em>Color_Yellow</em> = 1 if <em>Color</em> = 1 and 0 otherwise,<br />
+<em>Color_Green</em> = 1 if <em>Color</em> = 2 and 0 otherwise,<br />
+<em>Color_Vlue</em> = 1 if <em>Color</em> = 3 and 0 otherwise.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the case of Rainbow, we would just use the <em>Color</em> itself.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's compare the possible models made using these two methods: 4 features vs 1 feature. Let's for simplicity build a single decision tree. Let's look at few examples of the data generating process.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-1.">Example 1.<a class="anchor-link" href="#Example-1."> </a></h3><p>Assume each One-hot feature is indeed critical - the model should separate between all 4 groups created by One-hot.
+Below we show that one can achieve the same exact output with just one Rainbow feature as with four One-hot features.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 1</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R01.png" alt="" style="max-width: 600/px" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One can clearly see that this example is easily genearlized to One-hot with <strong>any</strong> number of categories. Also note that for such data generating process the order of the categories in Rainbow does not even matter as splits will be made between <strong>all</strong> categories. In practice, three splits will be sufficient for both methods to separate between four categories.</p>
+<p>Figure 2</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R02.png" alt="" style="max-width: 650px" />
+    
+    
+</figure>
+</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The big takeaway here is that not a bit of data signal is lost if one switches from One-hot to Rainbow. In addition to this, depending on number of categories, a substantial dimensionality reduction happens which is beneficial for multiple reasons.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example-2.">Example 2.<a class="anchor-link" href="#Example-2."> </a></h3><p>Now what if the data generating process is different from Example 1, and the true model pattern should only separate between {Red, Yellow} and {Green, Blue}, but should not separate values in each group? In that case, Rainbow has a clear advantage as it exploits these groupings while One-hot does not.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 3</p>
+<p><figure>
+  
+    <img class="docimage" src="/images/copied_from_nb/img-anna/R03.png" alt="" style="max-width: 750px" />
+    
+    
+</figure>
+</p>
+
 </div>
 </div>
 </div>
