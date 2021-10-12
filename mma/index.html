@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MMA | Your Data Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MMA" />
+<meta name="author" content="Dmytro Karabash" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Science and Management" />
+<meta property="og:description" content="Data Science and Management" />
+<link rel="canonical" href="https://yourdatablog.com/mma/" />
+<meta property="og:url" content="https://yourdatablog.com/mma/" />
+<meta property="og:site_name" content="Your Data Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-25T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Dmytro Karabash"},"description":"Data Science and Management","@type":"BlogPosting","headline":"MMA","dateModified":"2021-07-25T00:00:00-05:00","datePublished":"2021-07-25T00:00:00-05:00","url":"https://yourdatablog.com/mma/","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/mma/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://yourdatablog.com/feed.xml" title="Your Data Blog" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MMA | Your Data Blog</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MMA" />
+<meta name="author" content="Dmytro Karabash" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data Science and Management" />
+<meta property="og:description" content="Data Science and Management" />
+<link rel="canonical" href="https://yourdatablog.com/mma/" />
+<meta property="og:url" content="https://yourdatablog.com/mma/" />
+<meta property="og:site_name" content="Your Data Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-25T00:00:00-05:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Dmytro Karabash"},"description":"Data Science and Management","@type":"BlogPosting","headline":"MMA","dateModified":"2021-07-25T00:00:00-05:00","datePublished":"2021-07-25T00:00:00-05:00","url":"https://yourdatablog.com/mma/","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/mma/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://yourdatablog.com/feed.xml" title="Your Data Blog" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script type="text/javascript">
+require.config({
+  paths: {
+    jquery: 'https://code.jquery.com/jquery-3.5.0.min',
+    plotly: 'https://cdn.plot.ly/plotly-latest.min'
+  },
+
+  shim: {
+    plotly: {
+      deps: ['jquery'],
+      exports: 'plotly'
+    }
+  }
+});
+</script>
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Your Data Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Us</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MMA</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-07-25T00:00:00-05:00" itemprop="datePublished">
+        Jul 25, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Dmytro Karabash</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      7 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#MMA">MMA</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#diophantine equations">diophantine equations</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/h17/fastreport/tree/master/_notebooks/2021-07-25-MMA.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/h17/fastreport/master?filepath=_notebooks%2F2021-07-25-MMA.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/h17/fastreport/blob/master/_notebooks/2021-07-25-MMA.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-07-25-MMA.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Problem-1.-Does-equation-$x^{2}+y^{2}+z^{2}=2-x-y-z$-have-any-non-zero-integer-solutions?" data-toc-modified-id="Problem-1.-Does-equation-$x^{2}+y^{2}+z^{2}=2-x-y-z$-have-any-non-zero-integer-solutions?-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Problem 1. Does equation $x^{2}+y^{2}+z^{2}=2 x y z$ have any non-zero integer solutions?</a></span><ul class="toc-item"><li><span><a href="#Problem-1-Solution-1" data-toc-modified-id="Problem-1-Solution-1-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Problem 1 Solution 1</a></span><ul class="toc-item"><li><span><a href="#Insight-1:-consider-mod-2" data-toc-modified-id="Insight-1:-consider-mod-2-1.1.1"><span class="toc-item-num">1.1.1&nbsp;&nbsp;</span>Insight 1: consider mod 2</a></span></li></ul></li><li><span><a href="#Problem-1-Solution-2:-Solution-Trees" data-toc-modified-id="Problem-1-Solution-2:-Solution-Trees-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Problem 1 Solution 2: Solution Trees</a></span><ul class="toc-item"><li><span><a href="#Insight-1:-Vieta's-Formula-yields-solution-trees" data-toc-modified-id="Insight-1:-Vieta's-Formula-yields-solution-trees-1.2.1"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>Insight 1: Vieta's Formula yields solution trees</a></span></li><li><span><a href="#Insight-2:-Reduce-the-benchmark." data-toc-modified-id="Insight-2:-Reduce-the-benchmark.-1.2.2"><span class="toc-item-num">1.2.2&nbsp;&nbsp;</span>Insight 2: Reduce the benchmark.</a></span></li><li><span><a href="#$x=y$-case" data-toc-modified-id="$x=y$-case-1.2.3"><span class="toc-item-num">1.2.3&nbsp;&nbsp;</span>$x=y$ case</a></span></li><li><span><a href="#$z=1$-case" data-toc-modified-id="$z=1$-case-1.2.4"><span class="toc-item-num">1.2.4&nbsp;&nbsp;</span>$z=1$ case</a></span></li></ul></li></ul></li><li><span><a href="#Problem-6.-The-kingdom-of-Mathlandia-contains-2016-airports.-Each-airport-is-connected-by-a-direct-flight-with-at-least-100-others.-It's-known-that-you-can-fly-from-each-airport-to-any-other,-perhaps,-with-stopovers.-Prove-that,-in-fact,-you-can-fly-from-any-airport-to-any-other-making-fewer-than-65-connections." data-toc-modified-id="Problem-6.-The-kingdom-of-Mathlandia-contains-2016-airports.-Each-airport-is-connected-by-a-direct-flight-with-at-least-100-others.-It's-known-that-you-can-fly-from-each-airport-to-any-other,-perhaps,-with-stopovers.-Prove-that,-in-fact,-you-can-fly-from-any-airport-to-any-other-making-fewer-than-65-connections.-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Problem 6. The kingdom of Mathlandia contains 2016 airports. Each airport is connected by a direct flight with at least 100 others. It's known that you can fly from each airport to any other, perhaps, with stopovers. Prove that, in fact, you can fly from any airport to any other making fewer than 65 connections.</a></span><ul class="toc-item"><li><span><a href="#Problem-6-Solution-1:-Direct-approach" data-toc-modified-id="Problem-6-Solution-1:-Direct-approach-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Problem 6 Solution 1: Direct approach</a></span><ul class="toc-item"><li><span><a href="#Insight-1:-do-by-induction" data-toc-modified-id="Insight-1:-do-by-induction-2.1.1"><span class="toc-item-num">2.1.1&nbsp;&nbsp;</span>Insight 1: do by induction</a></span></li><li><span><a href="#Since-it-is-$2021$,-what-if-this-question-was-asked-with-$2021$-airports-above-would-you-need-57-connections?" data-toc-modified-id="Since-it-is-$2021$,-what-if-this-question-was-asked-with-$2021$-airports-above-would-you-need-57-connections?-2.1.2"><span class="toc-item-num">2.1.2&nbsp;&nbsp;</span>Since it is $2021$, what if this question was asked with $2021$ airports above would you need 57 connections?</a></span></li></ul></li></ul></li></ul></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problem-1.-Does-equation-$x^{2}+y^{2}+z^{2}=2-x-y-z$-have-any-non-zero-integer-solutions?">Problem 1. Does equation $x^{2}+y^{2}+z^{2}=2 x y z$ have any non-zero integer solutions?<a class="anchor-link" href="#Problem-1.-Does-equation-$x^{2}+y^{2}+z^{2}=2-x-y-z$-have-any-non-zero-integer-solutions?"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Problem-1-Solution-1">Problem 1 Solution 1<a class="anchor-link" href="#Problem-1-Solution-1"> </a></h3><h4 id="Insight-1:-consider-mod-2">Insight 1: consider mod 2<a class="anchor-link" href="#Insight-1:-consider-mod-2"> </a></h4><p>Right hand side is even so there are two cases x,y,z are all even or one of them is even.</p>
+<p>Case 1: If one of them is even then LHS is 2 (mod 4) and RHS is 0 (mod 4). Contradiction.</p>
+<p>Case 2:If all of them are even divide the equation by the highest power of two that divides all of them, i.e. $$x=2^k x_0,y=2^k y_0,z=2^k z_0$$ and at least one of $x_0,y_0,z_0$ is odd, but then dividing equation by $2^{2k}$ we get
+
+$$x_0^{2}+y_0^{2}+z_0^{2}=2^{k+1} x y z $$
+
+and you can apply the argument from case 1 obtaining contradiction.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>when writting a proof you can skip extra circle of logic and go straight to case 2, hence the proof would just be:
+</div></p>
+<blockquote><p>Let $k$ be highest power of 2 dividing $x$,$y$ and $z$, i.e $x=2^k x_0,y=2^k y_0,z=2^k z_0$  and at least one of $x_0,y_0,z_0$ is odd.  Dividing equation by $2^{2k}$ we obtain
+$x_0^{2}+y_0^{2}+z_0^{2}=2^{k+1} x y z $ and since at least one of $x_0,y_0,z_0$ is odd, and RHS is even exactly two of $x_0,y_0,z_0$ must be odd but then LHS is 2 mod 4 and RHS is 0 mod 4. Contradiction.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Problem-1-Solution-2:-Solution-Trees">Problem 1 Solution 2: Solution Trees<a class="anchor-link" href="#Problem-1-Solution-2:-Solution-Trees"> </a></h3><p>The point of this solution is to show how to structure solution for a much larger class of equations like this.</p>
+<p>
+$$x^2+y^2+z^2=1xyz+2xy+3xz+4yz+5x+6y+7z+8$$
+</p>
+<p>where instead of $1,2,3,4,5,6,7,8$ you can have arbitrary integer numbers (that satisfy some mild conditions) and of course this can be generalized to more variables where LHS is sum of squares and right hand side sum of square-less terms i.e. polynomial in these variables without terms that are divisible by the square of any variable.</p>
+<p>Which is generalization of Markov Diophantine Equation</p>
+<p>
+$$x^2+y^2+z^2=3xyz$$
+</p>
+<p>See <a href="https://en.wikipedia.org/wiki/Markov_number">https://en.wikipedia.org/wiki/Markov_number</a> for additional information.</p>
+<h4 id="Insight-1:-Vieta's-Formula-yields-solution-trees">Insight 1: Vieta's Formula yields solution trees<a class="anchor-link" href="#Insight-1:-Vieta's-Formula-yields-solution-trees"> </a></h4>\begin{align}
+0  &amp;= x^{2}-(2 y z) x +y^{2}+z^{2}=(x-x_1)(x-x_2) \\
+x_1+x_2&amp; = 2yz\\
+x_1x_2&amp; = y^2+z^2
+\end{align}<p>Hence if you have solution $(x_1,y,z)$ you can obtain $(x_2,y,z)$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Insight-2:-Reduce-the-benchmark.">Insight 2: Reduce the benchmark.<a class="anchor-link" href="#Insight-2:-Reduce-the-benchmark."> </a></h4><p>There are several benchmarks we can take benchmark b(x,y,z)=max(|x|,|y|,|z|) or b(x,y,z)=|x|+|y|+|z| or b(x,y,z)=min(|x|,|y|,|z|).  Let us not choose which benchmark we will use just yet and select it when it is the right time.</p>
+<p>It also follows from first insight that $x_i$ are of the same sign (i.e. either both positive or both negative) and hence we can skip the signs and absolute values below focusing only on positive solutions (x,y,z).</p>
+<p>So the plan is to show that via solution tree we can always get to a solution with benchmark less than some small number and check those by hand.</p>
+\begin{align}
+x_1+x_2 &amp; = 2yz  \\
+x_1x_2  &amp; = y^2 + z^2
+\end{align}<p>which gives us
+\begin{align}
+x_2 &amp; = 2yz - x_1 \\
+x_2 &amp; = \frac{y^{2}+z^{2}}{x_1} \\
+\end{align}</p>
+<p>Let us deal with case when $x=y$ later and assume without loss of generality that $z &lt;y &lt; x_1, x_2 \leq x_1$ and our goal is to show that $x_2 &lt; y$ that reduces benchmark $b=max(x,y,z)$</p>
+<p>So we can try something like this
+\begin{align}
+x_2 &amp; = \frac{y^{2}+z^{2}}{x_1} &lt; \frac{2y^{2}}{x_1} &lt;  \frac{2y}{x_1} y &lt; \frac 2z y \\
+\end{align}
+where the last inequality comes from bound on $y$ or more precisely $\frac{2y}{x_1}$, which comes from from $x_1 + x_2 = 2yz$ that yiels $ \frac 1z = \frac {2y}{x_1+x_2} \geq \frac{2y}{2x_1} = \frac {y}{x_1}$.</p>
+<p>Hence we are done in case $z&gt;1$.</p>
+<p>In fact we just showed that all solutions must either have two of $x,y,z$ equal or $z=1$, as otherwise we can keep descending benchmark ad infinitum. The rest is just dealing with these two cases:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="$x=y$-case">$x=y$ case<a class="anchor-link" href="#$x=y$-case"> </a></h4><p>The equation becomes $2x^2+z^2=2x^2z$ which $z^2=(2z-1)x^2$ which we can show via various methods including looking at mod 2 which brings us back to solution 1.</p>
+<p>The tricky part here is that in most of that solutin of generalized Markov Diophantine Equation where $xyz$ term has coefficient 2 is the most tricky one, where the number of trees might be infinite.  For case where this coefficient is greater than 2 , the solutions are rather well structured.</p>
+<h4 id="$z=1$-case">$z=1$ case<a class="anchor-link" href="#$z=1$-case"> </a></h4><p>The equation becomes $0=x^2+y^2+1-2xy=(x-y)^2+1$ which obviously impossible as RHS is greater than 1, since squares are positive.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problem-6.-The-kingdom-of-Mathlandia-contains-2016-airports.-Each-airport-is-connected-by-a-direct-flight-with-at-least-100-others.-It's-known-that-you-can-fly-from-each-airport-to-any-other,-perhaps,-with-stopovers.-Prove-that,-in-fact,-you-can-fly-from-any-airport-to-any-other-making-fewer-than-65-connections.">Problem 6. The kingdom of Mathlandia contains 2016 airports. Each airport is connected by a direct flight with at least 100 others. It's known that you can fly from each airport to any other, perhaps, with stopovers. Prove that, in fact, you can fly from any airport to any other making fewer than 65 connections.<a class="anchor-link" href="#Problem-6.-The-kingdom-of-Mathlandia-contains-2016-airports.-Each-airport-is-connected-by-a-direct-flight-with-at-least-100-others.-It's-known-that-you-can-fly-from-each-airport-to-any-other,-perhaps,-with-stopovers.-Prove-that,-in-fact,-you-can-fly-from-any-airport-to-any-other-making-fewer-than-65-connections."> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Problem-6-Solution-1:-Direct-approach">Problem 6 Solution 1: Direct approach<a class="anchor-link" href="#Problem-6-Solution-1:-Direct-approach"> </a></h3><h4 id="Insight-1:-do-by-induction">Insight 1: do by induction<a class="anchor-link" href="#Insight-1:-do-by-induction"> </a></h4><p>Let us consider airport $a$ and let $A_i$ be airports that are connected to it by exactly $i$ connections, i.e. you can reach it via $i$ connections but cannot reach it via $i-1$ connections.
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>Special case $A_0$ just consists of a for the consistency of below calculations.
+</div>
+Since all airports are connected it is enough to prove that $A_{65}=0$ as this would imply that all airports are within $A_0,A_1,A_2...A_{65}$. In fact we will show $A_{58}=0$</p>
+<p>Note that airports that for $i&lt;j$, $a_1 \in A_i$ and $a_2 \in A_j$ can only be connected if $j-i \leq 1$; as otherwise you can reach $a_2$ via going to $a_1$ in n flights and then flying to $a_1$ which would be $i+1$ connections which is less than $j$ which implies $a_2 \notin A_j$.</p>
+<p>From this we get that each airport in $A_i$ can only be connected to airports in $A_{i-1}, A_{i}$ or $A_{i-1}$.  Hence since each airport has at least $100$ connections from each airport we get $A_i&gt;0$ implies $|A_{i-1}|+|A_{i}|+|A_{i-1}| \geq 101$.</p>
+<p>If $|A_{57}| \neq 0$ hence $A_{3k}+A_{3k+1}+A_{3k+2} \geq 101$ for $k=0,1,...19$ and hence $$|A_0+A_1+...+A_{59}|=|(A_0+A_1+A_2)+(A_4+A_5+A_6)+...(A_{57}+A_{58}+A_{59})| \geq 20 \cdot 101=2020$$
+which contradicts the fact that there are only 2016 towns.
+<div class="flash">
+    <svg class="octicon octicon-info octicon octicon-info octicon octicon-info octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>we can start this sum from $|A_0+A_1| \geq 101$ prove in same way $|A_{57}|=0$
+</div></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Since-it-is-$2021$,-what-if-this-question-was-asked-with-$2021$-airports-above-would-you-need-57-connections?">Since it is $2021$, what if this question was asked with $2021$ airports above would you need 57 connections?<a class="anchor-link" href="#Since-it-is-$2021$,-what-if-this-question-was-asked-with-$2021$-airports-above-would-you-need-57-connections?"> </a></h4><p>Indeed: here is a counterexample and in fact you need 58.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1, 100, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 1, 99, 1, 100, 1]
+length: 59
+sum: 2021
+minimum sum: 101.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In fact this is an optimal counterexample for these problems starting from $1,100$ then a sequence of $1,1,99$ possibly truncated in the last triple, and then finishing with 100,1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>More generaly in a $\it{connected}$ $\it{graph}$ $G$ if each $vertex$'s $valency$ $(degree)$ is at least $V$, then the number of vertecies that are distance $D$ from any vertex is at least $min(|G|,f(D,V))$, where:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{align}
+ f(0,V)&amp;=1=1 \\
+ f(1,V)&amp;=1+V&amp;=V+1 \\
+ f(2,V)&amp;=1+V+1&amp;=V+2 \\ 
+ f(3,V)&amp;=1+V+V+1&amp;=2V+2 \\
+ f(4,V)&amp;=1+V+1+V+1&amp;=2V+3 \\
+ f(5,V)&amp;=1+V+1+1+V+1&amp;=2V+4 \\
+ f(6,V)&amp;=1+V+1+1+(V-1)+V+1&amp;=3V+3 \\
+ f(7,V)&amp;=1+V+1+1+(V-1)+1+V+1&amp;=3V+4 \\
+ f(8,V)&amp;=1+V+1+1+(V-1)+1+1+V+1&amp;=3V+5 \\
+ f(3k-3,V) &amp;=&amp; k \cdot (V + 1) \\
+ f(3k-2,V) &amp;=&amp; k \cdot (V + 1) + 1 \\
+ f(3k-1,V) &amp;=&amp; k \cdot (V + 1) + 2 \\
+\cdots
+\end{align}<p>where the term in the middle represents counterexample which can be proven optimal by the fact that 
+$|A_i|&gt;0$ implies $|A_{i-1}+A_{i}+A_{i+1}| \geq V+1$ and that $A_i$ in the middle are at least of size 1.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/mma/" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Data Science and Management</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
