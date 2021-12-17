@@ -834,7 +834,7 @@ So the category with the highest value of correlation with the dependent variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using Acxiom data and the Mindset Segmentation problem, we will compare the conventional One-hot encoding with the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, Macro Avg AUC ROC.</p>
+<p>Using Acxiom data and the Mindset Segmentation problem, we will compare the conventional One-hot encoding with the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC.</p>
 <p>Cohen's Kappa, F1 and AUC ROC are very helpful for an unbalanced multiclass classification problem. Accuracy is not the best metric for such task, and is used merely for interpretation and comparison purposes.</p>
 
 </div>
@@ -898,7 +898,7 @@ So the category with the highest value of correlation with the dependent variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While interval and ordinal variables have a straightforward rainbow tranformation - one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows, the nominal variables tranformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural rainbow, while for 10 remaining variables we applied correlation ordering and target percent ordering (see Part 1). Since we deal with 5 classes, we made 10 new features for each of these variables.</p>
+<p>While interval and ordinal variables have a straightforward rainbow tranformation - one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows, the nominal variables tranformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural rainbow, while for 10 remaining variables we applied correlation ordering and target percent ordering (see Part I). Since we deal with 5 classes, we made 10 new features for each of these variables.</p>
 <p>For example, given the name of feature "Financial_Cluster" and 5 segment names, we made features</p>
 <ul>
 <li>Financial_Cluster_Self-Assured_correlation_rank</li>
@@ -980,7 +980,7 @@ So the category with the highest value of correlation with the dependent variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The following plots show dynamic of metrics depending on every hyperparameter keeping other hyperparameters constant. These plots also clearly demonstrate the superiority of Rainbow method for every hyperparameter and every metric.</p>
+<p>The following plots show metric dynamics depending on every hyperparameter keeping other hyperparameters constant. These plots also clearly demonstrate the superiority of Rainbow method for every hyperparameter and every metric.</p>
 
 </div>
 </div>
@@ -1073,21 +1073,11 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
+        <style>
+            .df tbody tr:nth-child(even) { background-color: turquoise; }
+        </style>
+        <table border="1" class="dataframe df">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1154,7 +1144,6 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
     </tr>
   </tbody>
 </table>
-</div>
 </div>
 
 </div>
