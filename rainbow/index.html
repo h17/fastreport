@@ -1170,39 +1170,29 @@ As mentioned in Part I, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this article we justify mathematically the advantages of Rainbow method over One-hot. Please note that the discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as xgboost. In the first part we show that with Rainbow method the full data signal is preserved. In the second part we show how Rainbow method outperforms One-hot in various scenarios. We start with a simple example, and then we proceed with a full generalization and a simulation. In the final part we discuss various assumptions and limitations of the Rainbow method and provide actionable recommendations to get the best out of Rainbow.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Imagine that a certain categorical variable $V$ has $K$ categories with values v1 &lt; v2 &lt; v3 ... &lt; vk. Then:</p>
-<ul>
-<li>One-hot would create $K$ features $V1, V2, ..., VK$, where $Vi$ = 1 if V = vi and 0 otherwise;</li>
-<li>Rainbow would create a single feature, where all the categories appear on one scale. We can keep the name of this variable $V$.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this article we justify mathematically the advantages of Rainbow method over One-hot. We start with a simple example, and then we proceed with a full generalization and a simulation. In the final part we discuss various assumptions and limitations of the Rainbow method and provide actionable recommendations to get the best out of Rainbow. Please note that the discussion below applies to any tree-based algorithm that relies only on order of the values. That includes any random forest and any gradient boosting algorithm such as <em>xgboost</em>. 
+<br /></p>
 <h2 id="How-exactly-does-rainbow-help?">How exactly does rainbow help?<a class="anchor-link" href="#How-exactly-does-rainbow-help?"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><h4 id="Simplest-Example">Simplest Example<a class="anchor-link" href="#Simplest-Example"> </a></h4><p>Consider the following example:</p>
+<h3 id="Simple-Example">Simple Example<a class="anchor-link" href="#Simple-Example"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the following example:</p>
 <ul>
 <li>assume a binary classification problem, with output variable having values 0 and 1;</li>
 <li>assume we have only one categorical variable V and no other variables;</li>
 <li>assume V has exactly four categories with values v1 &lt; v2 &lt; v3 &lt; v4;  <br />
   <em>In case of the nominal variable the values simply represent numeric codes assigned to each category.</em></li>
 <li>assume each value of V has same or close number of samples in the data;</li>
-<li>assume an ideal separation will give to (v1 and v2) samples f-score = 1 and to (v3 anv v4) samples f-score = 2, where f-score represents some decision function used for separation (e.g. Gini impurity, information gain, etc.). <br />
-  <em>I.e. the data generating process would separate <strong>between</strong> (v1 and v2) from (v3 and v4), but would not distinguish values <strong>within</strong> each group</em>.</li>
+<li>assume an ideal separation will give to {v1 &amp; v2} samples f-score = 1 and to {v3 &amp; v4} samples f-score = 2, where f-score represents some decision function used for separation (e.g. Gini impurity, information gain, etc.). <br />
+  <em>I.e. the data generating process would separate <strong>between</strong> the groups {v1 &amp; v2} and {v3 &amp; v4}, but would not distinguish values <strong>within</strong> each group</em>.</li>
 </ul>
 
 </div>
@@ -1211,14 +1201,14 @@ As mentioned in Part I, rainbow encoding with 50 features is even better than On
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's consider two cases - Rainbow and One-hot. For Rainbow, we will use V directly to build a decision tree. For One-hot, we will need to create four binary variables - let's call them V1, V2, V3, V4, where 
-V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
+Vi = 1 if V=vi and 0 otherwise.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's for simplicity build a single decision tree. Assume a simple algorithm that picks features randomly, and compares all values inside each feature to make the best split. In the case of rainbow, samples from two categories will be sent to the left branch and samples from two other categories will be sent to the right branch of the tree. In such a situation a natural split occurs between v2 and v3, and rainbow would need one split,
+<p>Let's for simplicity build a single decision tree. Assume a simple algorithm that picks each next feature randomly, and compares all values of that feature to make the best split. In the case of rainbow, samples from two categories will be sent to the left branch and samples from two other categories will be sent to the right branch of the tree. In such a situation a natural split occurs between v2 and v3, and rainbow would need one split,
 <br /></p>
 <p>Figure 1</p>
 <p><figure>
@@ -1285,7 +1275,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Generalizing-simple-example">Generalizing simple example<a class="anchor-link" href="#Generalizing-simple-example"> </a></h4><p>Let's look at the more general case, where the values of the categorical variable are in different order. Below are some examples of 4 categories and their f-scores. Same f-score justifies combining values into a group. For instance 1,1,2,2 represents our example above, where first two categories get assigned f = 1, and last two categories get assigned f = 2, and the split should happen in the middle.</p>
+<h3 id="Generalizing-simple-example">Generalizing simple example<a class="anchor-link" href="#Generalizing-simple-example"> </a></h3><p>Let's look at the more general case, where the values of the categorical variable are in different order. Below are some examples of 4 categories and their f-scores. Same f-score justifies combining values into a group. For instance 1,1,2,2 represents our example above, where first two categories get assigned f = 1, and last two categories get assigned f = 2, and the split should happen in the middle.</p>
 <p>The number of splits would depend on the order in which these categories appear.</p>
 <p>For rainbow orders:</p>
 <ul>
@@ -1343,19 +1333,24 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <ul>
 <li>1,1,2,2 and 2,2,1,1 the required number of splits would be 2;</li>
 </ul>
-<p>As in our simple example above (Figure 2), the first split would be made on V1, the second on V2, and that would be sufficient to separate between the sample with f = 1 and f = 2.</p>
+<p>As in our simple example above (Figure 2), the first split would be made on V1, the second on V2, and that would be sufficient to separate between the samples with f = 1 and f = 2.</p>
 <ul>
 <li>1,2,2,1 and 2,1,1,2 and 1,2,1,2 and 2,1,2,1 the number of splits would be 3.</li>
 </ul>
 <p>In these examples, as shown above (Figure 3), three splits would be needed given the order in which binary features enter the tree.</p>
-<p>Note that the Rainbow and One-hot orders described here are not the same orders, so we cannot compare them directly. In case of Rainbow, we look at the order at the top  - in which categories appear on a single scale, while for One-hot we look at the order at the bottom - in which categories are picked by the model. Nevertheless, we see that on average Rainbow is better as it provides lower number of splits - best case 1, average case 2, worst case 3; while One-hot gives best case 2, average case $\frac 83$ and worst case 3.  In fact, this is true in general and we show it below.</p>
+<p>Note that the Rainbow and One-hot orders described here are <strong>not the same orders</strong>, so we cannot compare them directly. In case of Rainbow, we look at the order at the top  - in which categories appear on a single scale, while for One-hot we look at the order at the bottom - in which categories are picked by the model. Nevertheless, we see that on average Rainbow is better as it provides lower number of splits - best case 1, average case 2, worst case 3; while One-hot gives best case 2, average case $\frac 83$ and worst case 3.  In fact, this is true in general and we show it below.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="General-Case:-Random-rainbow-vs-One-hot">General Case: Random rainbow vs One-hot<a class="anchor-link" href="#General-Case:-Random-rainbow-vs-One-hot"> </a></h3><p>Assume we have $K$ categories that optimally would need to be split into groups of size $G_1,G_2,...,G_g$. By size $G_i$ we mean number of categories out of $K$ (not the number of samples).</p>
+<h2 id="General-Case:-Random-rainbow-vs-One-hot">General Case: Random rainbow vs One-hot<a class="anchor-link" href="#General-Case:-Random-rainbow-vs-One-hot"> </a></h2><p>Assume that a certain categorical variable $V$ has $K$ categories with values v1 &lt; v2 &lt; v3 ... &lt; vk. Then:</p>
+<ul>
+<li>One-hot would create $K$ features $V1, V2, ..., VK$, where $Vi$ = 1 if $V$ = vi and 0 otherwise;</li>
+<li>Rainbow would create a single feature, where all the categories appear on one scale. We can keep the name of this variable $V$.</li>
+</ul>
+<p>Assume $K$ categories optimally would need to be split into $g$ groups of size $G_1,G_2,...,G_g$. By size $G_i$ we mean number of categories out of $K$ (not the number of samples).</p>
 <p>For example, in the simple example above - the order is 1,1,2,2:</p>
 <p>Figure 8</p>
 <p><figure>
@@ -1399,7 +1394,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Best-case:-One-hot">Best case: One-hot<a class="anchor-link" href="#Best-case:-One-hot"> </a></h4><p>In the best case scenario for One-hot, the biggest group won't be split.</p>
+<h3 id="Best-case:-One-hot">Best case: One-hot<a class="anchor-link" href="#Best-case:-One-hot"> </a></h3><p>In the best case scenario for One-hot, the biggest group won't be split.</p>
 <p>For example, in the case of 1,1,2,2,2,3,3 we would like the biggest group 2,2,2 to end up on the bottom of the tree, and thus, not introduce any extra splits.</p>
 <p>Figure 10</p>
 <p><figure>
@@ -1416,17 +1411,17 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Thus, in best case One-hot would require $K - G_{max}$ splits, where $G_{max} = max_i G_i$ is the maximum of $G_i$. The best case $K - G_{max}$ is obtained when each group except the largest one gets one split per category and the remaining largest group has the same answer so doesn't require any additional splits.  To prove that one cannot do better, observe that if a few categories do not appear on any tree node, i.e. no splits are made, then they are "combined" - there is no way to distinguish the values in these two categories.</p>
-<h4 id="Best-case:-Rainbow">Best case: Rainbow<a class="anchor-link" href="#Best-case:-Rainbow"> </a></h4><p>In the best case of rainbow - the values are in perfect order, and the minimum splits is needed. Given $g$ groups, that would require $g-1$ splits. That happens when groups are together and it simply splits at $g-1$ points to separate $g$ groups.</p>
+<h3 id="Best-case:-Rainbow">Best case: Rainbow<a class="anchor-link" href="#Best-case:-Rainbow"> </a></h3><p>In the best case of rainbow - the values are in perfect order, and the minimum splits is needed. Given $g$ groups, that would require $g-1$ splits. That happens when groups are together and it simply splits at $g-1$ points to separate $g$ groups.</p>
 <p>For example, clearly two splits are needed for the perfect rainbow with three groups 1,1,2,2,2,3,3.</p>
 <p>One cannot do better since if there is no split between two groups there is no way to distinquish them.</p>
-<h4 id="Best-case:-Comparison">Best case: Comparison<a class="anchor-link" href="#Best-case:-Comparison"> </a></h4><p>Clearly  $$K - G_{max}=(\sum_{i=1}^g G_i)-G_{max}=(\sum_{i!=max}G_i) \geq (\sum_{i!=max} 1) = g-1$$ and hence best rainbow is better than best One-hot.</p>
+<h3 id="Best-case:-Comparison">Best case: Comparison<a class="anchor-link" href="#Best-case:-Comparison"> </a></h3><p>Clearly  $$K - G_{max}=(\sum_{i=1}^g G_i)-G_{max}=(\sum_{i!=max}G_i) \geq (\sum_{i!=max} 1) = g-1$$ and hence best rainbow is better than best One-hot.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Average-Case:-One-hot">Average Case: One-hot<a class="anchor-link" href="#Average-Case:-One-hot"> </a></h4><p>From the logic presented in best case, it follows that</p>
+<h3 id="Average-Case:-One-hot">Average Case: One-hot<a class="anchor-link" href="#Average-Case:-One-hot"> </a></h3><p>From the logic presented in best case, it follows that</p>
 <blockquote><p>The number of splits that One-hot needs would be $N$ - number of categories that are chosen before remaining ones are in one group.</p>
 </blockquote>
 <p>Figure 10 shows the best case - where all the remaining ones belong to the largest group. In average case, the remaining group can be any group, or any group's part. We cannot expect that a homogenous group won't be broken into pieces when building an average tree. What we care about is that the tree building should end when reaching some homogenous group.</p>
@@ -1447,7 +1442,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Average-Case:-Rainbow">Average Case: Rainbow<a class="anchor-link" href="#Average-Case:-Rainbow"> </a></h4><p>From the best case logic it also follows that</p>
+<h3 id="Average-Case:-Rainbow">Average Case: Rainbow<a class="anchor-link" href="#Average-Case:-Rainbow"> </a></h3><p>From the best case logic it also follows that</p>
 <blockquote><p>The number of splits that random Rainbow needs would always be $D$ - number of consecutive pairs in rainbow order that are in distinct groups.</p>
 </blockquote>
 <p>In the best case $D=g-1$.</p>
@@ -1456,7 +1451,7 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 \begin{align}
 \mathbb E[D] &amp;= (K - 1) \cdot (1-\frac{ \sum_i G_i \cdot (G_i-1)} {K(K-1)}) \notag \\
              &amp;= (K-1)-\frac{ \sum G_i \cdot (G_i-1)} {K} \notag
-\end{align}<h4 id="Average-Case:Comparison">Average Case:Comparison<a class="anchor-link" href="#Average-Case:Comparison"> </a></h4><p>An easy way to see that $\mathbb E[D]$ is larger than $\mathbb E[N]$ is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K-1$ and subtracting $1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
+\end{align}<h3 id="Average-Case:Comparison">Average Case:Comparison<a class="anchor-link" href="#Average-Case:Comparison"> </a></h3><p>An easy way to see that $\mathbb E[D]$ is larger than $\mathbb E[N]$ is the stochastic coupling, since both $N$ and $D$ can be obtained as starting from $K-1$ and subtracting $1$ for each consequitive pair in the same group; except in case of $N$ all these pairs have to be in string at the end.  Due to this restriction $N$ is always larger.</p>
 <p>WHAT???</p>
 
 </div>
@@ -1464,8 +1459,8 @@ V1 = 1 if V=v1 and 0 otherwise. Same applies to other categories.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Worst-Case:-One-hot">Worst Case: One-hot<a class="anchor-link" href="#Worst-Case:-One-hot"> </a></h4><p>In the worst case for One-hot the number of splits is $K-1$ when one goes through all but one category to get to one group remaining.</p>
-<h4 id="Worst-Case:-Rainbow">Worst Case: Rainbow<a class="anchor-link" href="#Worst-Case:-Rainbow"> </a></h4><p>In this case the number of needed splits is <br /><br />
+<h3 id="Worst-Case:-One-hot">Worst Case: One-hot<a class="anchor-link" href="#Worst-Case:-One-hot"> </a></h3><p>In the worst case for One-hot the number of splits is $K-1$ when one goes through all but one category to get to one group remaining.</p>
+<h3 id="Worst-Case:-Rainbow">Worst Case: Rainbow<a class="anchor-link" href="#Worst-Case:-Rainbow"> </a></h3><p>In this case the number of needed splits is <br /><br />
 $\min( (K - 1), 2 \cdot (K-G_{max}))$
 <br /><br />as we can only get up to two splits per each category not in the largest group.</p>
 <p>Indeed, if there is no consecutive pairs of values that belong to the same group then the number of splits would be $K=1$, for example here 3,2,1,3,1,2.</p>
@@ -1475,14 +1470,14 @@ $\min( (K - 1), 2 \cdot (K-G_{max}))$
 Easy patch - replace K-G</em>{max} with L - minority number</p>
 <p>Also, how about same minority thing for One-hot? 
 Will it stop somewhere earlier possibly?</p>
-<h4 id="Worst-Case:-Comparison">Worst Case: Comparison<a class="anchor-link" href="#Worst-Case:-Comparison"> </a></h4><p>Clearly the number of splits for Rainbow is less than or equal to that of One-hot for the worst case as well.</p>
+<h3 id="Worst-Case:-Comparison">Worst Case: Comparison<a class="anchor-link" href="#Worst-Case:-Comparison"> </a></h3><p>Clearly the number of splits for Rainbow is less than or equal to that of One-hot for the worst case as well.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Simulation">Simulation<a class="anchor-link" href="#Simulation"> </a></h3><p>We also present a simulation for a few examples.</p>
+<h2 id="Simulation">Simulation<a class="anchor-link" href="#Simulation"> </a></h2><p>We also present a simulation for a few examples.</p>
 
 </div>
 </div>
@@ -1767,7 +1762,7 @@ Will it stop somewhere earlier possibly?</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h3><p>As we saw above in all cases even random rainbow wins against one-hot.</p>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><p>As we saw above in all cases even random rainbow wins against one-hot.</p>
 <ul>
 <li><p>Remove from the article, even from the appendix.</p>
 </li>
@@ -1776,8 +1771,6 @@ Will it stop somewhere earlier possibly?</p>
 <li><p>don't want to talk about hyperparameters</p>
 </li>
 <li><p>numerate figures?</p>
-</li>
-<li><p>will or do - past or present tense? consistent</p>
 </li>
 </ul>
 <p>Less splits is the main argument,
@@ -1831,7 +1824,7 @@ they should be random to avoid overfit</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bibliography-and-References-and-Technical-Details">Bibliography and References and Technical Details<a class="anchor-link" href="#Bibliography-and-References-and-Technical-Details"> </a></h1>
+<h2 id="Bibliography-and-References-and-Technical-Details">Bibliography and References and Technical Details<a class="anchor-link" href="#Bibliography-and-References-and-Technical-Details"> </a></h2>
 </div>
 </div>
 </div>
