@@ -213,6 +213,13 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 1</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -402,7 +409,7 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Figure 1</p>
+<p>Figure 2</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R01.png" alt="" style="max-width: 600/px" />
@@ -417,7 +424,7 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One can clearly see that this example is easily genearlized to One-hot with <strong>any</strong> number of categories. Also note that for such data generating process the order of the categories in Rainbow does not even matter as splits will be made between <strong>all</strong> categories. In practice, (K-1) splits will be sufficient for both methods to separate between K categories.</p>
-<p>Figure 2</p>
+<p>Figure 3</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R02.png" alt="" style="max-width: 650px" />
@@ -438,8 +445,8 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scenario-2">Scenario 2<a class="anchor-link" href="#Scenario-2"> </a></h3><p>If the chosen rainbow (Figure 2) is not the best because, for example, data generating process separates between the group of {Red, Green} and {Yellow, Blue}, then once again - the algorithm will make all the necessary splits.</p>
-<p>Figure 3</p>
+<h3 id="Scenario-2">Scenario 2<a class="anchor-link" href="#Scenario-2"> </a></h3><p>If the chosen rainbow (Figure 3) is not the best because, for example, data generating process separates between the group of {Red, Green} and {Yellow, Blue}, then once again - the algorithm will make all the necessary splits.</p>
+<p>Figure 4</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R03.png" alt="" style="max-width: 850px" />
@@ -474,7 +481,7 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Figure 4</p>
+<p>Figure 5</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R04.png" alt="" style="max-width: 750px" />
@@ -809,7 +816,8 @@ So the category with the highest value of correlation with the dependent variabl
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><figure>
+<p>Figure 1
+<figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/seg_framework.png" alt="" style="max-width: 600px" />
     
@@ -855,6 +863,7 @@ So the category with the highest value of correlation with the dependent variabl
 <p>We took all the existing categorical variables in Acxiom database - interval, ordinal, and nominal, and excluded quantitative and binary variables. The idea was to show the pure difference in the model performance between the two types of encoding for the same set of catogorical factors.</p>
 <p>We then applied a target stratified 4-fold Cross Validation split. All the data processing from this point on is done inside the cross validation loop, i.e. the creation of One-hot features and Rainbow features is learned from each fold train set and applied to each fold validation set.</p>
 <p>The total set of 111 variables was transformed into <strong>201</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in N in 4 different folds).</p>
+<p>Table 1</p>
 
 </div>
 </div>
@@ -952,6 +961,13 @@ So the category with the highest value of correlation with the dependent variabl
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 2</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -985,6 +1001,13 @@ So the category with the highest value of correlation with the dependent variabl
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The following plots show metric dynamics depending on every hyperparameter keeping other hyperparameters constant. These plots also clearly demonstrate the superiority of Rainbow method for every hyperparameter and every metric.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 3</p>
 
 </div>
 </div>
@@ -1066,6 +1089,13 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 5</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1106,6 +1136,13 @@ So, in addition to a substantial increase in model performance metrics, Rainbow 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Finally, to make a comparison more fair in terms of dimensionality, we picked top 10, top 50, and top 100 features from each feature set - Rainbow and One-hot. We used feature importance attribute of the XGBoost model and aggregated feature importance scores for 4 cross validation folds on the best hyperparameter set for each encoding type. Below are the results.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 6</p>
 
 </div>
 </div>
@@ -1488,6 +1525,13 @@ $\min( (K - 1), 2 \cdot (K-G_{max}))$
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Simulation">Simulation<a class="anchor-link" href="#Simulation"> </a></h2><p>We have shown above that <em>theoretically</em> in a general case Rainbow method outperforms One-hot in best, average, and worst case scenarios. 
 Let's look at the <em>empirical</em> simulation: we applied the formulas for best, average, and worst case number of splits for Rainbow and One-hot to compare the distribution of splits for some examples of data generating process.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Figure 11</p>
 
 </div>
 </div>
