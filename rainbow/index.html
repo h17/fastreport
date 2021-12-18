@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      36 min read
+      37 min read
     
 </span></p>
 
@@ -1157,7 +1157,7 @@ As mentioned in Part I, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, we should note that this article just opens the conversation about the Rainbow method, and by no means exhausts the topic. In the potential future investigations, we could explore some other aspects. To name a few: binary and continuous target variables; comparison with other dimensionality reduction methods, such as PCA; missing values and how they fit the Rainbow framework; limitations and implications of combining seemingly unrelated features into a single Rainbow. We hope to open the gate for further questions and feedback on this method.</p>
+<p>In Part III we provide mathematical justification of Rainbow method and demonstrate its superiority against One-hot.</p>
 
 </div>
 </div>
@@ -1385,7 +1385,7 @@ Vi = 1 if V=vi and 0 otherwise.</p>
 <p>Here $K=4$, $g=2$, $G_1=2$ consists of {v1, v4}, and $G_2=2$ consists of {v2, v3}.</p>
 <p>Unlike the simple example of the perfect rainbow, in the general case the $K$ categories would appear <strong>in random order</strong>, and our rainbow would be random. However for the purposes of computation we only care about the groups of same f-values rather than about actual categories. In other words, if v1 and v2 samples produce same f-score, it does not matter whether the order is (v1, v2) or (v2, v1).</p>
 <p>For One-hot the order that would matter is the one in which One-hot splits are made. This order is also assumed to be random. This is the order that we would always refer to when talking about One-hot.</p>
-<blockquote><p>In reality the One-hot splits are not fully random and the order of them being picked by the model varies depending on the number of samples in each category, subsamples of columns chosen and other hyperparameters. That can be both in favor and against the case for One-Hot. We will come back to this assumption later in the article, and for now will proceed assuming randomness for simplicity.</p>
+<blockquote><p>In reality the One-hot splits are not fully random and the order of them being picked by the model varies depending on the number of samples in each category, subsamples of columns chosen and other hyperparameters. That can be both in favor and against the case for One-Hot. We will come back to this assumption later in the article (see Randomness Assumption), and for now will proceed assuming randomness for simplicity.</p>
 </blockquote>
 <p>While the orders that matter for Rainbow and One-hot are not the same, it helps to couple them to make comparisons. Let's compute the required number of splits in best, average and worst cases.</p>
 
@@ -1530,71 +1530,70 @@ Let's look at the <em>empirical</em> simulation: we applied the formulas for bes
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Method-Limitations---How-do-find-the-best-Rainbow?">Method Limitations - How do find the best Rainbow?<a class="anchor-link" href="#Method-Limitations---How-do-find-the-best-Rainbow?"> </a></h2>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><h3 id="Discussion-of-Assumptions">Discussion of Assumptions<a class="anchor-link" href="#Discussion-of-Assumptions"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion"> </a></h2><p>As we saw above in all cases even random rainbow wins against one-hot.</p>
-<ul>
-<li>numerate figures?</li>
-</ul>
-<p>Discuss assumptions</p>
-<ul>
-<li>Randomness</li>
-</ul>
-<p>D: randomness might have different effects</p>
-<p>D: in actual one-hot - a loooot of features, so randomness assumption is not far from truth.</p>
-<p>We base our analysis on the assumption that model features are selected somewhat randomly by the model and added to the tree nodes. In other words, the model does not compare all splits across all variables before chosing the split on the current node, rather it picks a feature randomly and then picks a split value inside that single scale. We understand that this is a strong assumption and in reality the One-hot splits are not fully random.
-However they are also not fully deterministic. 
-First, most of the algorithms don't run all possible comparisons within all features to make a choice about the node, rather some quick set of rough comparisons, which is done to avoid overfitting.
-Second, various hyperparameters have a substantial effect on which split will be chosen. Subsample of columns</p>
-<p>randomness of One-hot
-they should be random to avoid overfit</p>
-<ul>
-<li>hyperparameters, simple model </li>
-</ul>
-<ul>
-<li>Single tree?
-Single trees - easy assumption - equivalent to forest of depth 1 trees.</li>
-</ul>
-<p>Our method works on simpler models</p>
-<p>Saves significant dimensionality</p>
-<p>Not losing even a bit of information</p>
-<p>For One-hot, assume random selection of the next choice.</p>
-<ul>
-<li>subsample col</li>
-<li>subsample rows</li>
-<li>not all splits considered, rather some approximation even on a single scale </li>
-<li><p>counts of samples in each value can be highly uneven - this worse for one-hot</p>
-</li>
-<li><p>assume inside one var all splits are considered, but not across all vars</p>
-</li>
-<li><p>that one-hot and rainbow might both win from minority thing</p>
-</li>
-</ul>
-<p>But what about best one-hot vs random rainbow???</p>
-<p>Recommendations:
-argument for rainbow</p>
-<ul>
-<li>pick a few, choose the best</li>
-<li>compare</li>
-<li>compare average rainbow with best One-hot</li>
-</ul>
+<p>While the results above are in fact very optimistic, we should discuss the method limitations and assumptions we made.</p>
+<blockquote><p>Single Tree Assumption:The use of a single decision tree vs forest.</p>
+</blockquote>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Bibliography-and-References-and-Technical-Details">Bibliography and References and Technical Details<a class="anchor-link" href="#Bibliography-and-References-and-Technical-Details"> </a></h2>
+<p>That assumption does not really impact the outcomes, since a single tree is equivalent to a forest of trees with depth 1. In fact, if our method works on simpler models that only adds to its advantages.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2>
+<blockquote><p>Randomness Assumption:One-hot picks columns randomly.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We assumed above that our machine learning algorithms pick features somewhat randomly, and then make a split by using full scales of values of those features. One might argue that in reality, before making any split, algorithms such as <em>xgboost</em> would look at many splits <strong>across all features</strong> and will pick the best.
+<br /> <br />
+We understand that this is a strong assumption and in reality the One-hot splits are not fully random.
+However they are also not fully deterministic. First, most of the algorithms don't run all possible comparisons within all features to make a choice about the node, rather some quick set of rough comparisons, which is done to avoid overfitting. Second, various hyperparameters have a substantial effect on which split will be chosen: subsample of columns, subsample of rows, maximum depth, etc. Third, if we are talking about bigger categorical variables with many categories - One-hot creates a lot of features, and randomness assumption would be not far from truth. Finally, counts of samples for each category can be highly uneven, and that also gets us closer to randomness and is likely to yield worse results for One-hot than for Rainbow.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-find-the-best-Rainbow?">How to find the best Rainbow?<a class="anchor-link" href="#How-to-find-the-best-Rainbow?"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we shown above the distribution of number of splits is strictly better for Rainbow vs One-hot. However, one might argue that in reality we in fact be choosing between <em>good</em> One-hot (assuming intelligent algorithms and relaxing randomness assumption) and a <em>random</em> rainbow. <br />
+In fact, the quality of rainbow is an unknown. We can see that Average Rainbow (red line) is between Best One-hot (purple line) and Average One-hot (green line). So it is important to try and find a good order rainbow, that approaches the data generating process.
+<br /><br />
+The proposed solution here is very simple and clear - pick a few, choose the best. We invite you to try a few possible Rainbow encodings, and compare them side by side to each other and to One-hot. Your data and problem context will be the best tools here to choose the best encoding. We also recommend you to look at a few metrics, as well as model runtime. We expect that Rainbow method would provide you much better overall results, especially if you have many categorical variables with many values.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Final-Notes">Final Notes<a class="anchor-link" href="#Final-Notes"> </a></h3><p>This article just opens the conversation about the Rainbow method, and by no means exhausts the topic. In the potential future investigations, we could explore some other aspects. To name a few: continuous target variables; comparison with other dimensionality reduction methods, such as PCA; missing values and how they fit the Rainbow framework; limitations and implications of combining seemingly unrelated features into a single Rainbow. We hope to open the gate for further questions and feedback on this method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="References">References<a class="anchor-link" href="#References"> </a></h4>
 </div>
 </div>
 </div>
@@ -1605,7 +1604,7 @@ argument for rainbow</p>
 <li><a href="https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159">https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159</a></li>
 <li><a href="https://towardsdatascience.com/stop-One-hot-encoding-your-categorical-variables-bbb0fba89809">https://towardsdatascience.com/stop-One-hot-encoding-your-categorical-variables-bbb0fba89809</a></li>
 </ul>
-<p>The approach presented here is rarely used in industry or academia, while has shown superior results and by definition creates less features.</p>
+<p>the approach presented here is rarely used in industry or academia, while has shown superior results and by definition creates less features.</p>
 
 </div>
 </div>
