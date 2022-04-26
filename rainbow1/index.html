@@ -208,54 +208,48 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Imagine that you have 3000 features and you need to make the best predictive model. "Best" in terms of complexity, interpretation, compliance, and, last but not least, performance. Such case is familiar to anyone who worked with a large set of categorical variables and who employed the popular One-hot encoding method. Such sparse data sets usually don't work well with highly efficient tree-based algorithms such as Random Forest or Gradient Boosting.</p>
+<p>Imagine that you have 3000 features and you need to make the best predictive model. Best in terms of complexity, interpretation, compliance, and, last but not least, performance. Such case is familiar to anyone who worked with a large set of categorical variables and who employed the popular One-hot encoding method. Such sparse data sets usually don't work well with highly efficient tree-based algorithms such as Random Forest or Gradient Boosting.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Instead, we recommend finding an ordinal encoding even when there is no obvious order in categories. We introduce the Rainbow method - a set of techniques for identifying a good ordinal encoding, and we discuss its advantages over the conventional One-hot.</p>
+<p>Instead, we recommend finding an ordinal encoding even when there is no obvious order in categories. We introduce the Rainbow method - a set of techniques for identifying a good ordinal encoding. We show that the Rainbow method has multiple advantages over the conventional One-hot when used with tree-based algorithms.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here is the quick summary of benefits of Rainbow method compared to One-hot.</p>
-<table>
-<thead><tr>
-<th style="text-align:center"><strong>Benefits</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Saves substantial time</td>
-</tr>
-<tr>
-<td style="text-align:center">Saves storage</td>
-</tr>
-<tr>
-<td style="text-align:center">Significantly reduces computational complexity, reduces or removes the need for dist</td>
-</tr>
-</tbody>
-</table>
+<p>Here are some benefits of Rainbow method compared to One-hot:</p>
+<ol>
+<li><p><strong>Resource Efficiency</strong></p>
+<ul>
+<li>Saves substantial modeling time</li>
+<li>Saves storage</li>
+<li>Notably reduces the computational complexity</li>
+<li>Reduces or removes the need for “big data” tools such as distributed processing</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><strong>Model Efficiency</strong><ul>
+<li>Significantly reduces model dimensionality</li>
+<li>Preserves data granularity</li>
+<li>Prevents overfitting</li>
+<li>Models reach peak performance with simpler hyperparameters</li>
+<li>Natuarally promotes feature selection</li>
+</ul>
+</li>
+</ol>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In</p>
-<p>"I have 2000 features and I need to get to 50 features and keep the model as good or better" was how this all started. This is familiar to anyone in institutional data science where you need to carefully vet every model and look at each feature to make sure it is fine from the standpoint of regulation. What is valuable about this story is that it is based on a real production model that was developed by Anna Arakelyan at MassMutual and the Rainbow method suggested by Dmytro Karabash. We will get detailed results at the end but here's a preview for anyone who wants to take a peek:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>In this series of articles, we will introduce the Rainbow encoding method and will discuss its advantages over the conventional One-hot.</strong> <br />
-Part I below explains how the method works, shows that it preserves full data signal, and provides examples of its use for various kinds of categorical variables. Part II explores its empirical application to a real business data science problem - Mindset Segmentation model at MassMutual using the Acxiom database. Part III provides the mathematical foundation for the method and shows that it reduces model complexity and helps avoid overfitting.</p>
+<p>In this series of articles we define the Rainbow method and discuss its implications from different angles. Part I below explains the method and provides various examples of its use. Part II explores its empirical application to a real business problem - Mindset Segmentation model at MassMutual. Part III provides the mathematical foundation for the method and shows how it helps to prevent overfitting.</p>
 
 </div>
 </div>
@@ -349,7 +343,7 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Rainbow-keeps-the-full-signal">Rainbow keeps the full signal<a class="anchor-link" href="#Rainbow-keeps-the-full-signal"> </a></h2>
+<h2 id="Rainbow-preserves-data-granularity">Rainbow preserves data granularity<a class="anchor-link" href="#Rainbow-preserves-data-granularity"> </a></h2>
 </div>
 </div>
 </div>
