@@ -328,9 +328,15 @@ On the other hand, whether the natural ordering exists or not - does not change 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Most of the nominal variables, at the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With the color - the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
 <p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories K and the context.</p>
-<blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>. 
-The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order), it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
+<blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
 </blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order), it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
 
 </div>
 </div>
@@ -369,7 +375,7 @@ The Rainbow method is very simple and intuitively sensible. In many cases it is 
 <hr />
 <p>as long as the correct order of the categories is preserved. The values themselves don't carry the quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its 
 magic to make the most appropriate splits to introduce new tree nodes.</p>
-<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze different scenarios.</p>
+<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze conditions and edge cases.</p>
 <p>The application of our method for other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that such a way of feature engineering would be still beneficial, but that is a subject of a different investigation.</p>
 
 </div>
@@ -383,7 +389,7 @@ magic to make the most appropriate splits to introduce new tree nodes.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The application of our method depends highly on the level of measurement of the treated variables. While <strong>quantitative</strong> variables have a <em>ratio</em> scale, i.e. they have a meaningful 0, ordered values, and equal distances between values; <strong>categorical</strong> variables usually have either <em>interval</em>, or <em>ordinal</em>, or <em>nominal</em> scales.
+<p>The statistical concept of level of measurement plays an important role in separating variables with natural ordering from the variables without it. While <strong>quantitative</strong> variables have a <em>ratio</em> scale, i.e. they have a meaningful 0, ordered values, and equal distances between values; <strong>categorical</strong> variables usually have either <em>interval</em>, or <em>ordinal</em>, or <em>nominal</em> scales.
 Let us illustrate our method for each of these types of categorical variables.</p>
 
 </div>
@@ -407,7 +413,7 @@ Let us illustrate our method for each of these types of categorical variables.</
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Straightforwardly, if we simply use the raw values 1 through 5, that will be the best and most natural rainbow. The algorithm such as <em>xgboost</em> will make the appropriate splits instead of being forced to use the splits predetermined by One-hot, which in many cases is simply an overfit.</p>
+<p>Without a doubt, interval variables are intrinsically the best and most natural rainbow. Most of the modelers would encode them numerically.</p>
 
 </div>
 </div>
@@ -431,21 +437,28 @@ Let us illustrate our method for each of these types of categorical variables.</
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Similar to interval variables, raw ordinal numeric codes can be used in the model without introducing any issues, as long as the order is correct. In some cases, a variable is intrinsically ordinal, but the given numeric codes don't follow the correct order - in these situations, we could simply reorder categories and then use this updated variable as a quantitative feature.</p>
+<p>Similar to interval variables, raw ordinal numeric codes can be used in the model without introducing any issues, as long as the order is correct. Sometimes the categories for an ordinal variable are not listed according to the perfect order, and that might steer us away from seeing an immediate rainbow. With some attention to the variables, we could reorder categories and then use this updated variable as a quantitative feature.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The use of a natural rainbow for interval and ordinal variables is likely not the cause for concern because it is clearly a perfect alternative to One-hot for tree-based algorithms. The more complicated and non-obvious question is how to treat nominal variables.</p>
+<p>So far, most modelers would organically use the best Rainbow. The more complicated question is how to treat nominal variables.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Nominal</strong> variables have no obvious order between categories and are almost always encoded with the One-hot method. This is where <strong>finding a rainbow</strong> becomes valuable. It will turn something, that seems completely nonquantitative, into a quantitative scale. In  our classical example, a nominal variable <em>Color</em></p>
+<p><strong>Nominal</strong> variables have no obvious order between categories. The intricacy is that what Statistics considers nominal, Machine Learning can treat as quantitative and that would make sense</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>and are almost always encoded with the One-hot method. This is where <strong>finding a rainbow</strong> becomes valuable. It will turn something, that seems completely nonquantitative, into a quantitative scale. In  our classical example, a nominal variable <em>Color</em></p>
 
 </div>
 </div>
