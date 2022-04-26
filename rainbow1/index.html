@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      15 min read
+      16 min read
     
 </span></p>
 
@@ -262,10 +262,17 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Data encoding is a crucial part of any data science pipeline. No matter which machine learning algorithm is used - there is no avoiding of data cleaning and encoding. Especially with dirty and complex real data sets, ensuring the most appropriate and efficient way of feature encoding and engineering is a nontrivial problem. While encoding quantitative and binary columns is usually a straightforward task, the encoding of categorical variables deserves a deeper look. 
-<br /><br />
-One of the most popular encoding methods for categorical variables has been the One-hot procedure. It generates an indicator variable for every category and, thus, creates a set of K new features, where K is the number of categories.
-One significant implication of this method is the dimensionality increase. Depending on the magnitude of K, it can have various undesirable technical consequences: substantial raise of computational complexity, loss of degrees of freedom (N-K, where N is the number of samples), multicollinearity, and, ultimately, an overfitted model. Non-technical consequences include unnecessary complications of the model that should be communicated to final users and that contradict the law of parsimony aka Occam's razor.</p>
+<p>Data scientists with different backgrounds might have varying favorite approaches to categorical variables encoding. The general consensus though is that:</p>
+<ol>
+<li>Categorical variables with a natural ordering should use encoding that respects that ordering, such as ordinal encoding;</li>
+</ol>
+<ol>
+<li>Categorical variables without a natural ordering, i.e. <em>nominal</em> variables, should use some kind of nominal encoding, and One-hot is the commonly used method. </li>
+</ol>
+<p>It is not often and it is not generally accepted when modelers apply ordinal encoding to a categorical variable with no inherent order. However, some modelers do it purely for modeling performance reasons. We decided to explore both theoretially and empirically whether such approach provides any advantages. We believe that encoding of categorical variables deserves a deeper look.</p>
+<p>While One-hot encoding is often employed reflexively, it can cause multiple issues. Depending on the number of categories, it can create huge dimensionality increase, multicollinearity, overfitting, and overall a very complex model. These implications contradict Occam's razor principle.</p>
+<p>We go into details below, but the quick conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding for any case.</p>
+<p>In fact, most of the categorical variables have <em>some</em> order. The two examples above - a perfect natural ordering and no natural ordering are just extreme cases. Many real categorical variables are somewhere in between. Thus, turning them into a numeric variable would be neither exactly fair nor exactly artificial. It would be some mix of the two.</p>
 
 </div>
 </div>
@@ -278,7 +285,14 @@ One significant implication of this method is the dimensionality increase. Depen
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We call it rainbow from a very simple analogy: if you have a categorical column with value names "Red", "Orange", "Yellow", "Green", "Blue", "Indigo" and "Violet", in other words - colors of the rainbow, instead of One-hot encoding, you can simply create one feature with encoding:</p>
+<p>Think of a clearly nominal categorical variable. One example is Color. Say, the labels are "Green", "Red", "Blue", "Violet", "Orange", "Yellow", "Indigo".</p>
+<p>We would like to find an order in the labels, and such order exists - a rainbow. So, instead of making seven One-hot features, you can simply create one feature with encoding:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <hr />
 <p>0 = "Red" <br />
 1 = "Orange" <br />
@@ -287,15 +301,24 @@ One significant implication of this method is the dimensionality increase. Depen
 4 = "Blue" <br />
 5 = "Indigo" <br />
 6 = "Violet"</p>
-<p>This nicely replaces seven One-hot features with one rainbow.</p>
-<p>Most of the nominal variables, at the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>.
-<br />
-The seemingly unordered categories acquire a perfect order if we find a scale, where each category fits into its unique place. With the color - the natural scale is Hue. But it is not the only one. We can think of, say, brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
-<p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories K and the context.</p>
-<blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows because we do not want to surpass the number of encodings in a binary One-hot.</p>
-</blockquote>
-<p>Why is rainbow better than any other choice? It is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order), it would still be better than using One-hot. The more natural orders are just likely to be slightly better than others and easier to interpret.</p>
-<blockquote><p>Hence our motto:"When nature gives you a rainbow, take it..."</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hence, we called the set of techniques to identify an ordinal encoding - the Rainbow method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p><strong>Is Color a nominal variable?</strong> <br /><br />
+Some of the readers might argue that Color is clearly an ordinal variable, so there is no surprise that we found an ordinal encoding. <br /><br />
+On the one hand, modelers from different scientific backgrounds may view same categorical variables differently and probably used to apply certain encoding methods reflexively. For example, I (Anna) studied Economics and Econometrics, and I did not encounter any use case that could treat Color as numerical. At the same time modelers that studied Physics or Math might have utilized wavelength in their modeling experience, and likely considered Color ordinal. If you represent the latter modelers, please take a minute and think of a different example of a clearly nominal variable. <br /><br />
+On the other hand, whether the natural ordering exists or not - does not change our message. In short, if the order exists - great! If it does not - well, we want you to find it!  We will provide many more examples below and hope that they can guide you on how to find a rainbow in your own example nominal variable.</p>
 </blockquote>
 
 </div>
@@ -303,7 +326,18 @@ The seemingly unordered categories acquire a perfect order if we find a scale, w
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Important note</strong>: this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, decision trees, random forest, gradient boosting - these algorithms will output the same result if, say, the variable <em>Number of Children</em> is coded as</p>
+<p>Most of the nominal variables, at the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With the color - the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
+<p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories K and the context.</p>
+<blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>. 
+The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order), it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Important</strong>: this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, Decision Trees, Random Forest, Gradient Boosting - these algorithms will output the same result if, say, the variable <em>Number of Children</em> is coded as</p>
 <hr />
 <p>0 = "0 Children" <br />
 1 = "1 Child"<br />
@@ -335,8 +369,8 @@ The seemingly unordered categories acquire a perfect order if we find a scale, w
 <hr />
 <p>as long as the correct order of the categories is preserved. The values themselves don't carry the quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its 
 magic to make the most appropriate splits to introduce new tree nodes.</p>
-<p>The application of our method for other algorithms such as Linear Regression, Logistic Regression is out of the scope of this article. We expect that such a way of feature engineering would be still beneficial, but that is a subject of a different investigation.</p>
-<p>Note that by using a rainbow rather than One-hot we are not losing any of the data signal. Let's explore that question below.</p>
+<p>The application of our method for other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that such a way of feature engineering would be still beneficial, but that is a subject of a different investigation.</p>
+<p>One of the ways to beat dimensionality issue with One-hot is to combine categories in seemingly logical groups. The shortcoming of this method is the loss of data granularity. Note that by using a rainbow method we do not lose any level of data granularity. More below.</p>
 
 </div>
 </div>
