@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      17 min read
+      18 min read
     
 </span></p>
 
@@ -269,10 +269,10 @@ window.onload = wrap_img;
 <ol>
 <li>Categorical variables without a natural ordering, i.e. <em>nominal</em> variables, should use some kind of nominal encoding, and One-hot is the commonly used method. </li>
 </ol>
-<p>It is not often and it is not generally accepted when modelers apply ordinal encoding to a categorical variable with no inherent order. However, some modelers do it purely for modeling performance reasons. We decided to explore both theoretially and empirically whether such approach provides any advantages. We believe that encoding of categorical variables deserves a deeper look.</p>
 <p>While One-hot encoding is often employed reflexively, it can cause multiple issues. Depending on the number of categories, it can create huge dimensionality increase, multicollinearity, overfitting, and overall a very complex model. These implications contradict Occam's razor principle.</p>
-<p>We go into details below, but the quick conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding for any case.</p>
+<p>It is not often and it is not generally accepted when modelers apply ordinal encoding to a categorical variable with no inherent order. However, some modelers do it purely for modeling performance reasons. We decided to explore both theoretially and empirically whether such approach provides any advantages. We believe that encoding of categorical variables deserves a deeper look.</p>
 <p>In fact, most of the categorical variables have <em>some</em> order. The two examples above - a perfect natural ordering and no natural ordering - are just extreme cases. Many real categorical variables are somewhere in between. Thus, turning them into a numeric variable would be neither exactly fair nor exactly artificial. It would be some mix of the two.</p>
+<p>We go into details below, and our main conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding that makes best logical and empirical sense. The Rainbow method also attempts to support interpretability and compliance which are important secondary considerations.</p>
 
 </div>
 </div>
@@ -327,7 +327,7 @@ On the other hand, whether the natural ordering exists or not - does not change 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Most of the nominal variables, at the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With the color - the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
-<p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories K and the context.</p>
+<p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories $K$ and the context.</p>
 <blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
 </blockquote>
 
@@ -528,7 +528,7 @@ V = "Van"</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>we can think of dozens of characteristics to make a rainbow - vehicle size, capacity, price category, average speed, fuel economy, costs of ownership, motor features, etc. Which one (or a few) to pick? The choice depends on the context of the model. Think how can this feature help predict your outcome variable. The preference should be given to the orders that provide more explanatory power and make more sense from the interpretation standpoint.</p>
+<p>we can think of dozens of characteristics to make a rainbow - vehicle size, capacity, price category, average speed, fuel economy, costs of ownership, motor features, etc. Which one (or a few) to pick? The choice depends on the context of the model. Think how can this feature help predict your outcome variable. You can try a few possible rainbows and pick the best in terms of model performance and interpretation.</p>
 
 </div>
 </div>
@@ -618,8 +618,8 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the rainbow because the variable itself is not interpretable.</p>
-<p>Alternatively, this next technique is handy when we have very large data and no resources to manually examine each variable.</p>
+<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the rainbow because the variable itself is not interpretable. Alternatively, what if we have very large data and no resources to manually examine each variable?</p>
+<p>This next technique is handy for such cases.</p>
 <p>Let's look at a black box column made by a third party:</p>
 <hr />
 <p><em>Financial Cluster of the Household</em> <br /><br />
@@ -672,20 +672,21 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In Part II we will demonstrate that the Rainbow method outperforms One-hot using an empirical example of a real data science project at MassMutual.</p>
+<p>One reasonable concern with these automated methods is a potential overfit. When we use posterior knowledge of correlation or target percent that relates independent variable with the dependent variable, this can likely cause data leakage. To tackle this problem, we recommend learning rainbow orders on a random holdout sample.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Rainbow-Preserves-Data-Granularity">Rainbow Preserves Data Granularity<a class="anchor-link" href="#Rainbow-Preserves-Data-Granularity"> </a></h2>
+<h2 id="Rainbow-Preserves-Full-Data-Signal">Rainbow Preserves Full Data Signal<a class="anchor-link" href="#Rainbow-Preserves-Full-Data-Signal"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One of the ways to beat dimensionality issue with One-hot is to combine categories in seemingly logical groups. A shortcoming of this method is the loss of data granularity. Note that by using a rainbow method we do not lose any level of data granularity. We show this below.</p>
+<p>One way to beat dimensionality issue with One-hot is to combine categories in some logical groups. These groups then will be turned into binary variables. A shortcoming of this method is the loss of data granularity. Note that by using the Rainbow method we preserve full data signal and  do not lose any level of granularity.</p>
+<p>For tree-based models, using Rainbow ordinal encoding is perfectly equivalent to using One-hot. We show this below.</p>
 <p>Let us zoom in for a minute on a classical rainbow example with just 4 values:</p>
 
 </div>
@@ -731,7 +732,7 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scenario-1">Scenario 1<a class="anchor-link" href="#Scenario-1"> </a></h3><p>Assume the data generating process is such that all the categories are wildly different, and each one introduces a substantial gain to the model. That means each One-hot feature is indeed critical - the model should separate between all 4 groups created by One-hot.</p>
+<h3 id="Scenario-1">Scenario 1<a class="anchor-link" href="#Scenario-1"> </a></h3><p>Assume all the categories are wildly different, and each one introduces a substantial gain to the model. That means each One-hot feature is indeed critical - the model should separate between all 4 groups created by One-hot.</p>
 <p>In that case, an algorithm such as <em>xgboost</em> will just make the splits between all the values which is perfectly equivalent to One-hot. So the same exact result is achieved with just one feature instead of four.</p>
 
 </div>
@@ -739,7 +740,7 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Figure 2</p>
+<p>Figure 1</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R01.png" alt="" style="max-width: 600/px" />
@@ -753,8 +754,8 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One can clearly see that this example is easily generalized to One-hot with <strong>any</strong> number of categories. Also, note that for such data generating process the order of the categories in Rainbow does not even matter as splits will be made between <strong>all</strong> categories. In practice, (K-1) splits will be sufficient for both methods to separate between K categories.</p>
-<p>Figure 3</p>
+<p>One can clearly see that this example is easily generalized to One-hot with <strong>any</strong> number of categories. Also, note that for such data generating process the order of the categories in Rainbow does not even matter as splits will be made between <strong>all</strong> categories. In practice, $(K-1)$ splits will be sufficient for both methods to separate between $K$ categories.</p>
+<p>Figure 2</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R02.png" alt="" style="max-width: 600px" />
@@ -775,8 +776,8 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scenario-2">Scenario 2<a class="anchor-link" href="#Scenario-2"> </a></h3><p>If the chosen rainbow (Figure 3) is not the best because, for example, the data generating process separates between the group of {Red, Green} and {Yellow, Blue}, then once again - the algorithm will make all the necessary splits.</p>
-<p>Figure 4</p>
+<h3 id="Scenario-2">Scenario 2<a class="anchor-link" href="#Scenario-2"> </a></h3><p>If the chosen rainbow (Figure 2) is not the best because, for example, the data generating process separates between the group of {Red, Green} and {Yellow, Blue}, then once again - the algorithm will make all the necessary splits.</p>
+<p>Figure 3</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R03.png" alt="" style="max-width: 650px" />
@@ -790,7 +791,7 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here we show that depending on the order of binary features picked by One-hot there can be different trees built. In the case of Rainbow, though - once again we demonstrate that no information is lost and a (K-1) splits tree is built even in this least favorable scenario.</p>
+<p>Here we show that depending on the order of binary features picked by One-hot model, there can be different trees built. In the case of Rainbow though, once again we demonstrate that no information is lost and a $(K-1)$ splits tree is built even in this least favorable scenario.</p>
 
 </div>
 </div>
@@ -811,7 +812,7 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Figure 5</p>
+<p>Figure 4</p>
 <p><figure>
   
     <img class="docimage" src="/images/copied_from_nb/img-anna/R04.png" alt="" style="max-width: 650px" />
@@ -825,8 +826,9 @@ D = "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this introductory article, we briefly show that by substituting One-hot with Rainbow, we save dimensionality without any informational loss. In Part III though we dive deeper into the mathematical foundation of the Rainbow method and prove that the Rainbow method <strong>outperforms</strong> One-hot in the worst, average, and best scenarios.</p>
-<p>In short, if the rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture the similarity in the adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
+<p>The scenarios above show that by substituting One-hot with Rainbow, we save dimensionality without any information loss. If the rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture the similarity in the adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
+<p>As a side result, the Rainbow method suggests the right language for better and more succinct feature selection. Instead of long and tedious process that runs through 3000 features, where you need to do some serious compliance to justify the selection, you would take advantage of much smaller number of very dense features that have natural explanation. That reduces time, storage, and documentation greatly.</p>
+<p>In <a href="link">Part II</a> we show the advantagnes of the Rainbow method over the One-hot using an empirical example of a real data science project at MassMutual. In <a href="link">Part III</a> we prove mathematically that the Rainbow method outperforms One-hot in the worst, the average, and the best scenarios.</p>
 
 </div>
 </div>
