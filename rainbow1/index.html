@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      17 min read
     
 </span></p>
 
@@ -230,7 +230,7 @@ window.onload = wrap_img;
 <li>Saves storage</li>
 <li>Notably reduces the computational complexity</li>
 <li>Reduces or removes the need for “big data” tools such as distributed processing
-<br /><br /></li>
+<br /></li>
 </ul>
 </li>
 <li><p><strong>Model Efficiency</strong></p>
@@ -271,7 +271,7 @@ window.onload = wrap_img;
 </ol>
 <p>While One-hot encoding is often employed reflexively, it can cause multiple issues. Depending on the number of categories, it can create huge dimensionality increase, multicollinearity, overfitting, and overall a very complex model. These implications contradict Occam's razor principle.</p>
 <p>It is not often and it is not generally accepted when modelers apply ordinal encoding to a categorical variable with no inherent order. However, some modelers do it purely for modeling performance reasons. We decided to explore both theoretially and empirically whether such approach provides any advantages. We believe that encoding of categorical variables deserves a deeper look.</p>
-<p>In fact, most of the categorical variables have <em>some</em> order. The two examples above - a perfect natural ordering and no natural ordering - are just extreme cases. Many real categorical variables are somewhere in between. Thus, turning them into a numeric variable would be neither exactly fair nor exactly artificial. It would be some mix of the two.</p>
+<p>In fact, most of the categorical variables have <em>some</em> order. The two examples above - a perfect natural ordering and no natural ordering - are just the extreme cases. Many real categorical variables are somewhere in between. Thus, turning them into a numeric variable would be neither exactly fair nor exactly artificial. It would be some mix of the two.</p>
 <p>Our main conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding that makes best logical and empirical sense. The Rainbow method also attempts to support interpretability and compliance which are important secondary considerations.</p>
 
 </div>
@@ -401,7 +401,27 @@ Let us illustrate our method for each of these types of categorical variables.</
 <hr />
 <p><em>How likely is the person to buy a smartphone mobile phone?</em>
 <br /><br />
-1 = "Very Unlikely" <br />
+1: "Very Unlikely" <br />
+2: "Somewhat Unlikely"<br />
+3: "Neither Likely Nor Unlikely"<br />
+4: "Somewhat Likely"<br />
+5: "Very Likely"</p>
+<hr />
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Without a doubt, interval variables are intrinsically the best and most natural rainbow. Most of the modelers would encode them numerically.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+<p>1 = "Very Unlikely" <br />
 2 = "Somewhat Unlikely"<br />
 3 = "Neither Likely Nor Unlikely"<br />
 4 = "Somewhat Likely"<br />
@@ -413,7 +433,8 @@ Let us illustrate our method for each of these types of categorical variables.</
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Without a doubt, interval variables are intrinsically the best and most natural rainbow. Most of the modelers would encode them numerically.</p>
+<blockquote><p>Notation:we use colon sign to denote raw category names, and we use equals sign to denote assignment of numeric values to categories.</p>
+</blockquote>
 
 </div>
 </div>
@@ -474,10 +495,10 @@ Let us illustrate our method for each of these types of categorical variables.</
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr />
-<p>A = "Red" <br />
-B = "Blue" <br />
-C = "Green" <br />
-D = "Yellow" <br /></p>
+<p>A: "Red" <br />
+B: "Blue" <br />
+C: "Green" <br />
+D: "Yellow" <br /></p>
 <hr />
 
 </div>
@@ -513,14 +534,14 @@ D = "Yellow" <br /></p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr />
 <p><em>Vehicle Type</em> <br /><br />
-C = "Compact Car"<br />
-F = "Full-size Car"<br />
-L = "Luxury Car"<br />
-M = "Mid-Size Car"<br />
-P = "Pickup Truck"<br />
-S = "Sports Car"<br />
-U = "SUV"<br />
-V = "Van"</p>
+C: "Compact Car"<br />
+F: "Full-size Car"<br />
+L: "Luxury Car"<br />
+M: "Mid-Size Car"<br />
+P: "Pickup Truck"<br />
+S: "Sports Car"<br />
+U: "SUV"<br />
+V: "Van"</p>
 <hr />
 
 </div>
@@ -544,10 +565,10 @@ V = "Van"</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><em>Marital Status</em> <br /><br />
-A = "Married" <br />
-B = "Single" <br />
-C = "Inferred Married" <br />
-D = "Inferred Single" <br /></p>
+A: "Married" <br />
+B: "Single" <br />
+C: "Inferred Married" <br />
+D: "Inferred Single" <br /></p>
 <hr />
 
 </div>
@@ -585,19 +606,19 @@ D = "Inferred Single" <br /></p>
 <p>Another example:</p>
 <hr />
 <p><em>Occupation</em> <br /><br />
-1 = "Professional/Technical"<br />
-2 = "Administration/Managerial"<br />
-3 = "Sales/Service"<br />
-4 = "Clerical/White Collar"<br />
-5 = "Craftsman/Blue Collar"<br />
-6 = "Student"<br />
-7 = "Homemaker"<br />
-8 = "Retired"<br />
-9 = "Farmer"<br />
-A = "Military"<br />
-B = "Religious"<br />
-C = "Self Employed"<br />
-D = "Other"<br /></p>
+"Professional/Technical"<br />
+"Administration/Managerial"<br />
+"Sales/Service"<br />
+"Clerical/White Collar"<br />
+"Craftsman/Blue Collar"<br />
+"Student"<br />
+"Homemaker"<br />
+"Retired"<br />
+"Farmer"<br />
+"Military"<br />
+"Religious"<br />
+"Self Employed"<br />
+"Other"<br /></p>
 <hr />
 
 </div>
@@ -623,19 +644,19 @@ D = "Other"<br /></p>
 <p>Let's look at a black box column made by a third party:</p>
 <hr />
 <p><em>Financial Cluster of the Household</em> <br /><br />
-1 = "Market Watchers" <br />
-2 = "Conservative Wealth" <br />
-3 = "Specific Savers" <br />
-4 = "Tried and True" <br />
-5 = "Trendy Inclinations" <br />
-6 = "Current Consumers" <br />
-7 = "Rural Trust" <br />
-8 = "City Spotlight" <br />
-9 = "Career Conscious" <br />
-10 = "Digital Financiers" <br />
-11 = "Financial Futures" <br />
-12 = "Stable Influentials" <br />
-13 = "Conservatively Rural"</p>
+"Market Watchers" <br />
+"Conservative Wealth" <br />
+"Specific Savers" <br />
+"Tried and True" <br />
+"Trendy Inclinations" <br />
+"Current Consumers" <br />
+"Rural Trust" <br />
+"City Spotlight" <br />
+"Career Conscious" <br />
+"Digital Financiers" <br />
+"Financial Futures" <br />
+"Stable Influentials" <br />
+"Conservatively Rural"</p>
 <hr />
 
 </div>
