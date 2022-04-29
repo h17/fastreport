@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      7 min read
     
 </span></p>
 
@@ -268,7 +268,7 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We took all the categorical variables in the Acxiom database - interval, ordinal, and nominal, and excluded quantitative and binary variables. The idea is to show the pure difference in the model performance between the two types of encoding for the same set of categorical factors.</p>
 <p>We then applied a target stratified 4-fold Cross-Validation split. All the data processing from this point on is done inside the cross-validation loop, i.e. the creation of One-hot features and Rainbow features is learned from each fold train set and applied to each fold validation set.</p>
-<p>The total set of 111 variables was transformed into <strong>201</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
+<p>The total set of 111 variables was transformed into <strong>121</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
 <p>Table 1</p>
 
 </div>
@@ -300,13 +300,13 @@ window.onload = wrap_img;
 <tr>
 <td style="text-align:center">Nominal</td>
 <td style="text-align:center">33</td>
-<td style="text-align:center">123</td>
+<td style="text-align:center">43</td>
 <td style="text-align:center">412</td>
 </tr>
 <tr>
 <td style="text-align:center">Total</td>
 <td style="text-align:center">111</td>
-<td style="text-align:center"><strong>201</strong></td>
+<td style="text-align:center"><strong>121</strong></td>
 <td style="text-align:center"><strong>2260</strong></td>
 </tr>
 </tbody>
@@ -317,30 +317,18 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While interval and ordinal variables have a straightforward rainbow transformation - one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows, the nominal variables transformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural attribute rainbow, while for 10 remaining variables we applied correlation ordering and target percent ordering (see <a href="link">Part I</a>). Since we deal with 5 classes, we made 10 new features for each of these variables.</p>
-<p>For example, given the name of feature "Financial_Cluster" and 5 segment names, we made features</p>
-<ul>
-<li><em>Financial_Cluster_Mindset_A_correlation_rank</em></li>
-<li><em>Financial_Cluster_Mindset_B_correlation_rank</em></li>
-<li><em>Financial_Cluster_Mindset_C_correlation_rank</em></li>
-<li><em>Financial_Cluster_Mindset_D_correlation_rank</em></li>
-<li><em>Financial_Cluster_Mindset_E_correlation_rank</em>
-<br /><br /> and <br /><br /></li>
-<li><em>Financial_Cluster_Mindset_A_target_percent</em></li>
-<li><em>Financial_Cluster_Mindset_B_target_percent</em></li>
-<li><em>Financial_Cluster_Mindset_C_target_percent</em></li>
-<li><em>Financial_Cluster_Mindset_D_target_percent</em></li>
-<li><em>Financial_Cluster_Mindset_E_target_percent</em></li>
-</ul>
-<p>In this way, 33 raw nominal variables turned into 123 Rainbows.</p>
-<p>We recommend making a</p>
+<p>While interval and ordinal variables have a straightforward rainbow transformation - one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows, the nominal variables transformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural attribute rainbow, while for each of the 10 remaining variables we created 2 artificial rainbow features. Since we deal with 5 classes, we applied correlation ordering for a random class and target percent ordering for a random class (see <a href="link">Part I</a>).</p>
+<p>For example, for the original categorical variable "Financial_Cluster" we made features <br /><em>Financial_Cluster_Mindset_B_correlation_rank</em>
+<br />and 
+<br /><em>Financial_Cluster_Mindset_D_target_percent</em></p>
+<p>In this way, 33 raw nominal variables turned into 43 Rainbows.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>It is important to note that the search for natural or non-natural Rainbows is highly project and context-specific, and is more of an art than a craft. For instance, for a binary classification problem, there probably would have been only one or two Rainbows.</p>
+<p>The search for the approach to make natural attribute rainbows or artificial rainbows is highly project and context-specific, and is more of an art than a science. We invite you to play with it and rely on model simplicity, performance, and interpretability when making final choice.</p>
 <p>We ran all XGBoost models covering this hyperparameter space:</p>
 
 <pre><code>'objective': 'multi:softprob'
@@ -350,7 +338,8 @@ window.onload = wrap_img;
 'max_depth': [2, 3, 5]
 'eta': [0.1, 0.3, 0.5]
 'n_estimators': [50, 100, 200]</code></pre>
-<p>All the results below in this article represent cross-validation average metrics.</p>
+<p>We don't try maximum depth values higher than 5 because of the relatively small data size. The training data size reduces due to cross-validation split and XGBoost subsample parameter. If at the end of each branch we expect to have at least 100 samples, the max depth should be limited at about 5-6. Setting it at higher value would seriously complicate or overfit the model. And, especially for the goals of this analysis, we'd rather err on the side of simplicity.</p>
+<p>All the results below represent cross-validation average metrics.</p>
 
 </div>
 </div>
@@ -363,7 +352,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let us start with overall averages for all runs. Clearly, the average metrics across all models are notably higher for Rainbow encoding.</p>
+<p>Let us start with the overall averages across all runs. Clearly, the average metrics across all models are notably higher for Rainbow ordinal encoding.</p>
 
 </div>
 </div>
