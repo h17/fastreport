@@ -208,7 +208,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Imagine that you have 3000 features and you need to make the best predictive model. Best in terms of complexity, interpretation, compliance, and, last but not least, performance. Such case is familiar to anyone who worked with a large set of categorical variables and who employed the popular One-hot encoding method. Such sparse data sets usually don't work well with highly efficient tree-based algorithms such as Random Forest or Gradient Boosting.</p>
+<p>Imagine that you have 2000 features and you need to make the best predictive model. Best in terms of complexity, interpretation, compliance, and, last but not least, performance. Such case is familiar to anyone who worked with a large set of categorical variables and who employed the popular One-hot encoding method. Such sparse data sets usually don't work well with highly efficient tree-based algorithms such as Random Forest or Gradient Boosting.</p>
 
 </div>
 </div>
@@ -286,7 +286,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Think of a clearly nominal categorical variable. One example is Color. Say, the labels are "Green", "Red", "Blue", "Violet", "Orange", "Yellow", "Indigo".</p>
-<p>We would like to find an order in the labels, and such order exists - a rainbow. So, instead of making seven One-hot features, you can simply create one feature with encoding:</p>
+<p>We would like to find an order in the labels, and such an order exists - a rainbow. So, instead of making seven One-hot features, you can simply create one feature with encoding:</p>
 
 </div>
 </div>
@@ -326,7 +326,7 @@ On the other hand, whether the natural ordering exists or not - does not change 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Most of the nominal variables, at the first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With the color - the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
+<p>Most of the nominal variables, at first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With color, the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
 <p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories $K$ and the context.</p>
 <blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
 </blockquote>
@@ -336,7 +336,7 @@ On the other hand, whether the natural ordering exists or not - does not change 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order), it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
+<p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order); it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
 
 </div>
 </div>
@@ -373,10 +373,9 @@ On the other hand, whether the natural ordering exists or not - does not change 
 10 = "3 Children"<br />
 44 = "4 or more Children"</p>
 <hr />
-<p>as long as the correct order of the categories is preserved. The values themselves don't carry the quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its 
-magic to make the most appropriate splits to introduce new tree nodes.</p>
+<p>as long as the correct order of the categories is preserved. The values themselves don't serve a quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its magic to make the most appropriate splits to introduce new tree nodes.</p>
 <p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze the conditions and the edge cases.</p>
-<p>The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that such a way of feature engineering would be still beneficial, but that is a subject of a different investigation.</p>
+<p>The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that this method of feature engineering may still be beneficial, but that is subject of additional investigation.</p>
 
 </div>
 </div>
@@ -606,19 +605,19 @@ D: "Inferred Single" <br /></p>
 <p>Another example:</p>
 <hr />
 <p><em>Occupation</em> <br /><br />
-"Professional/Technical"<br />
-"Administration/Managerial"<br />
-"Sales/Service"<br />
-"Clerical/White Collar"<br />
-"Craftsman/Blue Collar"<br />
-"Student"<br />
-"Homemaker"<br />
-"Retired"<br />
-"Farmer"<br />
-"Military"<br />
-"Religious"<br />
-"Self Employed"<br />
-"Other"<br /></p>
+1: "Professional/Technical"<br />
+2: "Administration/Managerial"<br />
+3: "Sales/Service"<br />
+4: "Clerical/White Collar"<br />
+5: "Craftsman/Blue Collar"<br />
+6: "Student"<br />
+7: "Homemaker"<br />
+8: "Retired"<br />
+9: "Farmer"<br />
+A: "Military"<br />
+B: "Religious"<br />
+C: "Self Employed"<br />
+D: "Other"<br /></p>
 <hr />
 
 </div>
@@ -644,19 +643,19 @@ D: "Inferred Single" <br /></p>
 <p>Let's look at a black box column made by a third party:</p>
 <hr />
 <p><em>Financial Cluster of the Household</em> <br /><br />
-"Market Watchers" <br />
-"Conservative Wealth" <br />
-"Specific Savers" <br />
-"Tried and True" <br />
-"Trendy Inclinations" <br />
-"Current Consumers" <br />
-"Rural Trust" <br />
-"City Spotlight" <br />
-"Career Conscious" <br />
-"Digital Financiers" <br />
-"Financial Futures" <br />
-"Stable Influentials" <br />
-"Conservatively Rural"</p>
+ 1: "Market Watchers" <br />
+ 2: "Conservative Wealth" <br />
+ 3: "Specific Savers" <br />
+ 4: "Tried and True" <br />
+ 5: "Trendy Inclinations" <br />
+ 6: "Current Consumers" <br />
+ 7: "Rural Trust" <br />
+ 8: "City Spotlight" <br />
+ 9: "Career Conscious" <br />
+10: "Digital Financiers" <br />
+11: "Financial Futures" <br />
+12: "Stable Influentials" <br />
+13: "Conservatively Rural"</p>
 <hr />
 
 </div>
@@ -739,14 +738,14 @@ D: "Inferred Single" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the case of Rainbow, we would just use the <em>Color</em> itself.</p>
+<p>In the case of Rainbow, we would just use <em>Color</em> by itself.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's compare the possible models made using these two methods: 4 features vs 1 feature. Let's for simplicity build a single decision tree. Let's look at a few scenarios of the data generating process.</p>
+<p>Let's compare the possible models made using these two methods: 4 features vs 1 feature. For simplicity's sake, let's build a single decision tree. Let's look at a few scenarios of the data generating process.</p>
 
 </div>
 </div>
@@ -775,7 +774,7 @@ D: "Inferred Single" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One can clearly see that this example is easily generalized to One-hot with <strong>any</strong> number of categories. Also, note that for such data generating process the order of the categories in Rainbow does not even matter as splits will be made between <strong>all</strong> categories. In practice, $(K-1)$ splits will be sufficient for both methods to separate between $K$ categories.</p>
+<p>One can clearly see that this example is easily generalized to One-hot with <strong>any</strong> number of categories. Also, note that the order of the categories in Rainbow does not matter as splits will be made between <strong>all</strong> categories. In practice, $(K-1)$ splits will be sufficient for both methods to separate between $K$ categories.</p>
 <p>Figure 2</p>
 <p><figure>
   
