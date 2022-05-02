@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      17 min read
+      20 min read
     
 </span></p>
 
@@ -272,7 +272,55 @@ window.onload = wrap_img;
 <p>While One-hot encoding is often employed reflexively, it can cause multiple issues. Depending on the number of categories, it can create huge dimensionality increase, multicollinearity, overfitting, and overall a very complex model. These implications contradict Occam's razor principle.</p>
 <p>It is not often and it is not generally accepted when modelers apply ordinal encoding to a categorical variable with no inherent order. However, some modelers do it purely for modeling performance reasons. We decided to explore both theoretially and empirically whether such approach provides any advantages. We believe that encoding of categorical variables deserves a deeper look.</p>
 <p>In fact, most of the categorical variables have <em>some</em> order. The two examples above - a perfect natural ordering and no natural ordering - are just the extreme cases. Many real categorical variables are somewhere in between. Thus, turning them into a numeric variable would be neither exactly fair nor exactly artificial. It would be some mix of the two.</p>
-<p>Our main conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding that makes best logical and empirical sense. The Rainbow method also attempts to support interpretability and compliance which are important secondary considerations.</p>
+<p>Our main conclusion is that ordinal encoding is likely better than One-hot for <strong>any</strong> categorical variable, when used with tree-based algorithms. And the Rainbow method that we introduce below, helps select an ordinal encoding that makes the best logical and empirical sense. The Rainbow method also aspires to support interpretability and compliance which are important secondary considerations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Linear-vs-Tree-based-Models">Linear vs Tree-based Models<a class="anchor-link" href="#Linear-vs-Tree-based-Models"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The formal statistical science separates strictly between quantitative and categorical variables. Researchers apply different approaches to describe these variables and treat them differently in linear models such as Regression. Even when certain categorical variables have natural ordering, one should be very cautious about applying any quantitative methods to them.</p>
+<p>For example, the task is to build a linear model where one independent variable is <em>Education Level</em>, the standard approach is to encode it via One-hot. Alternatively, one could engineer a new quantitative feature <em>Years of Educaton</em> to replace the original variable, although in that case it would not be a perfectly equivalent replacement.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unlike linear models, tree-based models rely on variable ranks rather than exact values. So using ordinal encoding for <em>Education Level</em> is perfectly equivalent to One-hot. It would actually be an overkill to use One-hot for variables with clear natural ordering.</p>
+<p>And the values assigned to categories won't even matter as long as the correct order is preserved. For example, Decision Trees, Random Forest, Gradient Boosting - these algorithms will output the same result if, say, the variable <em>Number of Children</em> is coded as</p>
+<hr />
+<p>0 = "0 Children" <br />
+1 = "1 Child"<br />
+2 = "2 Children"<br />
+3 = "3 Children"<br />
+4 = "4 or more Children"</p>
+<hr />
+<p>or as</p>
+<hr />
+<p>1 = "0 Children" <br />
+2 = "1 Child"<br />
+3 = "2 Children"<br />
+4 = "3 Children"<br />
+5 = "4 or more Children"</p>
+<hr />
+<p>or even as</p>
+<hr />
+<p>-100 = "0 Children" <br />
+-85 = "1 Child"<br />
+0 = "2 Children"<br />
+10 = "3 Children"<br />
+44 = "4 or more Children"</p>
+<hr />
+<p>The values themselves don't serve a quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its magic to make the most appropriate splits to introduce new tree nodes.</p>
+<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze the conditions and the edge cases.</p>
+<p>The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that this method of feature engineering may still be beneficial, but that is subject of additional investigation.</p>
 
 </div>
 </div>
@@ -318,7 +366,7 @@ window.onload = wrap_img;
 <blockquote><p><strong>Is Color a nominal variable?</strong> <br /><br />
 Some of the readers might argue that Color is clearly an ordinal variable, so there is no surprise that we found an ordinal encoding. <br /><br />
 On the one hand, modelers from different scientific backgrounds may view same categorical variables differently and probably used to apply certain encoding methods reflexively. For example, I (Anna) studied Economics and Econometrics, and I did not encounter any use case that could treat Color as numerical. At the same time modelers that studied Physics or Math might have utilized wavelength in their modeling experience, and likely considered Color ordinal. If you represent the latter modelers, please take a minute and think of a different example of a clearly nominal variable. <br /><br />
-On the other hand, whether the natural ordering exists or not - does not change our message. In short, if the order exists - great! If it does not - well, we want you to find it!  We will provide more examples below and hope they can guide you on how to find a rainbow in your own example nominal variable.</p>
+On the other hand, whether the natural ordering exists or not - does not change our message. In short, if the order exists - great! If it does not - well, we want you to find it!  We will provide more examples below and hope they can guide you on how to find a rainbow for your own example nominal variable.</p>
 </blockquote>
 
 </div>
