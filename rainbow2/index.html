@@ -203,7 +203,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In <a href="link">Part I</a> we discussed the advantages of ordinal encoding compared to One-hot for any categorical variables, when used with tree-based algorithms. We introduced the Rainbow method of identifying the most appropriate ordinal encoding for different types of categorical variables.</p>
-<p>Here in Part II we continue exploring the Rainbow method, now from the empirical standpoint. We will illustrate the effectiveness of the Rainbow method using a real project developed in the <a href="https://datascience.massmutual.com">Data Science</a> organization at <a href="https://www.massmutual.com/">MassMutual</a> - a life insurance company with over 170 years of history. MassMutual takes pride in growing a large team of data scientists, engineers, and technologists to support most of the business decisions.</p>
+<p>Here in Part II, we continue exploring the Rainbow method, now from the empirical standpoint. We will illustrate the effectiveness of the Rainbow method using a real project developed in the <a href="https://datascience.massmutual.com">Data Science</a> organization at <a href="https://www.massmutual.com/">MassMutual</a> - a life insurance company with over 170 years of history. MassMutual takes pride in growing a large team of data scientists, engineers, and technologists to support most of the business decisions.</p>
 
 </div>
 </div>
@@ -253,7 +253,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using Acxiom data and the Mindset Segmentation problem, we will compare the conventional One-hot encoding with the Ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for an unbalanced multiclass classification problem.</p>
+<p>Using Acxiom data and the Mindset Segmentation problem, we will compare the conventional One-hot encoding with the ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for an unbalanced multiclass classification problem.</p>
 
 </div>
 </div>
@@ -268,7 +268,7 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We took all the categorical variables in the Acxiom database - interval, ordinal, and nominal, and excluded quantitative and binary variables. The idea is to show the pure difference in the model performance between the two types of encoding for the same set of categorical factors.</p>
 <p>We then applied a target stratified 4-fold Cross-Validation split. All the data processing from this point on is done inside the cross-validation loop, i.e. the creation of One-hot features and Rainbow features is learned from each fold train set and applied to each fold validation set.</p>
-<p>The total set of 111 variables was transformed into <strong>121</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
+<p>The total set of <strong>111</strong> variables was transformed into <strong>121</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
 <p>Table 1</p>
 
 </div>
@@ -328,23 +328,25 @@ th {
 <p>For example, for the original categorical variable "Financial_Cluster" we made features <br /><em>Financial_Cluster_Mindset_B_correlation_rank</em>
 <br />and 
 <br /><em>Financial_Cluster_Mindset_D_target_percent</em></p>
-<p>In this way, 33 raw nominal variables turned into 43 Rainbows.</p>
+<p>In this way, 33 raw nominal variables turned into 43 Rainbows. The search for the approach to make natural attribute rainbows or artificial rainbows is highly project and context-specific, and is more of an art than a science. We invite you to play with it and rely on model simplicity, performance, and interpretability when making final choice.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The search for the approach to make natural attribute rainbows or artificial rainbows is highly project and context-specific, and is more of an art than a science. We invite you to play with it and rely on model simplicity, performance, and interpretability when making final choice.</p>
-<p>We ran all XGBoost models covering this hyperparameter space:</p>
-
-<pre><code>'objective': 'multi:softprob'
+<p>Unlike ordinal encoding, One-hot transformation generates over two thousand features. Why do we make One-hot features for interval and ordinal variables here? Because we want to compare Rainbow with One-hot on the full continuum of possible ordering - from perfect order to fuzzy order to no order (or wrong order). Also, sometimes the classification 
+of a variable into ordinal or nominal is a subjective decision.</p>
+<blockquote><p>As we discussed in <a href="link">Part I</a>, Color is considered nominal by some modelers, and ordinal by other modelers. To be fair, from statistical standpoint, Color is nominal, but machine learning scientists might use Hue attribute to turn it into ordinal for modeling purposes.</p>
+</blockquote>
+<p>At first, we pool all the categorical variables together. Later in the article, we separate interval, ordinal, and nominal variables and analyze their outcomes individually.</p>
+<p>We ran all XGBoost models covering this hyperparameter space:<code>'objective': 'multi:softprob'
 'eval_metric': 'mlogloss'
 'num_class': 5
 'subsample': 0.8
 'max_depth': [2, 3, 5]
 'eta': [0.1, 0.3, 0.5]
-'n_estimators': [50, 100, 200]</code></pre>
+'n_estimators': [50, 100, 200]</code></p>
 <p>We don't try maximum depth values higher than 5 because of the relatively small data size. The training data size reduces due to cross-validation split and XGBoost subsample parameter. If at the end of each branch we expect to have at least 100 samples, the max depth should be limited at about 5-6. Setting it at higher value would seriously complicate or overfit the model. And, especially for the goals of this analysis, we'd rather err on the side of simplicity.</p>
 <p>All the results below represent cross-validation average metrics.</p>
 
@@ -359,7 +361,7 @@ th {
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let us start with the overall averages across all runs. Clearly, the average metrics across all models are notably higher for Rainbow ordinal encoding.</p>
+<p>Let us start with the overall averages across all runs. Clearly, the average metrics across all models are higher for Rainbow ordinal encoding. The overall difference is a few percentage points.</p>
 
 </div>
 </div>
@@ -525,6 +527,7 @@ Rainbow:  5.491 s</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These results demonstrate again that Rainbow is preferred to One-hot. As expected, interval and ordinal features gain the most from Rainbow encoding, while nominal variables - less so.</p>
+<p>Clearly, the more defined category order, the higher the benefits of preferring Rainbow to One-hot. For nominal variables, model performance is about the same or negligibly lower for Rainbow than for One-hot. However, even in that case, that same performance is achieved in hugely less time, by using substantially less space, and the resulting model is significantly simpler.</p>
 
 </div>
 </div>
@@ -575,17 +578,8 @@ Rainbow:  5.491 s</code></pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The rainbow method outperforms the One-hot easily. The rainbow method even shows better results for 50 features than One-hot does for 100. Also note that when dropping from 50 to 10 features, the reduction in macro-f1 if you use One-hot is 6 times that of the rainbow method (3 times for kappa and accuracy, 2 times for macro-auc).</p>
-<blockquote><p>Both models keep improving as the number of features goes up. Though the improvement is substantially faster and larger for the rainbow method.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Every single metric is considerably higher for the Rainbow method, especially with the lower number of selected features.
-As mentioned in Part I, rainbow encoding with 50 features is even better than One-hot with 100 features as shown by macro-f1, kappa, and accuracy. Also, note the drop from 50 to 10 features in One-hot versus rainbow - macro-f1 loses 0.065 points with One-hot compared to only 0.016 points with Rainbow.</p>
+<p>The rainbow method outperforms the One-hot easily. Especially, for small number of features. Rainbow reaches peak performance more quickly than One-hot, using fewer features - Rainbow is already near peak with only 10 features while it takes one-hot 50-100 features to reach similar level!</p>
+<p>Rainbow even shows better results for 50 features than One-hot does for 100. Also note that when dropping from 50 to 10 features, the reduction in macro-f1 if you use One-hot is 6 times that of the rainbow method (3 times for kappa and accuracy, 2 times for macro-auc).</p>
 
 </div>
 </div>
@@ -598,14 +592,14 @@ As mentioned in Part I, rainbow encoding with 50 features is even better than On
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we illustrated above, the Rainbow method is an elegant and simple way to encode categorical variables, that will significantly reduce data dimensionality without losing any part of valuable signal; that will likely cause substantial improvements in model performance metrics (or, at the very least, will not cause any reductions in metrics); and that will save a great amount of time for modelers.</p>
+<p>In the example of Mindset Segmentation model at MassMutual, we have illustrated that ordinal encoding via Rainbow method is better than One-hot encoding. It saves a great amount of time for modelers, substantially reduces dimensionality, and provides an organic framework for feature selection. If the chosen rainbow order agrees with data generating process, this encoding also contributes to notable model performance metrics increase.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In Part III we provide mathematical justification of the Rainbow method and demonstrate its superiority against One-hot.</p>
+<p>In <a href="link">Part III</a> we provide mathematical justification to these empirical results, and show that the Rainbow ordinal encoding works better than One-hot for tree-based algorithms.</p>
 
 </div>
 </div>
