@@ -130,7 +130,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      20 min read
+      19 min read
     
 </span></p>
 
@@ -286,7 +286,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The formal statistical science separates strictly between quantitative and categorical variables. Researchers apply different approaches to describe these variables and treat them differently in linear models such as Regression. Even when certain categorical variables have natural ordering, one should be very cautious about applying any quantitative methods to them.</p>
-<p>For example, the task is to build a linear model where one independent variable is <em>Education Level</em>, the standard approach is to encode it via One-hot. Alternatively, one could engineer a new quantitative feature <em>Years of Educaton</em> to replace the original variable, although in that case it would not be a perfectly equivalent replacement.</p>
+<p>For example, if the task is to build a linear model where one independent variable is <em>Education Level</em>, the standard approach is to encode it via One-hot. Alternatively, one could engineer a new quantitative feature <em>Years of Educaton</em> to replace the original variable, although in that case it would not be a perfectly equivalent replacement.</p>
 
 </div>
 </div>
@@ -319,8 +319,8 @@ window.onload = wrap_img;
 44 = "4 or more Children"</p>
 <hr />
 <p>The values themselves don't serve a quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its magic to make the most appropriate splits to introduce new tree nodes.</p>
-<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze the conditions and the edge cases.</p>
-<p>The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that this method of feature engineering may still be beneficial, but that is subject of additional investigation.</p>
+<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even if we randomly order categories and make a single label encoded feature, it would still be likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze the conditions and the edge cases.</p>
+<p>Random Forest and Gradient Boosting are often picked among other algorithms due to better performance, so our method could prove handy in many cases. The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that this method of feature engineering may still be beneficial, but that is subject of additional investigation.</p>
 
 </div>
 </div>
@@ -356,7 +356,23 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Hence, we called the set of techniques to identify an ordinal encoding - the Rainbow method.</p>
+<p>Hence, we called the set of techniques to find an order in categories - the Rainbow method. We found it amazing that there exists a natural phenomenon that represents label encoding for a nominal variable!</p>
+<p>Generalizing this logic, we suggest <strong>finding a rainbow</strong> for any categorical variable. Even if possible ordering is not obvious or if there doesn't seem to be one, we offer some techniques to find it. As we show in <a href="link">Part II</a> and <a href="link">Part III</a>, if data generating process indeed presumes <em>some</em> order in categories, utlizing it in the model will be substantially more efficient than splitting categories into One-hot features. Hence our motto:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>"When nature gives you a rainbow, take it..."</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>According to our findings, the more defined category order - the higher benefits in terms of model performance for using ordinal encoding instead of One-hot. However, even in the complete absence of order, making and using random rainbow is likely to result in the same model performance as One-hot while saving substantial dimensionality.</p>
 
 </div>
 </div>
@@ -365,7 +381,7 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p><strong>Is Color a nominal variable?</strong> <br /><br />
 Some of the readers might argue that Color is clearly an ordinal variable, so there is no surprise that we found an ordinal encoding. <br /><br />
-On the one hand, modelers from different scientific backgrounds may view same categorical variables differently and probably used to apply certain encoding methods reflexively. For example, I (Anna) studied Economics and Econometrics, and I did not encounter any use case that could treat Color as numerical. At the same time modelers that studied Physics or Math might have utilized wavelength in their modeling experience, and likely considered Color ordinal. If you represent the latter modelers, please take a minute and think of a different example of a clearly nominal variable. <br /><br />
+On the one hand, modelers from different scientific backgrounds may view same categorical variables differently and probably used to apply certain encoding methods reflexively. For example, I (Anna) studied Economics and Econometrics,  and I did not encounter any use case that could treat Color as quantitative. At the same time modelers that studied Physics or Math might have utilized wavelength in their modeling experience, and likely considered Color ordinal. If you represent the latter modelers, please take a minute and think of a different example of a clearly nominal variable. <br /><br />
 On the other hand, whether the natural ordering exists or not - does not change our message. In short, if the order exists - great! If it does not - well, we want you to find it!  We will provide more examples below and hope they can guide you on how to find a rainbow for your own example nominal variable.</p>
 </blockquote>
 
@@ -374,7 +390,7 @@ On the other hand, whether the natural ordering exists or not - does not change 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Most of the nominal variables, at first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest <strong>finding a rainbow</strong>. With color, the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
+<p>Most of the nominal variables, at first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest finding a rainbow. With color, the natural scale is Hue, but it is not the only one. We can think of brightness, saturation, color temperature, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
 <p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories $K$ and the context.</p>
 <blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
 </blockquote>
@@ -385,45 +401,6 @@ On the other hand, whether the natural ordering exists or not - does not change 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order); it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Important</strong>: this method is highly efficient in conjunction with the models that rely on variables as ranks rather than exact values. For example, Decision Trees, Random Forest, Gradient Boosting - these algorithms will output the same result if, say, the variable <em>Number of Children</em> is coded as</p>
-<hr />
-<p>0 = "0 Children" <br />
-1 = "1 Child"<br />
-2 = "2 Children"<br />
-3 = "3 Children"<br />
-4 = "4 or more Children"</p>
-<hr />
-<p>or as</p>
-<hr />
-<p>1 = "0 Children" <br />
-2 = "1 Child"<br />
-3 = "2 Children"<br />
-4 = "3 Children"<br />
-5 = "4 or more Children"</p>
-<hr />
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>or even as</p>
-<hr />
-<p>-100 = "0 Children" <br />
--85 = "1 Child"<br />
-0 = "2 Children"<br />
-10 = "3 Children"<br />
-44 = "4 or more Children"</p>
-<hr />
-<p>as long as the correct order of the categories is preserved. The values themselves don't serve a quantitative function in these algorithms. It is the rank of the variable that matters, and a tree-based algorithm will use its magic to make the most appropriate splits to introduce new tree nodes.</p>
-<p>The decision trees don't work well with a large number of binary variables. The splitting process is not efficient, especially when the fitting is heavily regularized or constrained. Because of that, even a random ordered rainbow is likely better than One-hot. We prove this formally in <a href="link">Part III</a> and analyze the conditions and the edge cases.</p>
-<p>The application of our method to other algorithms such as Linear Regression or Logistic Regression is out of the scope of this article. We expect that this method of feature engineering may still be beneficial, but that is subject of additional investigation.</p>
 
 </div>
 </div>
@@ -492,12 +469,12 @@ Let us illustrate our method for each of these types of categorical variables.</
 <hr />
 <p><em>What is the highest level of Education completed by the person?</em>
 <br /><br />
-1 = "No High School"<br />
-2 = "High School" <br />
-3 = "Associate Degree" <br />
-4 = "Bachelor's Degree" <br />
-5 = "Master's Degree" <br />
-6 = "Doctoral Degree" <br /></p>
+A: "Bachelor's Degree" <br />
+B: "Master's Degree" <br />
+C: "Doctoral Degree" <br />
+D: "Associate Degree" <br />
+E: "High School"<br />
+F: "No High School" <br /></p>
 <hr />
 
 </div>
@@ -505,7 +482,21 @@ Let us illustrate our method for each of these types of categorical variables.</
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Similar to interval variables, raw ordinal numeric codes can be used in the model without introducing any issues, as long as the order is correct. Sometimes the categories for an ordinal variable are not listed according to the perfect order, and that might steer us away from seeing an immediate rainbow. With some attention to the variables, we could reorder categories and then use this updated variable as a quantitative feature.</p>
+<p>Similar to interval variables, ordinal variables have an inherent natural rainbow. Sometimes the categories for an ordinal variable are not listed according to the correct order, and that might steer us away from seeing an immediate rainbow. With some attention to the variables, we could reorder categories and then use this updated variable as a quantitative feature.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr />
+<p>1 = "No High School"<br />
+2 = "High School" <br />
+3 = "Associate Degree" <br />
+4 = "Bachelor's Degree" <br />
+5 = "Master's Degree" <br />
+6 = "Doctoral Degree" <br /></p>
+<hr />
 
 </div>
 </div>
@@ -623,7 +614,7 @@ D: "Inferred Single" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This is where we can get a bit creative. If we think about Single and Married as of the two ends of the spectrum, then Inferred Single could be between the two ends, closer to Single, while Inferred Married would be between the two ends, closer to Married. That would make sense because Inferred holds a certain degree of uncertainty. Thus, the following order would be reasonable:</p>
+<p>This is where we can get a bit creative. If we think about Single and Married as the two ends of the spectrum, then Inferred Single could be between the two ends, closer to Single, while Inferred Married would be between the two ends, closer to Married. That would make sense because Inferred holds a certain degree of uncertainty. Thus, the following order would be reasonable:</p>
 <hr />
 <p>1 = "Single" <br />
 2 = "Inferred Single" <br />
@@ -686,8 +677,7 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the rainbow because the variable itself is not interpretable. Alternatively, what if we have very large data and no resources to manually examine each variable?</p>
-<p>This next technique is handy for such cases.</p>
+<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the rainbow because the variable itself is not interpretable. Alternatively, what if we have very large data and no resources to manually examine each variable? This next technique is handy for such cases.</p>
 <p>Let's look at a black box column made by a third party:</p>
 <hr />
 <p><em>Financial Cluster of the Household</em> <br /><br />
@@ -711,14 +701,13 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example, we have no clear idea of what each category entails. And, thus, we have no intuition on how to order these categories. What to do in such situation?</p>
+<p>In this example, we have no clear idea of what each category entails. And, thus, we have no intuition on how to order these categories. What to do in such situation? We recommend creating an artificial rainbow by looking at how each category is related to the target variable.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We recommend creating an artificial rainbow by looking at how each category is related to the target variable.</p>
 <p>The simplest solution is to place categories in the order of correlation with the target variable. So the category with the highest value of correlation with the dependent variable would acquire numeric code 1, and the category with the lowest correlation would acquire numeric code 13. So our rainbow in this case would mean the relationship between the financial cluster and the target variable. This method would work for both - classification and regression models - as it can be applied to a discrete and a continuous target variable.</p>
 
 </div>
