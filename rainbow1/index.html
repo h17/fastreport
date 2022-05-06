@@ -375,7 +375,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>According to our findings, the more clearly defined category order - the higher benefits in terms of model performance for using ordinal encoding instead of One-hot. However, even in the complete absence of order, making and using random rainbow is likely to result in the same model performance as One-hot while saving substantial dimensionality. This is why searching for a rainbow is a worthwhile pursuit.</p>
+<p>According to our findings, the more clearly defined category order - the higher benefits in terms of model performance for using ordinal encoding instead of One-hot. However, even in the complete absence of order, making and using random Rainbow is likely to result in the same model performance as One-hot while saving substantial dimensionality. This is why searching for a rainbow is a worthwhile pursuit.</p>
 
 </div>
 </div>
@@ -393,9 +393,9 @@ On the other hand, whether the natural ordering exists or not - does not change 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Most nominal variables, at first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest finding a rainbow. With color, the natural scale might be <em>hue</em>, but that's not the only option - there's also <em>brightness</em>, <em>saturation</em>, <em>temperature</em>, etc. We invite you to experiment with a few different rainbows that might capture different nuances of the categorical quality.</p>
-<p>You can actually make and use two or more rainbows out of one categorical variable depending on the number of categories $K$ and the context.</p>
-<blockquote><p>We don't recommend using more than $\log_2 {K}$ rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
+<p>Most nominal variables, at first glance, seem like they cannot be converted to a quantitative scale. This is where we suggest finding a rainbow. With color, the natural scale might be <em>hue</em>, but that's not the only option - there's also <em>brightness</em>, <em>saturation</em>, <em>temperature</em>, etc. We invite you to experiment with a few different Rainbows that might capture different nuances of the categorical quality.</p>
+<p>You can actually make and use two or more Rainbows out of one categorical variable depending on the number of categories $K$ and the context.</p>
+<blockquote><p>We don't recommend using more than $\log_2 {K}$ Rainbows, because we do not want to surpass the number of encodings in a <a href="https://www.sciencedirect.com/topics/computer-science/one-hot-encoding">Binary One-hot</a>.</p>
 </blockquote>
 
 </div>
@@ -403,7 +403,7 @@ On the other hand, whether the natural ordering exists or not - does not change 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which rainbow you choose (and by that we mean the color order); it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
+<p>The Rainbow method is very simple and intuitively sensible. In many cases it is not even that important which Rainbow you choose (and by that we mean the color order); it would still be better than One-hot. The more natural orders are just likely to perform better than others and be easier to interpret.</p>
 
 </div>
 </div>
@@ -440,7 +440,7 @@ Let us illustrate our method for each of these types of categorical variables.</
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Without a doubt, interval variables intrinsically give us the best and most natural rainbow. Most of the modelers would encode them numerically.</p>
+<p>Without a doubt, interval variables intrinsically give us the best and most natural Rainbow. Most of the modelers would encode them numerically.</p>
 
 </div>
 </div>
@@ -485,7 +485,7 @@ F: "No High School" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Similar to interval variables, ordinal variables have an inherent natural rainbow. Sometimes the categories for an ordinal variable are not listed according to the correct order, and that might steer us away from seeing an immediate rainbow. With some attention to the variables, we could reorder categories and then use this updated variable as a quantitative feature.</p>
+<p>Similar to interval variables, ordinal variables have an inherent natural Rainbow. Sometimes the categories for an ordinal variable are not listed according to the correct order, and that might steer us away from seeing an immediate Rainbow. With some attention to the variables, we could reorder categories and then use this updated variable as a quantitative feature.</p>
 
 </div>
 </div>
@@ -527,7 +527,7 @@ F: "No High School" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's look at some examples of manual subjective rainbow selection. The trick is to find a quantitative scale by either using some concrete related attribute or to construct that scale from a possibly abstract concept.</p>
+<p>Let's look at some examples of manual subjective Rainbow selection. The trick is to find a quantitative scale by either using some concrete related attribute or to construct that scale from a possibly abstract concept.</p>
 <p>In  our classical example, for a nominal variable <em>Color</em>, the Hue attribute suggests a possible scale. So the nominal categories</p>
 
 </div>
@@ -547,7 +547,7 @@ D: "Yellow" <br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>can be replaced by the newly engineered rainbow feature:</p>
+<p>can be replaced by the newly engineered Rainbow feature:</p>
 <hr />
 
 </div>
@@ -590,7 +590,7 @@ V: "Van"</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>we can think of dozens of characteristics to make a rainbow - vehicle size, capacity, price category, average speed, fuel economy, costs of ownership, motor features, etc. Which one (or a few) to pick? The choice depends on the context of the model. Think how can this feature help predict your outcome variable. You can try a few possible rainbows and pick the best in terms of model performance and interpretation.</p>
+<p>we can think of dozens of characteristics to make a Rainbow - vehicle size, capacity, price category, average speed, fuel economy, costs of ownership, motor features, etc. Which one (or a few) to pick? The choice depends on the context of the model. Think how can this feature help predict your outcome variable. You can try a few possible Rainbows and pick the best in terms of model performance and interpretation.</p>
 
 </div>
 </div>
@@ -680,7 +680,7 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the rainbow because the variable itself is not interpretable. Alternatively, what if we have very large data and no resources to manually examine each variable? This next technique is handy for such cases.</p>
+<p>What if there is no good related attribute? In some situations, we cannot find a logical order for the Rainbow because the variable itself is not interpretable. Alternatively, what if we have very large data and no resources to manually examine each variable? This next technique is handy for such cases.</p>
 <p>Let's look at a black box column made by a third party:</p>
 <hr />
 <p><em>Financial Cluster of the Household</em> <br /><br />
@@ -704,35 +704,35 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example, we have no clear idea of what each category entails. And, thus, we have no intuition on how to order these categories. What to do in such situation? We recommend creating an artificial rainbow by looking at how each category is related to the target variable.</p>
+<p>In this example, we have no clear idea of what each category entails. And, thus, we have no intuition on how to order these categories. What to do in such situation? We recommend creating an artificial Rainbow by looking at how each category is related to the target variable.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The simplest solution is to place categories in the order of correlation with the target variable. So the category with the highest value of correlation with the dependent variable would acquire numeric code 1, and the category with the lowest correlation would acquire numeric code 13. So our rainbow in this case would mean the relationship between the financial cluster and the target variable. This method would work for both classification and regression models as it can be applied to a discrete and a continuous target variable.</p>
+<p>The simplest solution is to place categories in the order of correlation with the target variable. So the category with the highest value of correlation with the dependent variable would acquire numeric code 1, and the category with the lowest correlation would acquire numeric code 13. So our Rainbow in this case would mean the relationship between the financial cluster and the target variable. This method would work for both classification and regression models as it can be applied to a discrete and a continuous target variable.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Alternatively, you can construct your rainbows by merely utilizing certain statistical qualities of the categorical variable and the target variable.</p>
+<p>Alternatively, you can construct your Rainbows by merely utilizing certain statistical qualities of the categorical variable and the target variable.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For instance, in the case of a binary target variable, we could look at the proportion of ones given each of the categories. Suppose, among Market Watchers percent of positive targets is 0.67, while for Conservative Wealth it is 0.45. In that case, Market Watchers will be ordered higher than Conservative Wealth (or lower, if the target percent scale is ascending). In other words, this rainbow would reflect the prevalence of positive targets inside each category.</p>
+<p>For instance, in the case of a binary target variable, we could look at the proportion of ones given each of the categories. Suppose, among Market Watchers percent of positive targets is 0.67, while for Conservative Wealth it is 0.45. In that case, Market Watchers will be ordered higher than Conservative Wealth (or lower, if the target percent scale is ascending). In other words, this Rainbow would reflect the prevalence of positive targets inside each category.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One reasonable concern with these automated methods is a potential overfit. When we use posterior knowledge of correlation or target percent that relates independent variable with the dependent variable, this can likely cause data leakage. To tackle this problem, we recommend learning rainbow orders on a random holdout sample.</p>
+<p>One reasonable concern with these automated methods is a potential overfit. When we use posterior knowledge of correlation or target percent that relates independent variable with the dependent variable, this can likely cause data leakage. To tackle this problem, we recommend learning Rainbow orders on a random holdout sample.</p>
 
 </div>
 </div>
@@ -799,7 +799,7 @@ D: "Other"<br /></p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Scenario-1">Scenario 1<a class="anchor-link" href="#Scenario-1"> </a></h3><p>Assume all the categories are wildly different, and each one introduces a substantial gain to the model. That means each One-hot feature is indeed critical - the model should separate between all 4 groups created by One-hot.</p>
-<p>In that case, an algorithm such as <em>xgboost</em> will just make the splits between all the values which is perfectly equivalent to One-hot. There are exactly three splits in both models. So the same exact result is achieved with just one feature instead of four.</p>
+<p>In that case, an algorithm such as <em>XGBoost</em> will just make the splits between all the values which is perfectly equivalent to One-hot. There are exactly three splits in both models. So the same exact result is achieved with just one feature instead of four.</p>
 
 </div>
 </div>
@@ -900,7 +900,7 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The scenarios above show that by substituting One-hot with Rainbow, we save dimensionality without any information loss. If the rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture similarity between adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
+<p>The scenarios above show that by substituting One-hot with Rainbow, we save dimensionality without any information loss. If the Rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture similarity between adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
 <p>As a side result, the Rainbow method suggests the right language for better and more succinct feature selection. Instead of long and tedious process that runs through 2000 features, where you need to do some serious compliance to justify the selection, you would take advantage of much smaller number of very dense features that have natural explanation. That reduces time, storage, and documentation greatly.</p>
 <p>In <a href="link">Part II</a> we show the advantagnes of the Rainbow method over the One-hot using an empirical example from a real data science project at MassMutual. In <a href="link">Part III</a> we prove mathematically that the Rainbow method outperforms One-hot in the worst, the average, and the best scenarios.</p>
 
