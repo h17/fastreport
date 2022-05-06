@@ -879,7 +879,7 @@ D: "Other"<br /></p>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Finally, if the data generating process is actually in agreement with the Rainbow order, then the Rainbow method would be superior to One-hot. Not only will it not lose any data signal, but it will also substantially reduce complexity, decrease dimensionality, and help avoid overfitting.</p>
-<p>Suppose, the true model pattern only separates between {Red, Yellow} and {Green, Blue}. In that case, Rainbow has a clear advantage as it exploits these groupings while One-hot does not. While One-hot model must make two or three splits, the Rainbow model only needs one.</p>
+<p>Suppose the true model pattern only separates between {Red, Yellow} and {Green, Blue}. In that case, Rainbow has a clear advantage as it exploits these groupings while One-hot does not. While One-hot model must make two or three splits, the Rainbow model only needs one.</p>
 
 </div>
 </div>
@@ -900,7 +900,7 @@ D: "Other"<br /></p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The scenarios above show that by substituting One-hot with Rainbow, we save dimensionality without any information loss. If the rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture the similarity in the adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
+<p>The scenarios above show that by substituting One-hot with Rainbow, we save dimensionality without any information loss. If the rainbow order is even <em>somewhat</em> meaningful, the algorithm would capture similarity between adjacent values by making a smart decision about the number and location of splits. Thus, we will receive a simpler and better model.</p>
 <p>As a side result, the Rainbow method suggests the right language for better and more succinct feature selection. Instead of long and tedious process that runs through 2000 features, where you need to do some serious compliance to justify the selection, you would take advantage of much smaller number of very dense features that have natural explanation. That reduces time, storage, and documentation greatly.</p>
 <p>In <a href="link">Part II</a> we show the advantagnes of the Rainbow method over the One-hot using an empirical example from a real data science project at MassMutual. In <a href="link">Part III</a> we prove mathematically that the Rainbow method outperforms One-hot in the worst, the average, and the best scenarios.</p>
 
