@@ -203,7 +203,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In <a href="link">Part I</a> we discussed the advantages of ordinal encoding compared to One-hot for any categorical variables, when used with tree-based algorithms. We introduced the Rainbow method of identifying the most appropriate ordinal encoding for different types of categorical variables.</p>
-<p>Here in Part II, we continue exploring the Rainbow method, now from the empirical standpoint. We will illustrate the effectiveness of the Rainbow method using a real project developed in the <a href="https://datascience.massmutual.com">Data Science</a> organization at <a href="https://www.massmutual.com/">MassMutual</a> - a life insurance company with over 170 years of history. MassMutual takes pride in growing a large team of data scientists, engineers, and technologists to support most of the business decisions.</p>
+<p>Here in Part II, we continue exploring the Rainbow method, now from the empirical standpoint. We will illustrate the effectiveness of the Rainbow method using a real project developed in the <a href="https://datascience.massmutual.com">Data Science</a> organization at <a href="https://www.massmutual.com/">MassMutual</a> - a life insurance company with over 170 years of history. MassMutual proudly invests in a large team of data scientists, engineers, and technologists to inform critical business decisions.</p>
 
 </div>
 </div>
@@ -216,7 +216,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The task is to predict one of the five Mindset Segments for each of the prospective customers. Essentially, it is a multiclass classification problem.</p>
+<p>The task is to predict one of five Mindset Segments for each prospective customer. Essentially, it is a multiclass classification problem.</p>
 <p>Figure 1</p>
 
 </div>
@@ -237,7 +237,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The segmentation framework represents five classes that reflect a person's age, financial stability, and attitude towards financial decisions. The predicted segments are then used by the MassMutual marketing team in different types of campaigns for targeting and customization.</p>
+<p>This segmentation framework represents five classes that reflect a person's age, financial stability, and attitude towards financial decisions. The predicted segments are used by the MassMutual marketing team in different types of campaigns for targeting and customization.</p>
 <p>For example, Mindset A customers would value more independence and autonomy in deciding on buying a life insurance policy whereas Mindset B customers would value having guidance and thorough explanations of different financial products by a dedicated advisor.</p>
 
 </div>
@@ -245,15 +245,15 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We have a small set of labeled individuals (17.5K persons). The labels are provided by the MassMutual vendor that designed the segment assignment rules. Then we attached to this data the columns from our main prospect database. The goal is to learn the best model using these target labels and the available features and then predict segments for all other (unlabeled) prospective customers.</p>
-<p>The main database for this project is provided by <a href="https://www.acxiom.com/">Acxiom</a> and covers about 300 columns representing a rich set of demographic characteristics, the composition of the household, propensities of income and net worth, predictions of financial behavior and digital savviness.</p>
+<p>We have a small set of labeled individuals (17.5K persons). The labels are provided by a MassMutual vendor who designed the segment assignment rules. We first attached columns from our main prospect database to this data. The goal is to learn the best model using these target labels and available features and then predict segments for all other (unlabeled) prospective customers.</p>
+<p>The main database for this project is provided by <a href="https://www.acxiom.com/">Acxiom</a> and covers about 300 columns representing a rich set of demographic characteristics, like composition of the household, propensities of income and net worth, predictions of financial behavior and digital savviness.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using Acxiom data and the Mindset Segmentation project, we will compare the conventional One-hot encoding with the ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for an unbalanced multiclass classification problem.</p>
+<p>Using Acxiom data and the Mindset Segmentation project, we will compare the conventional One-hot encoding with the ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for unbalanced multiclass classification problems.</p>
 
 </div>
 </div>
@@ -266,7 +266,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We took all the categorical variables in the Acxiom database - interval, ordinal, and nominal, and excluded quantitative and binary variables. The idea is to show the pure difference in the model performance between the two types of encoding for the same set of categorical factors.</p>
+<p>We took all the categorical variables in the Acxiom database - interval, ordinal, and nominal - and excluded quantitative and binary variables. The idea is to demonstrate the pure difference in model performance between the two types of encoding for the same set of categorical factors.</p>
 <p>We then applied a target stratified 4-fold Cross-Validation split. All the data processing from this point on is done inside the cross-validation loop, i.e. the creation of One-hot features and Rainbow features is learned from each fold train set and applied to each fold validation set.</p>
 <p>The total set of <strong>111</strong> variables was transformed into <strong>121</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
 <p>Table 1</p>
@@ -324,7 +324,7 @@ th {
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While interval and ordinal variables have a straightforward rainbow transformation - one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows, the nominal variables transformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural attribute rainbow, while for each of the 10 remaining variables we created 2 artificial rainbow features. Since we deal with 5 classes, we applied correlation ordering for a random class and target percent ordering for a random class (see <a href="link">Part I</a>).</p>
+<p>While interval and ordinal variables have a straightforward rainbow transformation (one can notice that 64 interval features turned into 64 rainbows and 14 ordinal features turned into 14 rainbows) the nominal variables transformation was a bit more involved. Out of 33 nominal variables, for 23 we found a natural attribute rainbow, while for each of the 10 remaining variables we created 2 artificial rainbow features. Since we deal with 5 classes, we applied correlation ordering for a random class and target percent ordering for a random class (see <a href="link">Part I</a>).</p>
 <p>For example, for the original categorical variable "Financial_Cluster" we made features <br /><em>Financial_Cluster_Mindset_B_correlation_rank</em>
 <br />and 
 <br /><em>Financial_Cluster_Mindset_D_target_percent</em></p>
@@ -405,7 +405,7 @@ of a variable into ordinal or nominal is a subjective decision.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The following plots show metric dynamics depending on every hyperparameter keeping other hyperparameters constant. These plots also clearly demonstrate that for every metric and every hyperparameter Rainbow outcomes exceed One-hot outcomes.</p>
+<p>The following plots show metric dynamics for each hyperparameter keeping all other hyperparameters constant. These plots also clearly demonstrate that Rainbow outcomes exceed One-hot outcomes for each hyperparameter and each metric.</p>
 
 </div>
 </div>
@@ -475,7 +475,7 @@ of a variable into ordinal or nominal is a subjective decision.</p>
 
 <pre><code>One-hot: 65.059 s
 Rainbow:  5.491 s</code></pre>
-<p>The average time to run a single rainbow model is almost <strong>12 times faster</strong> than that of the single One-hot model! So, in addition to notably increasing model performance metrics, the Rainbow method can also save data scientists a huge amount of time.</p>
+<p>The average time to run a single Rainbow model is almost <strong>12 times faster</strong> than that of the single One-hot model! So, in addition to notably increasing model performance metrics, the Rainbow method can also save data scientists a huge amount of time.</p>
 
 </div>
 </div>
@@ -526,7 +526,7 @@ Rainbow:  5.491 s</code></pre>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These results demonstrate again that Rainbow is preferred to One-hot. As expected, interval and ordinal features gain the most from Rainbow encoding, while nominal variables - less so.</p>
+<p>These results demonstrate again that Rainbow is preferred to One-hot. As expected, interval and ordinal features gain the most from Rainbow encoding - less so for nominal variables.</p>
 <p>Clearly, the more defined category order, the higher the benefits of preferring Rainbow to One-hot. For nominal variables, model performance is about the same or negligibly lower for Rainbow than for One-hot. However, even in that case, that same performance is achieved in hugely less time, by using substantially less space, and the resulting model is significantly simpler.</p>
 
 </div>
@@ -540,7 +540,7 @@ Rainbow:  5.491 s</code></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, to make a comparison fairer in terms of dimensionality, we picked top 10, top 50, and top 100 features from each feature set - Rainbow and One-hot. We used the feature importance attribute of the XGBoost model and aggregated feature importance scores for 4 cross-validation folds on the best hyperparameter set for each encoding type. Below are the results.</p>
+<p>Finally, to make a comparison fairer in terms of dimensionality, we picked top 10, top 50, and top 100 features from each feature set (Rainbow and One-hot). We used the feature importance attribute of the XGBoost model and aggregated feature importance scores for 4 cross-validation folds on the best hyperparameter set for each encoding type. Below are the results.</p>
 
 </div>
 </div>
@@ -579,7 +579,7 @@ Rainbow:  5.491 s</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The rainbow method outperforms the One-hot easily. Especially, for small number of features. Rainbow reaches peak performance more quickly than One-hot, using fewer features - Rainbow is already near peak with only 10 features while it takes one-hot 50-100 features to reach similar level!</p>
-<p>Rainbow even shows better results for 50 features than One-hot does for 100. Also note that when dropping from 50 to 10 features, the reduction in macro-f1 if you use One-hot is 6 times that of the rainbow method (3 times for kappa and accuracy, 2 times for macro-auc).</p>
+<p>Rainbow even shows better results for 50 features than One-hot does for 100. Also note that when dropping from 50 to 10 features, the reduction in Macro-F1 if you use One-hot is 6 times that of the rainbow method (3 times for Kappa and Accuracy, 2 times for Macro-AUC).</p>
 
 </div>
 </div>
@@ -592,7 +592,7 @@ Rainbow:  5.491 s</code></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the example of Mindset Segmentation model at MassMutual, we have illustrated that ordinal encoding via Rainbow method is better than One-hot encoding. It saves a great amount of time for modelers, substantially reduces dimensionality, and provides an organic framework for feature selection. If the chosen rainbow order agrees with data generating process, this encoding also contributes to notable model performance metrics increase.</p>
+<p>In the example of Mindset Segmentation model at MassMutual, we have illustrated that ordinal encoding via Rainbow method is better than One-hot encoding. It saves a great amount of time for modelers, substantially reduces dimensionality, and provides an organic framework for feature selection. If the chosen rainbow order agrees with data generating process, this encoding also contributes to notable improvements in model performance metrics.</p>
 
 </div>
 </div>
