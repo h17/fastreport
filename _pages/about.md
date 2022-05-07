@@ -4,7 +4,7 @@ title: About Us
 permalink: /about/
 ---
 
-<table width="50" align="center">
+<table align="center">
     <tbody>
         <tr>
             <td align="center"><img src="https://raw.githubusercontent.com/h17/fastreport/master/images/mitya_small.jpg"></td>
