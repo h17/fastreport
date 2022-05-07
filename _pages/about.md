@@ -19,7 +19,7 @@ permalink: /about/
             <th><a href="http://maximk.com">Maxim Korotkov</a></th>
         </tr>
         <tr>
-            <td colspan=2 align="justify" style="width:200px">               
+            <td colspan=2 align="justify">               
             <img src="https://raw.githubusercontent.com/h17/fastreport/master/images/floridaStory.png">
             </td>
         </tr>
