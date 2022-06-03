@@ -17,7 +17,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-04-26T00:00:00-05:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"description":"Data Science and Management","@type":"BlogPosting","url":"https://yourdatablog.com/rainbow2/","headline":"The Rainbow Method Part II. Empirical Application","dateModified":"2022-04-26T00:00:00-05:00","datePublished":"2022-04-26T00:00:00-05:00","image":"https://yourdatablog.com/images/rainbow2.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow2/"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow2/"},"description":"Data Science and Management","@type":"BlogPosting","url":"https://yourdatablog.com/rainbow2/","headline":"The Rainbow Method Part II. Empirical Application","dateModified":"2022-04-26T00:00:00-05:00","datePublished":"2022-04-26T00:00:00-05:00","image":"https://yourdatablog.com/images/rainbow2.jpg","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://yourdatablog.com/feed.xml" title="Your Data Blog" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>The Rainbow Method Part II. Empirical Application | Your Data Blog</title>
@@ -34,7 +34,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-04-26T00:00:00-05:00" />
 <script type="application/ld+json">
-{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"description":"Data Science and Management","@type":"BlogPosting","url":"https://yourdatablog.com/rainbow2/","headline":"The Rainbow Method Part II. Empirical Application","dateModified":"2022-04-26T00:00:00-05:00","datePublished":"2022-04-26T00:00:00-05:00","image":"https://yourdatablog.com/images/rainbow2.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow2/"},"@context":"https://schema.org"}</script>
+{"author":{"@type":"Person","name":"Anna Arakelyan, Dmytro Karabash"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://yourdatablog.com/rainbow2/"},"description":"Data Science and Management","@type":"BlogPosting","url":"https://yourdatablog.com/rainbow2/","headline":"The Rainbow Method Part II. Empirical Application","dateModified":"2022-04-26T00:00:00-05:00","datePublished":"2022-04-26T00:00:00-05:00","image":"https://yourdatablog.com/images/rainbow2.jpg","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -246,14 +246,14 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have a small set of labeled individuals (17.5K persons). The labels are provided by a MassMutual vendor who designed the segment assignment rules. We first attached columns from our main prospect database to this data. The goal is to learn the best model using these target labels and available features and then predict segments for all other (unlabeled) prospective customers.</p>
-<p>The main database for this project is provided by <a href="https://www.acxiom.com/">Acxiom</a> and covers about 300 columns representing a rich set of demographic characteristics, like composition of the household, propensities of income and net worth, predictions of financial behavior and digital savviness.</p>
+<p>For this project, we use a consumer database that covers about 300 columns representing a rich set of demographic characteristics, such as composition of the household, propensities of income and net worth, predictions of financial behavior and digital savviness.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Using Acxiom data and the Mindset Segmentation project, we will compare the conventional One-hot encoding with the ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for unbalanced multiclass classification problems.</p>
+<p>Using the consumer database and the Mindset Segmentation project, we will compare the conventional One-hot encoding with the ordinal encoding via the Rainbow method. For this 5-class classification task, we will demonstrate a few standard metrics - Accuracy, Cohen's Kappa, Macro Avg F1 score, and Macro Avg AUC ROC. Accuracy is used merely for interpretation and comparison purposes, while the rest of the metrics are very helpful for unbalanced multiclass classification problems.</p>
 
 </div>
 </div>
@@ -266,7 +266,7 @@ window.onload = wrap_img;
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We took all the categorical variables in the Acxiom database - interval, ordinal, and nominal - and excluded quantitative and binary variables. The idea is to demonstrate the pure difference in model performance between the two types of encoding for the same set of categorical factors.</p>
+<p>We took all the categorical variables in the consumer database - interval, ordinal, and nominal - and excluded quantitative and binary variables. The idea is to demonstrate the pure difference in model performance between the two types of encoding for the same set of categorical factors.</p>
 <p>We then applied a target stratified 4-fold Cross-Validation split. All the data processing from this point on is done inside the cross-validation loop, i.e. the creation of One-hot features and Rainbow features is learned from each fold train set and applied to each fold validation set.</p>
 <p>The total set of <strong>111</strong> variables was transformed into <strong>121</strong> Rainbow features and, alternatively, into <strong>2260</strong> One-hot features (with very slight deviations in this number in 4 different folds).</p>
 <p>Table 1</p>
